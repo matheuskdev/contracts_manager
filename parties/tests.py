@@ -44,12 +44,12 @@ class PartyModelTest(TestCase):
 
     def test_party_list_view(self):
         """Test the Party list view."""
-        response = self.client.get(reverse('party-list'))
+        response = self.client.get(reverse('party_list'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.party.name)
 
     def test_party_detail_view(self):
         """Test the Party detail view."""
-        response = self.client.get(reverse('party-detail', kwargs={'pk': self.party.id}))
+        response = self.client.get(reverse('party_detail', kwargs={'pk': self.party.id}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.party.name)
