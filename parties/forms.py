@@ -19,4 +19,6 @@ class PartyForm(forms.ModelForm):
             'address': 'Endereço',
             'email': 'Email',
             'phone': 'Telefone',
+            'created_at': 'Criado em',
+            'updated_at':'Atualizado em',
         }

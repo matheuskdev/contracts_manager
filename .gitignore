@@ -132,3 +132,4 @@ dmypy.json
 media/
 .vscode
 __pycache__
+info.py

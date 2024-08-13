@@ -8,7 +8,7 @@ CManager - Partes
 
 <div class="row mb-3">
   <div class="col-md-6">
-    <form method="get" action="{% url 'party_list' %}">
+    <form method="get" action="{% url 'parties:party_list' %}">
       <div class="input-group">
         <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
         <button type="submit" class="btn btn-primary">
@@ -19,7 +19,7 @@ CManager - Partes
   </div>
   {% if perms.party.add_party %}
   <div class="col-md-6">
-    <a href="{% url 'party_create' %}" class="btn btn-success float-end">
+    <a href="{% url 'parties:party_create' %}" class="btn btn-success float-end">
       <i class="bi bi-plus"></i> Nova Parte
     </a>
   </div>
@@ -41,7 +41,7 @@ CManager - Partes
         {% for party in parties %}
       <tr>
         <td>
-          <a href="{% url 'party_detail' party.id %}" class="text-primary fw-semibold">
+          <a href="{% url 'parties:party_detail' party.id %}" class="text-primary fw-semibold">
             {{ party.id }}
           </a>
         </td>
@@ -50,18 +50,18 @@ CManager - Partes
         <td>{{ party.phone }}</td>
         <td>{{ party.email }}</td>
         <td>
-          <a href="{% url 'party_detail' party.id %}" class="btn btn-info btn-sm">
+          <a href="{% url 'parties:party_detail' party.id %}" class="btn btn-info btn-sm">
             <i class="bi bi-eye"></i>
           </a>
 
           {% if perms.partys.change_party %}
-          <a href="{% url 'party_update' party.id %}" class="btn btn-warning btn-sm">
+          <a href="{% url 'parties:party_update' party.id %}" class="btn btn-warning btn-sm">
             <i class="bi bi-pencil"></i>
           </a>
           {% endif %}
 
           {% if perms.partys.delete_party %}
-          <a href="{% url 'party_delete' party.id %}" class="btn btn-danger btn-sm btn-delete">
+          <a href="{% url 'parties:party_delete' party.id %}" class="btn btn-danger btn-sm btn-delete">
             <i class="bi bi-trash"></i>
           </a>
           {% endif %}

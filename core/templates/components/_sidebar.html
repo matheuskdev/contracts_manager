@@ -21,7 +21,7 @@
           </li>
           {% if perms.parties.view_party %}
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
+            <a href="{% url 'parties:party_list' %}" class="nav-link px-0 align-middle">
               <i class="bi bi-shop fs-4"></i>
               <span class="ms-1">Partes</span>
             </a>
@@ -46,9 +46,9 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
+            <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle">
               <i class="bi bi-arrow-up-right-square fs-4"></i>
-              <span class="ms-1">Admin</span>
+              <span class="ms-1">Administração</span>
             </a>
           </li>
         </ul>
