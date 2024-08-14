@@ -22,7 +22,7 @@ class PartyListView(mixins.DepartmentListFilterMixin, LoginRequiredMixin, Permis
         return queryset
 
 
-class PartyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class PartyCreateView(LoginRequiredMixin, mixins.OwnerUserMixin, PermissionRequiredMixin, CreateView):
     model = models.Party
     template_name = 'party_form.html'
     form_class = forms.PartyForm

@@ -47,7 +47,7 @@ class OwnerModelMixin(models.Model):
     """
     Providing self-managed 'owner' data field for models.
     """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

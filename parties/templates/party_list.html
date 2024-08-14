@@ -54,13 +54,13 @@ CManager - Partes
             <i class="bi bi-eye"></i>
           </a>
 
-          {% if perms.partys.change_party %}
+          {% if perms.parties.change_party %}
           <a href="{% url 'parties:party_update' party.id %}" class="btn btn-warning btn-sm">
             <i class="bi bi-pencil"></i>
           </a>
           {% endif %}
 
-          {% if perms.partys.delete_party %}
+          {% if perms.parties.delete_party %}
           <a href="{% url 'parties:party_delete' party.id %}" class="btn btn-danger btn-sm btn-delete">
             <i class="bi bi-trash"></i>
           </a>
