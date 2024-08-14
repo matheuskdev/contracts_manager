@@ -2,7 +2,7 @@ from django.db import models
 from utils import mixins
 
 
-class Department(mixins.TimestampMixin, mixins.OwnerMixin, mixins.SoftDeleteMixin):
+class Department(mixins.TimestampModelMixin, mixins.OwnerModelMixin, mixins.SoftDeleteModelMixin):
     """
     Model representing a Department
     """

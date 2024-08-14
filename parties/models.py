@@ -1,7 +1,7 @@
 from django.db import models
 from utils import mixins, regex
 
-class Party(mixins.TimestampMixin, mixins.OwnerMixin, mixins.SoftDeleteMixin):
+class Party(mixins.TimestampModelMixin, mixins.OwnerModelMixin, mixins.SoftDeleteModelMixin):
     """
     Model representing a party
     """

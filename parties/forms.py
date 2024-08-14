@@ -22,3 +22,13 @@ class PartyForm(forms.ModelForm):
             'created_at': 'Criado em',
             'updated_at':'Atualizado em',
         }
+
+    def __init__(self, *args, **kwargs):
+        super(PartyForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if field.help_text:
+                field.help_text = f"""
+                                    <figcaption class="blockquote-footer">
+                                    {field.help_text}
+                                    </figcaption>
+                                   """
