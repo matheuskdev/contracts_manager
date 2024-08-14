@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'departments',
-    'parties',
+    'parts',
     
 ]
 

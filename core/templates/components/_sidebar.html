@@ -19,9 +19,9 @@
               <span class="ms-1">Contratos</span>
             </a>
           </li>
-          {% if perms.parties.view_party %}
+          {% if perms.parts.view_part %}
           <li>
-            <a href="{% url 'parties:party_list' %}" class="nav-link px-0 align-middle">
+            <a href="{% url 'parts:part_list' %}" class="nav-link px-0 align-middle">
               <i class="bi bi-shop fs-4"></i>
               <span class="ms-1">Partes</span>
             </a>
