@@ -4,12 +4,12 @@ from utils import mixins, regex
 
 
 class Part(
-    mixins.TimestampModelMixin,
-    mixins.OwnerModelMixin,
     mixins.SoftDeleteModelMixin,
+    mixins.TimestampModelMixin,
+    mixins.OwnerModelMixin
 ):
     """
-    Model representing a Part
+    Model representing a Part.
     """
 
     name = models.CharField(

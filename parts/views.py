@@ -69,6 +69,7 @@ class PartUpdateView(
 
 
 class PartDeleteView(
+    mixins.SoftDeleteViewMixin,
     mixins.DepartmentPermissionMixin,
     LoginRequiredMixin,
     PermissionRequiredMixin,

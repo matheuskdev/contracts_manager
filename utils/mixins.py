@@ -6,6 +6,7 @@ from django.db import models
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.core.exceptions import ImproperlyConfigured
 
 from . import manager
 
@@ -32,17 +33,28 @@ class SoftDeleteModelMixin(models.Model):
     all_objects = models.Manager()
 
     def soft_delete(self):
-        """Marks the item as deleted without removing it from the database."""
         self.is_deleted = True
         self.save()
 
     def restore(self):
-        """Restores an item that has been marked as deleted."""
         self.is_deleted = False
         self.save()
 
     class Meta:
         abstract = True
+
+
+class SoftDeleteViewMixin:
+    """
+    Mixin that overrides the delete method to perform a soft delete.
+    """
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.soft_delete()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
 class OwnerModelMixin(models.Model):
