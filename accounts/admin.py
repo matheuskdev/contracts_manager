@@ -17,7 +17,6 @@ class CustomUserAdmin(BaseUserAdmin):
         "is_active",
     )
 
-    
     fieldsets = (
         (None, {"fields": ("email", "password", "departments")}),
         (

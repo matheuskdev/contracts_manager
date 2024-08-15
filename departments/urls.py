@@ -1,1 +1,1 @@
-app_name = 'departments'
+app_name = "departments"

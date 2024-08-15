@@ -1,10 +1,8 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.core.validators import MinLengthValidator
 from django.db import models
+
 from departments.models import Department
 from utils import regex
 
@@ -15,7 +13,6 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("O campo de email deve ser preenchido.")
 
-        
         email = self.normalize_email(email)
 
         user = self.model(email=email, **extra_fields)
@@ -28,7 +25,7 @@ class CustomUserManager(BaseUserManager):
 
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-       
+
         return self.create_user(email, password, **extra_fields)
 
 
@@ -52,9 +49,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_picture = models.ImageField(
         upload_to="profile_pictures/", blank=True, null=True
     )
-    phone = models.CharField(max_length=20, validators=[regex.phone_regex], help_text="Número de telefone/celular",null=True, blank=True)
+    phone = models.CharField(
+        max_length=20,
+        validators=[regex.phone_regex],
+        help_text="Número de telefone/celular",
+        null=True,
+        blank=True,
+    )
 
-    departments = models.ManyToManyField(Department, related_name='users', blank=True)
+    departments = models.ManyToManyField(
+        Department, related_name="users", blank=True
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -69,15 +74,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["username"]
 
     class Meta:
-        ordering = ['email']
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
+        ordering = ["email"]
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios"
         indexes = [
-            models.Index(fields=['email']),
+            models.Index(fields=["email"]),
         ]
         constraints = [
-            models.UniqueConstraint(fields=['email'], name='unique_user_email'),
-            models.UniqueConstraint(fields=['username'], name='unique_user_username'),
+            models.UniqueConstraint(
+                fields=["email"], name="unique_user_email"
+            ),
+            models.UniqueConstraint(
+                fields=["username"], name="unique_user_username"
+            ),
         ]
 
     def __str__(self):
