@@ -69,6 +69,7 @@ class ContractUpdateView(
 
 
 class ContractDeleteView(
+    mixins.SoftDeleteViewMixin,
     mixins.DepartmentPermissionMixin,
     LoginRequiredMixin,
     PermissionRequiredMixin,

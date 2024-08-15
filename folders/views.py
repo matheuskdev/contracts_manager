@@ -69,6 +69,7 @@ class FolderUpdateView(
 
 
 class FolderDeleteView(
+    mixins.SoftDeleteViewMixin,
     mixins.DepartmentPermissionMixin,
     LoginRequiredMixin,
     PermissionRequiredMixin,
