@@ -1,5 +1,6 @@
-from utils import mixins 
 from django.db import models
+
+from utils import mixins
 
 
 class HistoricalRecordModelMixin(mixins.OwnerModelMixin):

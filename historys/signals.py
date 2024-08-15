@@ -1,5 +1,6 @@
 from abc import ABC
-from django.db.models.signals import post_save, post_delete
+
+from django.db.models.signals import post_delete, post_save
 
 from historys.models import HistoricalRecord
 
@@ -15,13 +16,13 @@ class HistoricalRecordSignal(ABC):
     @staticmethod
     def _handle_save(sender, instance, created, **kwargs):
         """Handles save (create or update) events."""
-        change_type = 'Creation' if created else 'Update'
+        change_type = "Creation" if created else "Update"
         HistoricalRecordSignal._create_historical_record(instance, change_type)
 
     @staticmethod
     def _handle_delete(sender, instance, **kwargs):
         """Handles delete events."""
-        HistoricalRecordSignal._create_historical_record(instance, 'Deletion')
+        HistoricalRecordSignal._create_historical_record(instance, "Deletion")
 
     @staticmethod
     def _create_historical_record(instance, change_type):
@@ -29,5 +30,5 @@ class HistoricalRecordSignal(ABC):
         HistoricalRecord.objects.create(
             content_object=instance,
             change_type=change_type,
-            owner=getattr(instance, 'owner', None)
+            owner=getattr(instance, "owner", None),
         )

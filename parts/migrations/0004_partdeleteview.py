@@ -2,8 +2,9 @@
 
 import django.contrib.auth.mixins
 import django.views.generic.edit
-import utils.mixins
 from django.db import migrations, models
+
+import utils.mixins
 
 
 class Migration(migrations.Migration):

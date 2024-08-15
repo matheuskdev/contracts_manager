@@ -56,6 +56,7 @@ class ContractAdmin(admin.ModelAdmin):
             {"fields": ("created_at", "updated_at", "slug"), "classes": ("collapse",)},
         ),
     )
+
     def save_model(self, request, obj, form, change):
         if not change:  # If this is a new object
             obj.owner = request.user

@@ -1,14 +1,14 @@
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from utils import mixins
-from django.shortcuts import get_object_or_404
 from contracts.models import Contract
-from . import models
-from . import forms
+from utils import mixins
+
+from . import forms, models
 
 
 class AddendumListView(
@@ -45,7 +45,7 @@ class AddendumCreateView(
     permission_required = "addendums.add_addendum"
 
     def form_valid(self, form):
-        contract_id = self.kwargs.get('contract_id')
+        contract_id = self.kwargs.get("contract_id")
         contract = get_object_or_404(Contract, id=contract_id)
         form.instance.contract = contract
         response = super().form_valid(form)
@@ -54,7 +54,10 @@ class AddendumCreateView(
         return response
 
     def get_success_url(self):
-        return reverse_lazy('contracts:contract_detail', kwargs={'pk': self.kwargs['contract_id']})
+        return reverse_lazy(
+            "contracts:contract_detail", kwargs={"pk": self.kwargs["contract_id"]}
+        )
+
 
 class AddendumDetailView(
     mixins.DepartmentPermissionMixin,

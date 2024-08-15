@@ -7,7 +7,7 @@ class ContractForm(forms.ModelForm):
 
     class Meta:
         model = models.Contract
-        exclude = ['email_enviado']
+        exclude = ["email_enviado"]
         fields = [
             "number",
             "subject",
@@ -29,10 +29,13 @@ class ContractForm(forms.ModelForm):
             "subject": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
             "amount": forms.NumberInput(attrs={"class": "form-control"}),
-            "pdf": forms.FileInput(attrs={
-                "class": "custom-file-input",
-                "type": "file",
-                "autofocus": "autofocus"}),
+            "pdf": forms.FileInput(
+                attrs={
+                    "class": "custom-file-input",
+                    "type": "file",
+                    "autofocus": "autofocus",
+                }
+            ),
             "start_date": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"}
             ),
