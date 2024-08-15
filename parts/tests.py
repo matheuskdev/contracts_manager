@@ -17,9 +17,7 @@ class PartModelTest(TestCase):
             codename="view_part", content_type=content_type
         )
 
-        self.user = User.objects.create_user(
-            username="testuser", password="password"
-        )
+        self.user = User.objects.create_user(username="testuser", password="password")
         self.user.user_permissions.add(permission)
         self.client.login(username="testuser", password="password")
 
@@ -68,8 +66,6 @@ class PartModelTest(TestCase):
 
     def test_part_detail_view(self):
         """Test the Part detail view."""
-        response = self.client.get(
-            reverse("part_detail", kwargs={"pk": self.part.id})
-        )
+        response = self.client.get(reverse("part_detail", kwargs={"pk": self.part.id}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.part.name)

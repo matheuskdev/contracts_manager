@@ -16,9 +16,7 @@ class Part(
         unique=True, max_length=255, help_text="Nome da parte. Deve ser único."
     )
     address = models.CharField(max_length=255, help_text="Endereço da parte.")
-    email = models.EmailField(
-        null=True, blank=True, help_text="Email da parte."
-    )
+    email = models.EmailField(null=True, blank=True, help_text="Email da parte.")
     phone = models.CharField(
         max_length=20,
         validators=[regex.phone_regex],

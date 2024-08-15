@@ -32,9 +32,7 @@ class Department(
             models.Index(fields=["name"]),
         ]
         constraints = [
-            models.UniqueConstraint(
-                fields=["name"], name="unique_department_name"
-            ),
+            models.UniqueConstraint(fields=["name"], name="unique_department_name"),
         ]
 
     def __str__(self) -> str:

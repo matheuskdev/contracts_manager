@@ -16,6 +16,4 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.ERROR(f"{command} found issues."))
                 exit(result.returncode)
 
-        self.stdout.write(
-            self.style.SUCCESS("All checks passed successfully!")
-        )
+        self.stdout.write(self.style.SUCCESS("All checks passed successfully!"))

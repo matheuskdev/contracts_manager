@@ -50,9 +50,7 @@ class OwnerModelMixin(models.Model):
     Providing self-managed 'owner' data field for models.
     """
 
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-    )
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -85,9 +83,7 @@ class DepartmentListFilterMixin:
         if user.departments.filter(name="Administração").exists():
             return queryset
 
-        return queryset.filter(
-            owner__departments__in=user.departments.all()
-        ).distinct()
+        return queryset.filter(owner__departments__in=user.departments.all()).distinct()
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
@@ -117,12 +113,9 @@ class DepartmentPermissionMixin:
 
         if not (
             request.user == obj.owner
-            or "Administração"
-            in user_profile.departments.values_list("name", flat=True)
+            or "Administração" in user_profile.departments.values_list("name", flat=True)
         ):
-            messages.error(
-                request, "Você não tem permissão para acessar este recurso."
-            )
+            messages.error(request, "Você não tem permissão para acessar este recurso.")
             return HttpResponseRedirect(reverse("parties:party_list"))
 
         return super().dispatch(request, *args, **kwargs)

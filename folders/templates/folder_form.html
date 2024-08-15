@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-CManager - Partes
+CManager - Pastas
 {% endblock %}
 
 {% block content %}
   <div class="container mt-4">
     {% if form.instance.id %}
-      <h3 class="display-4">Editar Parte</h3>
+      <h3 class="display-4">Editar Pasta</h3>
     {% else %}
-      <h3 class="display-4">Cadastrar Parte</h3> 
+      <h3 class="display-4">Cadastrar Pasta</h3> 
     {% endif %}
 
     
@@ -23,6 +23,6 @@ CManager - Partes
         </form>
       </div>
     </div>
-    <a href="{% url 'parts:part_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Partes</a>
+    <a href="{% url 'folders:folder_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Pasta</a>
   </div>
 {% endblock %}

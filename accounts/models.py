@@ -57,9 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
-    departments = models.ManyToManyField(
-        Department, related_name="users", blank=True
-    )
+    departments = models.ManyToManyField(Department, related_name="users", blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -81,12 +79,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             models.Index(fields=["email"]),
         ]
         constraints = [
-            models.UniqueConstraint(
-                fields=["email"], name="unique_user_email"
-            ),
-            models.UniqueConstraint(
-                fields=["username"], name="unique_user_username"
-            ),
+            models.UniqueConstraint(fields=["email"], name="unique_user_email"),
+            models.UniqueConstraint(fields=["username"], name="unique_user_username"),
         ]
 
     def __str__(self):

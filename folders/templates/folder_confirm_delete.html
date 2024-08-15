@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-CManager - Partes
+CManager - Pastas
 {% endblock %}
 
 {% block content %}
   <div class="container mt-4">
-    <h3 class="display-4">Deletar Parte</h3>
+    <h3 class="display-4">Deletar Pasta</h3>
 
     <div class="card">
       <div class="card-body">
-        <p class="card-text">Tem certeza de que deseja excluir a Parte <strong>{{ object.name }}</strong>?</p>
+        <p class="card-text">Tem certeza de que deseja excluir a Pasta <strong>{{ object.name }}</strong>?</p>
 
         <form method="post">
           {% csrf_token %}
           <button type="submit" class="btn btn-danger">Deletar</button>
         </form>
         
-        <a href="{% url 'parts:part_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Parte</a>
+        <a href="{% url 'folders:folder_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Pasta</a>
       </div>
     </div>
   </div>

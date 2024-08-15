@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "accounts",
     "departments",
     "parts",
+    "folders",
 ]
 
 LOGIN_URL = "login"
