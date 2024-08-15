@@ -65,6 +65,13 @@ Contract Manager - Contrato
             <i class="bi bi-trash"></i>
           </a>
           {% endif %}
+
+          {% if perms.addendums.add_addendum %}
+          <a href="{% url 'addendums:addendum_create' contract.id %}" class="btn btn-success btn-sm btn-delete">
+            <i class="bi bi-folder-plus"></i>
+          </a>
+          {% endif %}
+
         </td>
       </tr>
       {% endfor %}

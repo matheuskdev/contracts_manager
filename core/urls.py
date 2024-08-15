@@ -16,4 +16,5 @@ urlpatterns = [
     path("", include("parts.urls")),
     path("", include("folders.urls")),
     path("", include("contracts.urls")),
+    path("", include("addendums.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@
               <span class="ms-1">Dashboard</span>
             </a>
           </li>
-          {% if perms.folders.view_folder %}
+          {% if perms.contracts.view_contract %}
           <li>
             <a href="{% url 'contracts:contract_list' %}" class="nav-link px-0 align-middle">
               <i class="bi bi-truck fs-4"></i>
@@ -29,12 +29,14 @@
             </a>
           </li>
           {% endif %}
+          {% if perms.addendum.view_addendum %}
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
+            <a href="{% url 'addendums:addendum_list' %}" class="nav-link px-0 align-middle">
               <i class="bi bi-tags fs-4"></i>
               <span class="ms-1">Aditivos</span>
             </a>
           </li>
+          {% endif %}
           {% if perms.folders.view_folder %}
           <li>
             <a href="{% url 'folders:folder_list' %}" class="nav-link px-0 align-middle">

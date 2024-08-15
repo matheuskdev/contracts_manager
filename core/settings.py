@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "folders",
     "contracts",
     "historys",
+    "addendums",
 ]
 
 LOGIN_URL = "login"

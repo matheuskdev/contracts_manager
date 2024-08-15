@@ -23,10 +23,10 @@ class ContractListView(
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        name = self.request.GET.get("name")
+        name = self.request.GET.get("subject")
 
         if name:
-            queryset = queryset.filter(name__icontains=name)
+            queryset = queryset.filter(subject__icontains=name)
         return queryset
 
 

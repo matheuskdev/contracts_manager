@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Aditivos
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <form method="get" action="{% url 'addendums:addendum_list' %}">
+      <div class="input-group">
+        <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+{% comment %}   {% if perms.addendums.add_addendum %}
+  <div class="col-md-6">
+    <a href="{% url 'addendums:addendum_create' contract_id=contract.id %}" class="btn btn-success float-end">
+      <i class="bi bi-plus"></i> Novo Aditivo
+    </a>
+  </div>
+  {% endif %} {% endcomment %}
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Asssunto</th>
+        <th>Descição</th>
+        <th>Data</th>
+        <th>Contrato</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for addendum in addendums %}
+      <tr>
+        <td>
+          <a href="{% url 'addendums:addendum_detail' addendum.id %}" class="text-primary fw-semibold">
+            {{ addendum.id }}
+          </a>
+        </td>
+        <td>{{ addendum.title }}</td>
+        <td>{{ addendum.description }}</td>
+        <td>{{ addendum.effective_date }}</td>
+        <td>
+          <a href="{% url 'contracts:contract_detail' addendum.contract.id %}" class="text-primary fw-semibold">
+           {{ addendum.contract }}</td>
+          </a>
+        <td>
+          <a href="{% url 'addendums:addendum_detail' addendum.id %}" class="btn btn-info btn-sm">
+            <i class="bi bi-eye"></i>
+          </a>
+
+          {% if perms.addendums.change_addendum %}
+          <a href="{% url 'addendums:addendum_update' addendum.id %}" class="btn btn-warning btn-sm">
+            <i class="bi bi-pencil"></i>
+          </a>
+          {% endif %}
+
+          {% if perms.addendums.delete_addendum %}
+          <a href="{% url 'addendums:addendum_delete' addendum.id %}" class="btn btn-danger btn-sm btn-delete">
+            <i class="bi bi-trash"></i>
+          </a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% include 'components/_pagination.html' %}
+
+{% endblock %}

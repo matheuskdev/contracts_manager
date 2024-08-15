@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db import models
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -95,7 +96,9 @@ class DepartmentListFilterMixin:
         if user.departments.filter(name="Administração").exists():
             return queryset
 
-        return queryset.filter(owner__departments__in=user.departments.all()).distinct()
+        return queryset.filter(
+            Q(department__in=user.departments.all()) | Q(owner=user)
+        ).distinct()
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:

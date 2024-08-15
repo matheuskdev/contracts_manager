@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Aditivos
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4">Detalhes da Aditivo</h3>
+
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{ object.title }}</h3>
+        <p class="card-text">{{ object.description }}</p>
+        <p class="card-text">{{ object.contract }}</p>
+        <p class="card-text">{{ object.effective_date }}</p>
+      </div>
+    </div>
+
+    <a href="{% url 'addendums:addendum_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Aditivos</a>
+  </div>
+{% endblock %}
