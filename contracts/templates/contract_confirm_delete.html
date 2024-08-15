@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Contratos
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4">Deletar Contrato</h3>
+
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text">Tem certeza de que deseja excluir a Contrato <strong>{{ object.name }}</strong>?</p>
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+        
+        <a href="{% url 'contracts:contract_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Contrato</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

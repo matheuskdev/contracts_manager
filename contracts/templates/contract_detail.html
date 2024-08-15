@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Contratos
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4">Detalhes da Contrato</h3>
+
+    <div class="card">
+      <div class="card-body">
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <p><b>PDF:</b>
+    
+            <a href="{{ object.pdf.url }}" class="btn-sm" 
+              target="_blank" style="font-size: 18px; color: red">
+                <i class="fas fa-file-pdf"></i>
+                {{ object.pdf.url|cut:"/media/contrato_pdf/" }}
+                
+            </a>
+            <iframe 
+              src="{{ object.pdf.url }}"
+              frameborder="0">
+            </iframe>
+            </li>
+    
+    
+            <li class="list-group-item">
+              <p><b>Descrição:</b> {{ object.description }}</p>
+            </li>
+            <li class="list-group-item">
+              <p><b>Objeto:</b> {{ object.subject }}</p>
+            </li>
+            <li class="list-group-item">
+                <p><b>Numero:</b> {{ object.number }}</p>
+            </li>
+            <li class="list-group-item">
+                <p><b>Valor:</b> {{ object.amount }}</p>
+            </li>        
+            <li class="list-group-item">
+                <p><b>Data do Inicio:</b> {{ object.start_date }}</p>
+            </li>
+            <li class="list-group-item">
+                <p><b>Data do Fim:</b> {{ object.end_date }}</p>
+            </li>
+            <li class="list-group-item">
+              <p><b>Ativo:</b> 
+              {% if object.active %}
+                Aprovado
+                {% else %}
+                Em Análise
+                {% endif %}
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p><b>LGPD:</b> 
+              {% if object.lgpd %}
+                Contém cláusula LGPD
+                {% else %}
+                Não contém cláusula LGPD
+                {% endif %}
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p><b>Renovação Automática:</b>
+              {% if object.automatic_renewal %}
+                Renova automáticamente
+                {% else %}
+                Não renova automáticamente
+                {% endif %}</p>
+            </li>
+            <li class="list-group-item">
+              <p>
+                <b>Aditivo:</b> 
+                {% if object.contains_addendum %}
+                Contém Aditivo
+                {% else %}
+                Não contém aditivo
+                {% endif %}
+              </p>
+            </li>
+            <li class="list-group-item">
+            {% for parte in object.parties.all %} 
+              <p><b>Partes:</b> {{ part.name}}  </p>
+            {% endfor %}
+            </li>
+            <li class="list-group-item">
+              <p><b>Pasta:</b> {{ object.folder }}</p>
+            </li>
+          </ul>
+       
+        {% if object.owner %}
+        <footer class="blockquote-footer">
+          
+          <p>  Criado por <cite title="Source Title">{{ object.owner|upper }}</cite>
+
+          em <cite title="Source Title">{{ object.created_at }}</cite></p>
+          <p></p>Atualizado em <cite title="Source Title">{{ object.updated_at }}</cite></p>
+        </footer>
+      {% endif %}
+      </div>
+    </div>
+
+    <a href="{% url 'contracts:contract_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Contrato</a>
+  </div>
+{% endblock %}
