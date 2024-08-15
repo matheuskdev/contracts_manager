@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+CManager - Partes
+{% endblock %}
+
+{% block content %}
+<div class="help-block text-center">
+    <h3>OLÁ {{username|upper}} SEJA BEM-VINDO(A)</h3>
+  </div>
+    <div class="help-block">
+      <p>Com o <a href="#"><b>Contracts</b>Manager</a>, você pode: </p>
+      <ul>
+          <li>Criar e gerenciar contratos com facilidade usando nossa interface intuitiva.</li>
+          <li>Automatizar notificações para nunca perder prazos importantes.</li>
+          <li>Armazenar documentos de forma segura e acessível.</li>
+          <li>Acompanhar o desempenho dos contratos com análises detalhadas.</li>
+      </ul>
+    </div>
+</div>
+{% include 'components/_pagination.html' %}
+
+{% endblock %}
