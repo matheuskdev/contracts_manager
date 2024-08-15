@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    {% if form.instance.id %}
+      <h3 class="display-4">Editar Parte</h3>
+    {% else %}
+      <h3 class="display-4">Cadastrar Parte</h3> 
+    {% endif %}
+
+    
+
+    <div class="card">
+      <div class="card-body">
+        <form method="post" class="form">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+      </div>
+    </div>
+    <a href="{% url 'parts:part_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Partes</a>
+  </div>
+{% endblock %}
