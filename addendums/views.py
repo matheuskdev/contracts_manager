@@ -20,15 +20,15 @@ class AddendumListView(
     model = models.Addendum
     template_name = "addendum_list.html"
     context_object_name = "addendums"
-    paginate_by = 10
+    paginate_by = 2
     permission_required = "addendums.view_folder"
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        name = self.request.GET.get("name")
+        name = self.request.GET.get("title")
 
         if name:
-            queryset = queryset.filter(name__icontains=name)
+            queryset = queryset.filter(title__icontains=name)
         return queryset
 
 

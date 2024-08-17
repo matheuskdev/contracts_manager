@@ -1,8 +1,11 @@
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
+from django.contrib import messages
 
 from utils import mixins
 
@@ -54,6 +57,12 @@ class ContractDetailView(
     context_object_name = "contract"
     permission_required = "contracts.view_contract"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        contract = self.get_object()
+        # Inclui os aditivos associados ao contrato no contexto
+        context['addendums'] = contract.addendums.all()
+        return context
 
 class ContractUpdateView(
     mixins.DepartmentPermissionMixin,
@@ -67,6 +76,15 @@ class ContractUpdateView(
     success_url = reverse_lazy("contracts:contract_list")
     permission_required = "contracts.change_contract"
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        contract = self.get_object()
+
+        kwargs['initial'] = {
+            'start_date': contract.start_date.strftime('%Y-%m-%d') if contract.start_date else '',
+            'end_date': contract.end_date.strftime('%Y-%m-%d') if contract.end_date else '',
+        }
+        return kwargs
 
 class ContractDeleteView(
     mixins.SoftDeleteViewMixin,

@@ -124,13 +124,13 @@ class DepartmentPermissionMixin:
             user_profile = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
             messages.error(request, "Perfil do usuário não encontrado.")
-            return HttpResponseRedirect(reverse("parties:party_list"))
+            return HttpResponseRedirect(reverse("home"))
 
         if not (
             request.user == obj.owner
             or "Administração" in user_profile.departments.values_list("name", flat=True)
         ):
             messages.error(request, "Você não tem permissão para acessar este recurso.")
-            return HttpResponseRedirect(reverse("parties:party_list"))
+            return HttpResponseRedirect(reverse("home"))
 
         return super().dispatch(request, *args, **kwargs)

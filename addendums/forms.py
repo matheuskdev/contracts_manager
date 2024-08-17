@@ -15,7 +15,7 @@ class AddendumForm(forms.ModelForm):
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control"}),
-            "effective_date": forms.DateInput(attrs={"class": "form-control", "rows": 3}),
+            "effective_date": forms.DateInput( attrs={"class": "form-control", "type": "date"}),
         }
         labels = {
             "title": "Titulo",

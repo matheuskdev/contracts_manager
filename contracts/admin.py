@@ -1,11 +1,9 @@
 from django.contrib import admin
-
-from . import forms
 from .models import Contract
-
+from .forms import ContractForm
 
 class ContractAdmin(admin.ModelAdmin):
-    form = forms.ContractForm
+    form = ContractForm
     list_display = (
         "number",
         "subject",
@@ -57,10 +55,12 @@ class ContractAdmin(admin.ModelAdmin):
         ),
     )
 
+    class Media:
+        js = ('admin/js/vendor/jquery/jquery.js', 'admin/js/core.js', 'js/admin_contract.js')
+
     def save_model(self, request, obj, form, change):
         if not change:  # If this is a new object
             obj.owner = request.user
         super().save_model(request, obj, form, change)
-
 
 admin.site.register(Contract, ContractAdmin)

@@ -1,12 +1,11 @@
 from django import forms
-
-from . import models
-
+from .models import Contract
 
 class ContractForm(forms.ModelForm):
+    change_pdf = forms.BooleanField(required=False, label='Deseja alterar o PDF?')
 
     class Meta:
-        model = models.Contract
+        model = Contract
         exclude = ["email_enviado"]
         fields = [
             "number",
@@ -29,16 +28,8 @@ class ContractForm(forms.ModelForm):
             "subject": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
             "amount": forms.NumberInput(attrs={"class": "form-control"}),
-            "pdf": forms.FileInput(
-                attrs={
-                    "class": "custom-file-input",
-                    "type": "file",
-                    "autofocus": "autofocus",
-                }
-            ),
-            "start_date": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"}
-            ),
+            "pdf": forms.ClearableFileInput(attrs={"class": "form-control"}),
+            "start_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
             "end_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
             "active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "lgpd": forms.CheckboxInput(attrs={"class": "form-check-input"}),
