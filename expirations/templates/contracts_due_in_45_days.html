@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Vencimentos
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Contratos com vencimentos em 45 dias</h2>
+    </div>
+    <div class="col-md-6">
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Search..."
+      />
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    {% for contract in contracts %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <h5 class="card-title"><b>
+            <span style="
+                  display:inline-block;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 13ch;">
+            {{ contract.subject }}
+            </span></b></h5>
+          <div>
+            <!-- Buttons or icons -->
+            {% if contract.automatic_renewal %} R.A {% endif %}
+            <a href="{% url 'contracts:contract_detail' contract.id %}" class="btn btn-info btn-sm" title="Visualizar" data-bs-toggle="tooltip">
+              <i class="bi bi-eye"></i>
+            </a>
+            {% if perms.contracts.change_contract %}
+            <a href="{% url 'contracts:contract_update' contract.id %}" class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="tooltip">
+              <i class="bi bi-pencil"></i>
+            </a>
+            {% endif %}
+
+            {% if perms.contracts.delete_contract %}
+            <a href="{% url 'contracts:contract_delete' contract.id %}" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="tooltip">
+              <i class="bi bi-trash"></i>
+            </a>
+            {% endif %}
+
+            {% if perms.addendums.add_addendum %}
+            <a href="{% url 'addendums:addendum_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
+              <i class="bi bi-folder-plus"></i>
+            </a>
+            {% endif %}
+
+            {% if perms.evaluations.add_evaluation %}
+            <a href="{% url 'evaluations:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Avaliação" data-bs-toggle="tooltip">
+              <i class="bi bi-chat"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Vencimento em: {{ contract.end_date }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            {% if contract.active %}
+            <h2 class="badge bg-success">Aprovado</h2>
+            {% else %}
+            <h2 class="badge bg-danger">Não Aprovado</h2>
+            {% endif %}
+            {% if contract.addendum %}
+            <h2 class="badge bg-success">Com Aditivo</h2>
+            {% else %}
+            <h2 class="badge bg-danger">Sem Aditivo</h2>
+            {% endif %}
+            {% if contract.lgpd %}
+            <h2 class="badge bg-success">Com Termo LGPD</h2>
+            {% else %}
+            <h2 class="badge bg-danger">Sem Termo LGPD</h2>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if not contracts %}
+  <p class="mt-3">
+    Nenhum contrato vencido encontrado.
+  </p>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+      const value = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll(".row .card");
+      cards.forEach(card => {
+        const isVisible = card.textContent.toLowerCase().includes(value);
+        card.style.display = isVisible ? "" : "none";
+      });
+    });
+  });
+</script>
+{% endblock %}

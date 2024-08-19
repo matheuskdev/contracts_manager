@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if perms.evaluations.add_evaluation %}
-    <a href="{% url 'evaluation:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
+    <a href="{% url 'evaluations:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
       <i class="bi bi-chat"></i> Adicionar Avaliação
     </a>
     {% endif %}

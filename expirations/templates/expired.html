@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Vencimentos
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Vencimentos</h2>
+    </div>
+    <div class="col-md-6">
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Search..."
+      />
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <a href="{% url 'expirations:has_expired_contracts' %}">
+        <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+            <h5 class="card-title"><b>Vencidos</b></h5>
+            </div>
+
+        </div>
+        </div>
+    </a>
+
+    <a href="{% url 'expirations:contracts_due_in_30_days' %}">
+        <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+            <h5 class="card-title"><b>30 dias</b></h5>
+            </div>
+
+        </div>
+        </div>
+    </a>
+
+
+    <a href="{% url 'expirations:contracts_due_in_45_days' %}">
+        <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+            <h5 class="card-title"><b>45 dias</b></h5>
+            </div>
+
+        </div>
+        </div>
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+      const value = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll(".row .card");
+      cards.forEach(card => {
+        const isVisible = card.textContent.toLowerCase().includes(value);
+        card.style.display = isVisible ? "" : "none";
+      });
+    });
+  });
+</script>
+{% endblock %}

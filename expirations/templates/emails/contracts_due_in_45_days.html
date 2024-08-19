@@ -1,0 +1,56 @@
+
+<html lang="pt-BR">
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .titulo {
+            color: red;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .assinatura {
+            margin-top: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Alerta de Vencimento de Contrato</h1>
+
+        <p>Olá <span class="titulo">{{  contract.owner.username }}</span>,</p>
+
+        <p>O contrato "<span class="titulo">{{ contract.subject }}</span>" está prestes a vencer em <span class="titulo">{{ contract.end_date }}</span>.</p>
+
+        <p>Por favor, tome as medidas necessárias para garantir a renovação ou finalização adequada do contrato.</p>
+
+        <p>Atenciosamente,</p>
+        <p class="assinatura">Gerenciador de Contratos HML</p>
+    </div>
+</body>
+</html>

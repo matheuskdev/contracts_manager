@@ -18,4 +18,5 @@ urlpatterns = [
     path("", include("contracts.urls")),
     path("", include("addendums.urls")),
     path("", include("evaluations.urls")),
+    path("", include("expirations.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -57,7 +57,7 @@
           </li>
           {% endif %}
           <li>
-            <a href="#" id="expirations-link" class="nav-link px-10 align-middle" >
+            <a href="{% url 'expirations:expired_contracts' %}" id="expirations-link" class="nav-link px-10 align-middle" >
               <i class="bi bi-exclamation-octagon fs-4"></i>
               <span class="ms-1">Vencimentos</span>
             </a>

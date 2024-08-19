@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     "contracts",
     "historys",
     "addendums",
-    "evaluations"
+    "evaluations",
+    "expirations",
 ]
 
 LOGIN_URL = "login"
@@ -141,3 +142,12 @@ MESSAGE_TAGS = {
     constants.INFO: "alert alert-info alert-dismissible fade show",
     constants.INFO: "alert alert-warning alert-dismissible fade show",
 }
+
+# Configurações de E-mail
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
