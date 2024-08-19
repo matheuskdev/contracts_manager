@@ -1,0 +1,28 @@
+<h5 class="display-4"  <div class="d-flex gap-2 justify-content-center">
+    
+    {% if perms.contracts.change_contract %}
+    <a href="{% url 'contracts:contract_update' contract.id %}" class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="tooltip">
+      <i class="bi bi-pencil"></i> Editar
+    </a>
+    {% endif %}
+
+    {% if perms.contracts.delete_contract %}
+    <a href="{% url 'contracts:contract_delete' contract.id %}" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="tooltip">
+      <i class="bi bi-trash"></i> Excluir
+    </a>
+    {% endif %}
+
+    {% if perms.addendums.add_addendum %}
+    <a href="{% url 'addendums:addendum_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
+      <i class="bi bi-folder-plus"></i> Adicionar Aditivo
+    </a>
+    {% endif %}
+
+    {% if perms.evaluations.add_evaluation %}
+    <a href="{% url 'evaluation:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
+      <i class="bi bi-chat"></i> Adicionar Avaliação
+    </a>
+    {% endif %}
+   
+  </div>
+</h5>

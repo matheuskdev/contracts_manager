@@ -1,59 +1,70 @@
-<div class="row flex-nowrap">
-  <div class="col-auto col-md-0 col-xl-0 px-0 bg-dark">
+<div class="row flex-nowrap" id="sidebar">
+  <div class="col-auto col-md-0 col-xl-0 px-0 bg-light" role="navigation">
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
       <button class="btn btn-dark d-block d-sm-none mb-3" type="button" data-bs-toggle="collapse"
-        data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
+        data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse"
+        aria-label="Toggle navigation menu">
         <i class="bi bi-list fs-4"></i>
       </button>
       <div class="collapse d-sm-block" id="menuCollapse">
-        <ul class="nav flex-column align-items-start" id="menu">
+       
+        <ul class="nav flex-column align-items-start nav-pills"  id="menu">
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
+            <a href="#" id="dashboard-link" class="nav-link px-10 align-middle" aria-label="Dashboard">
               <i class="bi bi-speedometer2 fs-4"></i>
               <span class="ms-1">Dashboard</span>
             </a>
           </li>
           {% if perms.contracts.view_contract %}
           <li>
-            <a href="{% url 'contracts:contract_list' %}" class="nav-link px-0 align-middle">
-              <i class="bi bi-truck fs-4"></i>
+            <a href="{% url 'contracts:contract_list' %}" id="contracts-link" class="nav-link px-10 align-middle">
+              <i class="bi bi-file-earmark-text fs-4"></i>
               <span class="ms-1">Contratos</span>
             </a>
           </li>
           {% endif %}
           {% if perms.parts.view_part %}
           <li>
-            <a href="{% url 'parts:part_list' %}" class="nav-link px-0 align-middle">
-              <i class="bi bi-shop fs-4"></i>
+            <a href="{% url 'parts:part_list' %}" id="parts-link" class="nav-link px-10 align-middle">
+              <i class="bi bi-people fs-4"></i>
               <span class="ms-1">Partes</span>
             </a>
           </li>
           {% endif %}
           {% if perms.addendum.view_addendum %}
           <li>
-            <a href="{% url 'addendums:addendum_list' %}" class="nav-link px-0 align-middle">
-              <i class="bi bi-tags fs-4"></i>
+            <a href="{% url 'addendums:addendum_list' %}" id="addendums-link" class="nav-link px-10 align-middle">
+              <i class="bi bi-folder-plus fs-4"></i>
               <span class="ms-1">Aditivos</span>
             </a>
           </li>
           {% endif %}
+          {% if perms.evaluation.view_evaluation %}
+          <li>
+            <a href="{% url 'evaluations:evaluation_list' %}" id="evaluations-link" class="nav-link px-10 align-middle">
+              <i class="bi bi-chat"></i>
+              <span class="ms-1">Avaliações</span>
+            </a>
+          </li>
+          {% endif %}
+
           {% if perms.folders.view_folder %}
           <li>
-            <a href="{% url 'folders:folder_list' %}" class="nav-link px-0 align-middle">
-              <i class="bi bi-box-seam fs-4"></i>
+            <a href="{% url 'folders:folder_list' %}" id="folders-link" class="nav-link px-10 align-middle">
+              <i class="bi bi-archive fs-4"></i>
               <span class="ms-1">Pastas</span>
             </a>
           </li>
           {% endif %}
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
-              <i class="bi bi-arrow-down-left-square fs-4"></i>
+            <a href="#" id="expirations-link" class="nav-link px-10 align-middle" >
+              <i class="bi bi-exclamation-octagon fs-4"></i>
               <span class="ms-1">Vencimentos</span>
             </a>
           </li>
           {% if user.is_staff %}
           <li>
-            <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle">
+            <a href="{% url 'admin:index' %}" class="nav-link px-10 align-middle">
               <i class="bi bi-arrow-up-right-square fs-4"></i>
               <span class="ms-1">Administração</span>
             </a>

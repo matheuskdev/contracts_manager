@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Avaliação
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4">Deletar Aditivo</h3>
+
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text">Tem certeza de que deseja excluir a Avaliação <strong>{{ object.rating }} - {{ object.contract.subject}}</strong>?</p>
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+        
+        <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Avaliação</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

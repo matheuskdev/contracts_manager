@@ -29,8 +29,8 @@ class ContractForm(forms.ModelForm):
             "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
             "amount": forms.NumberInput(attrs={"class": "form-control"}),
             "pdf": forms.ClearableFileInput(attrs={"class": "form-control"}),
-            "start_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
-            "end_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "start_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}, format= '%Y-%m-%d'),
+            "end_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}, format= '%Y-%m-%d'),
             "active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "lgpd": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "automatic_renewal": forms.CheckboxInput(attrs={"class": "form-check-input"}),
@@ -54,6 +54,8 @@ class ContractForm(forms.ModelForm):
             "parts": "Partes Envolvidas",
             "folder": "Pasta",
             "department": "Setor",
+            "created_at": "Criado em",
+            "updated_at": "Atualizado em",
         }
 
     def __init__(self, *args, **kwargs):

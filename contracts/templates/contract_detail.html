@@ -1,125 +1,184 @@
 {% extends 'base.html' %}
 
 {% block title %}
-CManager - Contratos
+CManager - Detalhes do Contrato
 {% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
-    <h3 class="display-4">Detalhes da Contrato</h3>
 
-    <div class="card">
-      <div class="card-body">
+<div class="container mt-4">
+    <div class="row mb-2">
+        <div class="col-md-6"><h3 class="display-4">Detalhes do Contrato</h3></div>
+        <div class="col-md-6">
+       {% include '_actions_contract.html' %}
+       </div>
+    </div>
+        
+    </div>
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    {% if object.pdf %}
+                        <div class="mb-4">
+                            <label class="form-label"><strong>Arquivo PDF Atual:</strong></label>
+                            <li class="list-group-item">
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    Visualizar Documento
+                                </button>
+                            </li>
+                            {% include 'modals/_pdf_modal.html' %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <p><b>PDF:</b>
-    
-            <a href="{{ object.pdf.url }}" class="btn-sm" 
-              target="_blank" style="font-size: 18px; color: red">
-                <i class="fas fa-file-pdf"></i>
-                {{ object.pdf.url|cut:"/media/contrato_pdf/" }}
-                
-            </a>
-            <iframe 
-              src="{{ object.pdf.url }}"
-              frameborder="0">
-            </iframe>
-            </li>
-    
-    
-            <li class="list-group-item">
-              <p><b>Descrição:</b> {{ object.description }}</p>
-            </li>
-            <li class="list-group-item">
-              <p><b>Objeto:</b> {{ object.subject }}</p>
-            </li>
-            <li class="list-group-item">
-                <p><b>Numero:</b> {{ object.number }}</p>
-            </li>
-            <li class="list-group-item">
-                <p><b>Valor:</b> {{ object.amount }}</p>
-            </li>        
-            <li class="list-group-item">
-                <p><b>Data do Inicio:</b> {{ object.start_date }}</p>
-            </li>
-            <li class="list-group-item">
-                <p><b>Data do Fim:</b> {{ object.end_date }}</p>
-            </li>
-            <li class="list-group-item">
-              <p><b>Ativo:</b> 
-              {% if object.active %}
-                Aprovado
-                {% else %}
-                Em Análise
-                {% endif %}
-              </p>
-            </li>
-            <li class="list-group-item">
-              <p><b>LGPD:</b> 
-              {% if object.lgpd %}
-                Contém cláusula LGPD
-                {% else %}
-                Não contém cláusula LGPD
-                {% endif %}
-              </p>
-            </li>
-            <li class="list-group-item">
-              <p><b>Renovação Automática:</b>
-              {% if object.automatic_renewal %}
-                Renova automáticamente
-                {% else %}
-                Não renova automáticamente
-                {% endif %}</p>
-            </li>
-            <li class="list-group-item">
-              <p>
-                <b>Aditivo:</b> 
-                {% if object.contains_addendum %}
-                Contém Aditivo
-                {% else %}
-                Não contém aditivo
-                {% endif %}
-              </p>
-            </li>
-            <li class="list-group-item">
-            {% for parte in object.parties.all %} 
-              <p><b>Partes:</b> {{ part.name}}  </p>
-            {% endfor %}
-            </li>
-            <li class="list-group-item">
-              <p><b>Pasta:</b> {{ object.folder }}</p>
-            </li>
-          </ul>
-       
-        {% if object.owner %}
-        <footer class="blockquote-footer">
-          
-          <p>  Criado por <cite title="Source Title">{{ object.owner|upper }}</cite>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Objeto:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                        <p>{{ object.subject }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Valor:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                        <p>{{ object.amount }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Número do Contrato:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{{ object.number }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-          em <cite title="Source Title">{{ object.created_at }}</cite></p>
-          <p></p>Atualizado em <cite title="Source Title">{{ object.updated_at }}</cite></p>
-              <h3>Aditivos</h3>
-    {% if addendums.exists %}
-        <ul>
-            {% for addendum in addendums %}
-                <li>
-                    <a href="{% url 'addendums:addendum_detail' addendum.id %}">
-                        Aditivo #{{ addendum.id }} - {{ addendum.subject }}
-                    </a>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Renovação Automática:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{% if object.automatic_renewal %}Sim{% else %}Não{% endif %}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Status:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p class="{% if object.active %}text-success{% else %}text-warning{% endif %}">
+                        {% if object.active %}Ativo{% else %}Inativo{% endif %}
+                    </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>LGPD:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{% if object.lgpd %}Contém cláusula LGPD{% else %}Não contém cláusula LGPD{% endif %}</p>
                 </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Este contrato não possui aditivos.</p>
-    {% endif %}
-        </footer>
-      {% endif %}
+            </ul>
+                </div>
+            </div>
 
-      </div>
+            <div class="row mb-6">
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Pasta:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{{ object.folder }}</p>
+                </li>
+            </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Setor:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{{ object.department }}</p>
+                </li>
+            </ul>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Data Inicial:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{{ object.start_date }}</p>
+                </li>
+            </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Data Término:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    <p>{{ object.end_date }}</p>
+                </li>
+            </ul>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label"><strong>Descrição:</strong></label>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                <p>{{ object.description }}</p>
+            </li>
+        </ul>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label"><strong>Partes:</strong></label>
+                <ul class="list-group">
+                    {% for part in object.parts.all %}
+                        <li class="list-group-item">
+                            {{ part.name }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">
+                            Nenhuma parte associada a este contrato.
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+
+            {% if object.owner %}
+            <div class="mt-4">
+                <footer class="blockquote-footer">
+                    <p>Criado por <cite>{{ object.owner|upper }}</cite> em {{ object.created_at }}</p>
+                    <p>Atualizado em {{ object.updated_at }}</p>
+                </footer>
+            </div>
+            {% endif %}
+
+            <h3 class="mt-4">Aditivos</h3>
+            {% if addendums.exists %}
+            <ul class="list-group">
+                {% for addendum in addendums %}
+                    <li class="list-group-item">
+                        <a href="{% url 'addendums:addendum_detail' addendum.id %}">
+                            Aditivo #{{ addendum.id }} - {{ addendum.subject }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>Este contrato não possui aditivos.</p>
+            {% endif %}
+        </div>
     </div>
 
-    <a href="{% url 'contracts:contract_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Contrato</a>
-
-  </div>
+    <a href="{% url 'contracts:contract_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Contratos</a>
+</div>
 {% endblock %}

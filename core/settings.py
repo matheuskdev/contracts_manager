@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "contracts",
     "historys",
     "addendums",
+    "evaluations"
 ]
 
 LOGIN_URL = "login"

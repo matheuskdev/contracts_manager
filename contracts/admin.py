@@ -32,11 +32,11 @@ class ContractAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {"fields": ("number", "subject", "description", "amount", "pdf")}),
         (
-            "Contract Dates",
-            {"fields": ("start_date", "end_date"), "classes": ("collapse",)},
+            "Datas do Contrato",
+            {"fields": ("start_date", "end_date"), "classes": ("",)},
         ),
         (
-            "Contract Details",
+            "Detalhes do Contrato",
             {
                 "fields": (
                     "active",
@@ -54,9 +54,6 @@ class ContractAdmin(admin.ModelAdmin):
             {"fields": ("created_at", "updated_at", "slug"), "classes": ("collapse",)},
         ),
     )
-
-    class Media:
-        js = ('admin/js/vendor/jquery/jquery.js', 'admin/js/core.js', 'js/admin_contract.js')
 
     def save_model(self, request, obj, form, change):
         if not change:  # If this is a new object

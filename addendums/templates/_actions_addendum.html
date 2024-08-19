@@ -1,0 +1,14 @@
+<h5 class="display-4"  <div class="d-flex gap-2 justify-content-center">
+    
+{% if perms.addendums.change_addendum %}
+<a href="{% url 'addendums:addendum_update' addendum.id %}" class="btn btn-warning btn-sm">
+  <i class="bi bi-pencil"></i>Editar
+</a>
+{% endif %}
+
+{% if perms.addendums.delete_addendum %}
+<a href="{% url 'addendums:addendum_delete' addendum.id %}" class="btn btn-danger btn-sm btn-delete">
+  <i class="bi bi-trash"></i>Excluir
+</a>
+{% endif %}
+</h5>

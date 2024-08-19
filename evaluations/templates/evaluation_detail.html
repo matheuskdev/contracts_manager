@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CManager - Avaliação
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <h3 class="display-4">Detalhes da Avaliação</h3>
+      </div>
+      <div class="col-md-6">
+        {% include '_actions_evaluation.html' %}
+     </div>
+  </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{ object.rating }}</h3>
+        <p class="card-text">{{ object.comment }}</p>
+        <p class="card-text">{{ object.created_at }}</p>
+        <p class="card-text">{{ object.updated_at }}</p>
+      </div>
+    </div>
+
+    <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Avaliação</a>
+  </div>
+{% endblock %}

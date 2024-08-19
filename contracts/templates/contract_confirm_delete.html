@@ -8,9 +8,9 @@ CManager - Contratos
   <div class="container mt-4">
     <h3 class="display-4">Deletar Contrato</h3>
 
-    <div class="card">
+    <div class="card shadow-lg">
       <div class="card-body">
-        <p class="card-text">Tem certeza de que deseja excluir a Contrato <strong>{{ object.name }}</strong>?</p>
+        <p class="card-text">Tem certeza de que deseja excluir o Contrato <strong>{{ object.subject }}</strong>?</p>
 
         <form method="post">
           {% csrf_token %}

@@ -8,34 +8,42 @@ CManager - Contratos
 <div class="container mt-4">
     {% if form.instance.id %}
         <h3 class="display-4">Editar Contrato</h3>
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-              const changePdfCheckbox = document.getElementById('changePdf');
-              const pdfField = document.getElementById('pdfField');
-              
-              // Inicializa o campo de upload de PDF como oculto se o checkbox não estiver marcado
-              pdfField.style.display = changePdfCheckbox.checked ? 'block' : 'none';
-          
-              changePdfCheckbox.addEventListener('change', function () {
-                  pdfField.style.display = changePdfCheckbox.checked ? 'block' : 'none';
-              });
-          });
-          </script>
+        {% block extra_js %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const changePdfCheckbox = document.getElementById('changePdf');
+                    const pdfField = document.getElementById('pdfField');
+    
+                    pdfField.style.display = changePdfCheckbox.checked ? 'block' : 'none';
+    
+                    changePdfCheckbox.addEventListener('change', function () {
+                        pdfField.style.display = changePdfCheckbox.checked ? 'block' : 'none';
+                    });
+                });
+            </script>
+        {% endblock %}
     {% else %}
         <h3 class="display-4">Cadastrar Contrato</h3> 
     {% endif %}
 
-    <div class="card">
+    <div class="card shadow-lg">
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                
-                <!-- Exibindo o PDF atual -->
+
                 {% if form.instance.pdf %}
-                    <div class="mb-3">
-                        <label class="form-label">Arquivo PDF Atual:</label>
-                        <a href="{{ form.instance.pdf.url }}" target="_blank">{{ form.instance.pdf.name }}</a>
-                        <div class="form-check mt-2">
+                    <div class="mb-4">
+                        <label class="form-label"><strong>Arquivo PDF Atual:</strong></label>
+                        <li class="list-group-item">
+                            
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                Visualizar Documento
+                            </button>
+                        </li>   
+                        {% include 'modals/_pdf_modal.html'%}
+                        <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" id="changePdf" name="changePdf">
                             <label class="form-check-label" for="changePdf">
                                 Deseja alterar o PDF?
@@ -44,84 +52,84 @@ CManager - Contratos
                     </div>
                 {% endif %}
 
-                <!-- Campo para selecionar novo PDF -->
-                <div id="pdfField" class="mb-3">
-                    <label class="form-label">Selecione o PDF:</label>
+                <div id="pdfField" class="mb-4">
                     {{ form.pdf }}
                     <div class="form-text">Clique aqui para importar o PDF</div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <tr>
-                            <th><label>Objeto:</label></th>
-                            <th><label>Valor:</label></th>
-                            <th><label>Número do Contrato:</label></th>
-                        </tr>
-                        <tr>
-                            <td> {{ form.subject }} </td>
-                            <td> {{ form.amount }} </td>
-                            <td> {{ form.number }} </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ form.automatic_renewal }}
-                                - <label>Renovação Automática</label>
-                            </th>
-                            <th>
-                                {{ form.active }}
-                                - <label>Status Ativo</label>
-                            </th>
-                            <th>
-                                {{ form.lgpd }}
-                                - <label>LGPD</label>
-                            </th>
-                        </tr>
-                    </table>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label"><strong>Objeto:</strong></label>
+                        {{ form.subject }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label"><strong>Valor:</strong></label>
+                        {{ form.amount }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label"><strong>Número do Contrato:</strong></label>
+                        {{ form.number }}
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-md-4">
-                        <label>Usuário:</label>
-                        {{ form.owner }}
+                        <div class="form-check">
+                            {{ form.automatic_renewal }}
+                            <label class="form-check-label"><strong>Renovação Automática</strong></label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label>Pasta:</label>
+                        <div class="form-check">
+                            {{ form.active }}
+                            <label class="form-check-label"><strong>Status Ativo</strong></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            {{ form.lgpd }}
+                            <label class="form-check-label"><strong>LGPD</strong></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Pasta:</strong></label>
                         {{ form.folder }}
                     </div>
-                    <div class="col-md-4">
-                        <label>Setor:</label>
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Setor:</strong></label>
                         {{ form.department }}
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-md-6">
-                        <label>Data Inicial:</label>
+                        <label class="form-label"><strong>Data Inicial:</strong></label>
                         {{ form.start_date }}
                     </div>
                     <div class="col-md-6">
-                        <label>Data Término:</label>
+                        <label class="form-label"><strong>Data Término:</strong></label>
                         {{ form.end_date }}
-                    </div>
-                    <div class="col-md-6">
-                        <label>Descrição:</label>
-                        {{ form.description }}
-                    </div>
-                    <div class="col-md-6">
-                        <label>Partes:</label>
-                        {{ form.parts }}
                     </div>
                 </div>
 
-                <br>
-                <button type="submit" class="btn btn-block btn-primary">Salvar</button>
-                <br>
+                <div class="mb-4">
+                    <label class="form-label"><strong>Descrição:</strong></label>
+                    {{ form.description }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label"><strong>Partes:</strong></label>
+                    {{ form.parts }}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
             </form> 
         </div>
     </div>
+    
     <a href="{% url 'contracts:contract_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para a Lista de Contrato</a>
 </div>
-
 {% endblock %}
-

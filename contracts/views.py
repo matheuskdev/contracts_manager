@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -85,6 +86,7 @@ class ContractUpdateView(
             'end_date': contract.end_date.strftime('%Y-%m-%d') if contract.end_date else '',
         }
         return kwargs
+
 
 class ContractDeleteView(
     mixins.SoftDeleteViewMixin,

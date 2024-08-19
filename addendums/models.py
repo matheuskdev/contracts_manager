@@ -11,7 +11,7 @@ class Addendum(
         Contract,
         on_delete=models.CASCADE,
         related_name="addendums",
-        help_text="Contrato assoiado ao aditivo",
+        help_text="Contrato associado ao aditivo",
     )
     title = models.CharField(max_length=255, help_text="Tiulo do Aditivo")
     description = models.TextField(
