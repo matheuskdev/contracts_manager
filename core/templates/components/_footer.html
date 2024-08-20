@@ -1,6 +1,8 @@
 <footer class="footer mt-auto py-3 bg-light text-center">
   <div class="container">
     <span class="text-muted">© 2024 C.Manager</span>
+     {% if user.is_authenticated %}
     <p class="text-muted mb-0">Usuário: <strong>{{ user.username|upper }}</strong></p>
+    {% endif %}
   </div>
 </footer>

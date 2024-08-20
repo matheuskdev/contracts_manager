@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title text-center mb-4">Login</h5>
+<div class="container d-flex align-items-center justify-content-center min-vh-50">
+  <div class="row justify-content-center w-100">
+    <div class="col-md-5">
+      <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header text-center py-4">
+          <img src="{% static 'logo.png'%}" alt="logo">
+
+        </div>
+        <div class="card-body p-4">
           <form method="post">
             {% csrf_token %}
             <div class="mb-3">
               <label for="username" class="form-label">Usuário</label>
-              <input type="text" class="form-control" id="username" name="username" required>
+              <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Digite seu email" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="password" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="password" name="password" required>
+              <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Digite sua senha" required>
             </div>
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Entrar</button>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
             </div>
           </form>
           {% if form.errors %}

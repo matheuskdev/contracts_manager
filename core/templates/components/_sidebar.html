@@ -10,14 +10,14 @@
        
         <ul class="nav flex-column align-items-start nav-pills"  id="menu">
           <li>
-            <a href="#" id="dashboard-link" class="nav-link px-10 align-middle" aria-label="Dashboard">
+            <a href="#" id="dashboard-link" class="nav-link px-15 align-middle" aria-label="Dashboard">
               <i class="bi bi-speedometer2 fs-4"></i>
               <span class="ms-1">Dashboard</span>
             </a>
           </li>
           {% if perms.contracts.view_contract %}
           <li>
-            <a href="{% url 'contracts:contract_list' %}" id="contracts-link" class="nav-link px-10 align-middle">
+            <a href="{% url 'contracts:contract_list' %}" id="contracts-link" class="nav-link px-15 align-middle">
               <i class="bi bi-file-earmark-text fs-4"></i>
               <span class="ms-1">Contratos</span>
             </a>
@@ -25,7 +25,7 @@
           {% endif %}
           {% if perms.parts.view_part %}
           <li>
-            <a href="{% url 'parts:part_list' %}" id="parts-link" class="nav-link px-10 align-middle">
+            <a href="{% url 'parts:part_list' %}" id="parts-link" class="nav-link px-15 align-middle">
               <i class="bi bi-people fs-4"></i>
               <span class="ms-1">Partes</span>
             </a>
@@ -33,7 +33,7 @@
           {% endif %}
           {% if perms.addendum.view_addendum %}
           <li>
-            <a href="{% url 'addendums:addendum_list' %}" id="addendums-link" class="nav-link px-10 align-middle">
+            <a href="{% url 'addendums:addendum_list' %}" id="addendums-link" class="nav-link px-15 align-middle">
               <i class="bi bi-folder-plus fs-4"></i>
               <span class="ms-1">Aditivos</span>
             </a>
@@ -41,8 +41,8 @@
           {% endif %}
           {% if perms.evaluation.view_evaluation %}
           <li>
-            <a href="{% url 'evaluations:evaluation_list' %}" id="evaluations-link" class="nav-link px-10 align-middle">
-              <i class="bi bi-chat"></i>
+            <a href="{% url 'evaluations:evaluation_list' %}" id="evaluations-link" class="nav-link px-15 align-middle">
+              <i class="bi bi-chat fs-4"></i>
               <span class="ms-1">Avaliações</span>
             </a>
           </li>
@@ -50,21 +50,21 @@
 
           {% if perms.folders.view_folder %}
           <li>
-            <a href="{% url 'folders:folder_list' %}" id="folders-link" class="nav-link px-10 align-middle">
+            <a href="{% url 'folders:folder_list' %}" id="folders-link" class="nav-link px-15 align-middle">
               <i class="bi bi-archive fs-4"></i>
               <span class="ms-1">Pastas</span>
             </a>
           </li>
           {% endif %}
           <li>
-            <a href="{% url 'expirations:expired_contracts' %}" id="expirations-link" class="nav-link px-10 align-middle" >
+            <a href="{% url 'expirations:expired_contracts' %}" id="expirations-link" class="nav-link px-15 align-middle" >
               <i class="bi bi-exclamation-octagon fs-4"></i>
               <span class="ms-1">Vencimentos</span>
             </a>
           </li>
           {% if user.is_staff %}
           <li>
-            <a href="{% url 'admin:index' %}" class="nav-link px-10 align-middle">
+            <a href="{% url 'admin:index' %}" class="nav-link px-15 align-middle">
               <i class="bi bi-arrow-up-right-square fs-4"></i>
               <span class="ms-1">Administração</span>
             </a>
