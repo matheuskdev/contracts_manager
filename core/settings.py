@@ -79,6 +79,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+         'OPTIONS': {
+            'timeout': 20,  # Ajuste o valor conforme necessário
+        },
     }
 }
 
@@ -151,3 +154,59 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+""" 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/error.log',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/info.log',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+     'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'WARNING',  # Reduz a verbosidade do Django
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'ERROR',  # Apenas mensagens de erro do servidor
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'ERROR',  # Suprime logs detalhados de consultas ao banco
+            'propagate': False,
+        },
+        'contracts': {
+            'handlers': ['console', 'file_error', 'file_info'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'expirations': {
+            'handlers': ['console', 'file_error', 'file_info'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Adicione mais apps aqui conforme necessário
+    },
+}
+
+ """

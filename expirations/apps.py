@@ -6,5 +6,6 @@ class ExpirationConfig(AppConfig):
     name = "expirations"
 
     def ready(self):
-        from .signals import ExpiryNotifications
-        ExpiryNotifications.setup_notifications()
+        from .signals import ContractExpirationNotification45, ContractExpirationNotification30
+        ContractExpirationNotification45.register_signal()
+        ContractExpirationNotification30.register_signal()
