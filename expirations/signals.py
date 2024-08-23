@@ -1,5 +1,6 @@
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
+from django.urls import reverse
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -11,6 +12,7 @@ class ContractExpirationNotificationBase:
     days_until_expiration = None
     email_subject = ''
     email_template = ''
+    renewal_check = ''
 
     @classmethod
     def register_signal(cls):
@@ -19,7 +21,7 @@ class ContractExpirationNotificationBase:
 
     @classmethod
     def check_contract(cls, sender, instance, **kwargs):
-        if not instance.automatic_renewal:
+        if not cls.renewal_check:
             return
 
         current_date = timezone.now().date()
@@ -33,7 +35,11 @@ class ContractExpirationNotificationBase:
 
     @classmethod
     def send_expiration_email(cls, instance):
-        html_message = render_to_string(cls.email_template, {'contract': instance})
+
+        context = {
+            'contract': instance,
+        }
+        html_message = render_to_string(cls.email_template, context)
         plain_message = strip_tags(html_message)
         send_mail(
             cls.email_subject,
@@ -44,13 +50,22 @@ class ContractExpirationNotificationBase:
         )
 
 
+def automatic_renewal_check(instance):
+    return instance.automatic_renewal
+
+def no_renewal_check(instance):
+    return not instance.automatic_renewal
+
+
 class ContractExpirationNotification45(ContractExpirationNotificationBase):
     days_until_expiration = 45
     email_subject = 'Alerta Contrato - 45 Dias para Expirar'
     email_template = 'emails/contracts_due_in_45_days.html'
+    renewal_check=no_renewal_check
 
 
 class ContractExpirationNotification30(ContractExpirationNotificationBase):
     days_until_expiration = 30
     email_subject = 'Alerta Contrato - 30 Dias para Expirar'
     email_template = 'emails/contracts_due_in_30_days.html'
+    renewal_check=automatic_renewal_check

@@ -64,6 +64,7 @@ class ContractDetailView(
         # Inclui os aditivos associados ao contrato no contexto
         context['addendums'] = contract.addendums.all()
         return context
+    
 
 class ContractUpdateView(
     mixins.DepartmentPermissionMixin,

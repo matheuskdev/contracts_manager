@@ -58,10 +58,14 @@
             font-style: italic;
             color: #333;
         }
+        .mk{
+            color: #fff
+        }
     </style>
 </head>
 <body>
     <div class="container">
+
         <h1>Alerta de Vencimento de Contrato</h1>
 
         <p>Olá <span class="highlight">{{ contract.owner.username }}</span>,</p>
@@ -70,7 +74,6 @@
 
         <p>Por favor, tome as medidas necessárias para garantir a renovação ou finalização adequada do contrato.</p>
 
-        <a href="{{ contract.get_absolute_url }}" class="contract-link">Ver Contrato</a>
 
         <p>Atenciosamente,</p>
         <p class="signature">Gerenciador de Contratos HML</p>

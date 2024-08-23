@@ -1,6 +1,8 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -19,12 +21,11 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .titulo {
-            color: red;
-        }
-
         h1 {
             color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         p {
@@ -33,24 +34,49 @@
             margin-bottom: 15px;
         }
 
-        .assinatura {
+        .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .contract-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .contract-link:hover {
+            background-color: #2980b9;
+        }
+
+        .signature {
             margin-top: 30px;
             font-style: italic;
+            color: #333;
+        }
+        .mk{
+            color: #fff
         }
     </style>
 </head>
 <body>
     <div class="container">
+
         <h1>Alerta de Vencimento de Contrato</h1>
 
-        <p>Olá <span class="titulo">{{ contract.owner.username }}</span>,</p>
+        <p>Olá <span class="highlight">{{ contract.owner.username }}</span>,</p>
 
-        <p>O contrato "<span class="titulo">{{ contract.subject }}</span>" está prestes a vencer em <span class="titulo">{{ contract.end_date }}</span>.</p>
+        <p>O contrato "<span class="highlight">{{ contract.subject }}</span>" está prestes a vencer em <span class="highlight">{{ contract.end_date }}</span>.</p>
 
         <p>Por favor, tome as medidas necessárias para garantir a renovação ou finalização adequada do contrato.</p>
 
+
         <p>Atenciosamente,</p>
-        <p class="assinatura">Gerenciador de Contratos HML</p>
+        <p class="signature">Gerenciador de Contratos HML</p>
     </div>
 </body>
 </html>
