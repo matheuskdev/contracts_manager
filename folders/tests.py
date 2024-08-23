@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
+
 from django.urls import reverse
 
 from .models import Folder
@@ -14,14 +13,11 @@ class FolderModelTest(SetUpInitial):
 
     def setUp(self):
         super().setUp()
-        content_type = ContentType.objects.get_for_model(Folder)
-        permission, created = Permission.objects.get_or_create(
-            codename="view_folder", content_type=content_type
-        )
-        self.user.user_permissions.add(permission)
-        self.client.login(email="testuser@123.com", password="password")
 
-        self.folder = Folder.objects.create(name="Test Folder", owner_id=1)
+        permission = self.set_permission(Folder, 'view_folder')
+        self.user.user_permissions.add(permission)
+   
+        self.folder = Folder.objects.create(name="Test Folder", owner_id=self.user.id)
 
     def test_folder_creation(self):
         """Test that a Folder instance is correctly created."""

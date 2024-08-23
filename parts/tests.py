@@ -1,24 +1,17 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 
 from .models import Part
 from utils.test import SetUpInitial
 
-User = get_user_model()
 
 
 class PartModelTest(SetUpInitial):
 
     def setUp(self):
         super().setUp()
-        content_type = ContentType.objects.get_for_model(Part)
-        permission, created = Permission.objects.get_or_create(
-            codename="view_part", content_type=content_type
-        )
+
+        permission = self.set_permission(Part, 'view_part')
         self.user.user_permissions.add(permission)
-        self.client.login(email="testuser@123.com", password="password")
 
         self.part = Part.objects.create(
             name="Test Part",
@@ -36,11 +29,6 @@ class PartModelTest(SetUpInitial):
         self.assertEqual(part.email, "test@example.com")
         self.assertEqual(part.phone, "1234567890")
 
-    def test_part_str_representation(self):
-        """Test the __str__ method of the Part model."""
-        part = self.part
-        self.assertEqual(str(part), "Test Part")
-
     def test_part_update(self):
         """Test updating an existing Part instance."""
         self.part.name = "Updated Part"
@@ -57,7 +45,10 @@ class PartModelTest(SetUpInitial):
         with self.assertRaises(Part.DoesNotExist):
             Part.objects.get(id=part_id)
 
-
+    def test_part_str_representation(self):
+        """Test the __str__ method of the Part model."""
+        part = self.part
+        self.assertEqual(str(part), "Test Part")
 
     def test_part_list_view(self):
         """Test the Part list view."""
