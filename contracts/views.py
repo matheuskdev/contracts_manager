@@ -61,8 +61,9 @@ class ContractDetailView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         contract = self.get_object()
-        # Inclui os aditivos associados ao contrato no contexto
-        context["addendums"] = contract.addendums.all()
+        # Includes the amendments associated with the contract in the context
+        context["addendums"] = contract.addendums.filter(contract=contract)
+        context["evaluations"] = contract.evaluations.filter(contract=contract)
         return context
 
 

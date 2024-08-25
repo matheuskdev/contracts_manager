@@ -176,6 +176,28 @@ CManager - Detalhes do Contrato
             {% else %}
                 <p>Este contrato não possui aditivos.</p>
             {% endif %}
+
+            <h3 class="mt-4">Avaliações</h3>
+            {% if evaluations.exists %}
+                <div class="list-group">
+                    {% for evaluation in evaluations %}
+                        <div class="list-group-item">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Avaliação #{{ evaluation.id }} </h5>
+                                    <p class="card-text"> Nota: {{ evaluation.rating }}</p>
+                                    <p class="card-text">{{ evaluation.comments }}</p>
+                                    <footer class="blockquote-footer">
+                                        Avaliação criada por <cite>{{ evaluation.owner }}</cite> em {{ evaluation.created_at }}
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Este contrato não possui avaliações.</p>
+            {% endif %}
         </div>
     </div>
 
