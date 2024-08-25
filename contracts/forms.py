@@ -38,7 +38,6 @@ class ContractForm(forms.ModelForm):
             "end_date": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"}, format="%Y-%m-%d"
             ),
-            #"active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "status": forms.Select(attrs={"class": "form-control"}),
             "contract_type": forms.Select(attrs={"class": "form-control"}),
             "lgpd": forms.CheckboxInput(attrs={"class": "form-check-input"}),

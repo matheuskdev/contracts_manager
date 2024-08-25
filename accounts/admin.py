@@ -6,6 +6,7 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(BaseUserAdmin):
+    """Custom user admin"""
 
     model = User
     list_display = (

@@ -1,7 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
-from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -17,14 +17,16 @@ class BaseContractExpiredView(
     mixins.DepartmentListFilterMixin,
     LoginRequiredMixin,
     PermissionRequiredMixin,
-    TemplateView
+    TemplateView,
 ):
     template_name = ""
     data_filter = None
     permission_required = "expirations.view_expiration"
 
     def get_queryset(self):
-        return Contract.objects.filter(self.data_filter, is_deleted=False, status__in=['approved', 'renewed'])
+        return Contract.objects.filter(
+            self.data_filter, is_deleted=False, status__in=["approved", "renewed"]
+        )
 
     def get(self, request, *args, **kwargs):
         contracts = self.get_queryset()
@@ -58,11 +60,7 @@ class ContractsDueIn30Days(BaseContractExpiredView):
     template_name = "contracts_due_in_30_days.html"
 
 
-class Expired(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    TemplateView
-):
+class Expired(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = "expirations.view_expiration"
     template_name = "expired.html"
 
