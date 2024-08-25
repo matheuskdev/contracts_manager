@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
+from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
@@ -56,6 +58,20 @@ class ContractsDueIn30Days(BaseContractExpiredView):
     template_name = "contracts_due_in_30_days.html"
 
 
-class Expired(BaseContractExpiredView):
+class Expired(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    TemplateView
+):
     permission_required = "expirations.view_expiration"
     template_name = "expired.html"
+
+    def handle_no_permission(self):
+        if self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                "Você não tem permissão para acessar a página anterior.",
+            )
+            return redirect(reverse_lazy("home"))
+        else:
+            return super().handle_no_permission()
