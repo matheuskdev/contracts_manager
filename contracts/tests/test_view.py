@@ -26,11 +26,11 @@ class ContractViewTest(ContractModelTest):
 
     def test_create_contract_view(self):
         """Test the Contract create view."""
-        pdf_file = SimpleUploadedFile(
-            "test.pdf", b"pdf content", content_type="application/pdf"
+        pdf_mock = SimpleUploadedFile(
+            "test.pdf", b"file_content", content_type="application/pdf"
         )
         data = {
-            "pdf": pdf_file,
+            "pdf": pdf_mock,
             "description": "New contract",
             "amount": 15000.00,
             "number": "C-00002",
@@ -40,7 +40,7 @@ class ContractViewTest(ContractModelTest):
             "folder": self.folder.id,
             "owner": self.user.id,
         }
-        form = ContractForm(data=data)
+        form = ContractForm(data=data, files={'pdf': pdf_mock})
         self.assertTrue(form.is_valid(), msg=f"Form errors: {form.errors}")
         response = self.client.post(reverse("contracts:contract_create"), data)
         print(response.content.decode())
