@@ -11,13 +11,9 @@ class ContractModelTest(SetUpInitial):
 
     def setUp(self):
         super().setUp()
-        self.folder = Folder.objects.create(
-            name="Folder1", owner_id=self.user.id
-        )
+        self.folder = Folder.objects.create(name="Folder1", owner_id=self.user.id)
         self.department = Department.objects.create(
-            name="Teste Dep",
-            description="Description test dep",
-            owner_id=self.user.id
+            name="Teste Dep", description="Description test dep", owner_id=self.user.id
         )
         self.contract = Contract.objects.create(
             pdf="contracts_pdfs/test.pdf",
@@ -31,10 +27,11 @@ class ContractModelTest(SetUpInitial):
             owner=self.user,
         )
 
-
     def test_create_contract(self):
         """Test creating a contract with all the necessary fields."""
-        self.assertEqual(str(self.contract), f"{self.department} - {self.contract.subject}")
+        self.assertEqual(
+            str(self.contract), f"{self.department} - {self.contract.subject}"
+        )
         self.assertTrue(self.contract.active)
         self.assertTrue(self.contract.lgpd)
         self.assertFalse(self.contract.contains_addendum)
@@ -74,7 +71,9 @@ class ContractModelTest(SetUpInitial):
             owner=self.user,
         )
         self.assertTrue(contract.automatic_renewal)
-        self.assertEqual(contract.end_date, timezone.now().date() + timezone.timedelta(days=365))
+        self.assertEqual(
+            contract.end_date, timezone.now().date() + timezone.timedelta(days=365)
+        )
 
     def test_parts_relationship(self):
         """Tests the ManyToMany relationship with Part."""

@@ -1,8 +1,8 @@
 from django.urls import reverse
 
-from .models import Part
 from utils.test import SetUpInitial
 
+from .models import Part
 
 
 class PartModelTest(SetUpInitial):
@@ -10,7 +10,7 @@ class PartModelTest(SetUpInitial):
     def setUp(self):
         super().setUp()
 
-        permission = self.set_permission(Part, 'view_part')
+        permission = self.set_permission(Part, "view_part")
         self.user.user_permissions.add(permission)
 
         self.part = Part.objects.create(
@@ -58,6 +58,8 @@ class PartModelTest(SetUpInitial):
 
     def test_part_detail_view(self):
         """Test the Part detail view."""
-        response = self.client.get(reverse("parts:part_detail", kwargs={"pk": self.part.id}))
+        response = self.client.get(
+            reverse("parts:part_detail", kwargs={"pk": self.part.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.part.name)

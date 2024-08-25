@@ -1,18 +1,23 @@
 from django import forms
+
 from .models import Evaluation
+
 
 class EvaluationForm(forms.ModelForm):
     class Meta:
         model = Evaluation
-        fields = ['rating', 'comments',]
+        fields = [
+            "rating",
+            "comments",
+        ]
         widgets = {
-            'rating': forms.Select(attrs={"class": "form-control"}),
-            'comments': forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+            "rating": forms.Select(attrs={"class": "form-control"}),
+            "comments": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
         }
         labels = {
             "rating": "Nota",
             "comments": "Descrição",
-            "contract": "Contrato",            
+            "contract": "Contrato",
         }
 
         def __init__(self, *args, **kwargs):

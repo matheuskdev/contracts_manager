@@ -46,5 +46,4 @@ class DepartmentAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-
 admin.site.register(Department, DepartmentAdmin)

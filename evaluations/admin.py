@@ -6,13 +6,13 @@ from .models import Evaluation
 
 class EvaluationAdmin(admin.ModelAdmin):
     form = forms.EvaluationForm
-    list_display = ('contract', 'rating', 'comments', 'created_at', 'updated_at')
-    list_filter = ('rating', 'contract')
-    search_fields = ('comments',)
-    ordering = ('-created_at',)
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ("contract", "rating", "comments", "created_at", "updated_at")
+    list_filter = ("rating", "contract")
+    search_fields = ("comments",)
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at", "updated_at")
     fieldsets = (
-        (None, {"fields": ("rating",'comments')}),
+        (None, {"fields": ("rating", "comments")}),
         (
             "Datas",
             {"fields": ("created_at", "updated_at"), "classes": ("collapse",)},

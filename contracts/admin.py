@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Contract
+
 from .forms import ContractForm
+from .models import Contract
+
 
 class ContractAdmin(admin.ModelAdmin):
     form = ContractForm
@@ -59,5 +61,6 @@ class ContractAdmin(admin.ModelAdmin):
         if not change:  # If this is a new object
             obj.owner = request.user
         super().save_model(request, obj, form, change)
+
 
 admin.site.register(Contract, ContractAdmin)

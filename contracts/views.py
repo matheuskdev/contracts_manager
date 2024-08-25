@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.http import Http404
@@ -6,7 +7,6 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
-from django.contrib import messages
 
 from utils import mixins
 
@@ -62,9 +62,9 @@ class ContractDetailView(
         context = super().get_context_data(**kwargs)
         contract = self.get_object()
         # Inclui os aditivos associados ao contrato no contexto
-        context['addendums'] = contract.addendums.all()
+        context["addendums"] = contract.addendums.all()
         return context
-    
+
 
 class ContractUpdateView(
     mixins.DepartmentPermissionMixin,
@@ -82,9 +82,13 @@ class ContractUpdateView(
         kwargs = super().get_form_kwargs()
         contract = self.get_object()
 
-        kwargs['initial'] = {
-            'start_date': contract.start_date.strftime('%Y-%m-%d') if contract.start_date else '',
-            'end_date': contract.end_date.strftime('%Y-%m-%d') if contract.end_date else '',
+        kwargs["initial"] = {
+            "start_date": (
+                contract.start_date.strftime("%Y-%m-%d") if contract.start_date else ""
+            ),
+            "end_date": (
+                contract.end_date.strftime("%Y-%m-%d") if contract.end_date else ""
+            ),
         }
         return kwargs
 
