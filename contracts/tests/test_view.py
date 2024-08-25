@@ -40,7 +40,7 @@ class ContractViewTest(ContractModelTest):
             "folder": self.folder.id,
             "owner": self.user.id,
         }
-        form = ContractForm(data=data, files={'pdf': pdf_mock})
+        form = ContractForm(data=data, files={"pdf": pdf_mock})
         self.assertTrue(form.is_valid(), msg=f"Form errors: {form.errors}")
         response = self.client.post(reverse("contracts:contract_create"), data)
         print(response.content.decode())

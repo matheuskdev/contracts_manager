@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
 
-from utils.test import SetUpInitial
-
 from folders.models import Folder
+from utils.test import SetUpInitial
 
 User = get_user_model()
 

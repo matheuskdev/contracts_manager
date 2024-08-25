@@ -15,7 +15,6 @@ class FolderModelTest(FolderModelTest):
 
     def test_folder_list_view(self):
         """Test the Folder list view."""
-        
         permission = self.set_permission(self.folder, "view_folder")
         self.user.user_permissions.add(permission)
 
