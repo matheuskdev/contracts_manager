@@ -17,13 +17,14 @@ class ContractForm(forms.ModelForm):
             "pdf",
             "start_date",
             "end_date",
-            "active",
             "lgpd",
             "automatic_renewal",
             "contains_addendum",
             "parts",
             "folder",
             "department",
+            "status",
+            "contract_type",
         ]
         widgets = {
             "number": forms.TextInput(attrs={"class": "form-control"}),
@@ -37,7 +38,9 @@ class ContractForm(forms.ModelForm):
             "end_date": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"}, format="%Y-%m-%d"
             ),
-            "active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            #"active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "status": forms.Select(attrs={"class": "form-control"}),
+            "contract_type": forms.Select(attrs={"class": "form-control"}),
             "lgpd": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "automatic_renewal": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "contains_addendum": forms.CheckboxInput(attrs={"class": "form-check-input"}),
@@ -53,7 +56,8 @@ class ContractForm(forms.ModelForm):
             "pdf": "Arquivo PDF",
             "start_date": "Data de Início",
             "end_date": "Data de Término",
-            "active": "Ativo",
+            "status": "Status",
+            "contract_type": "Tipo de Contrato",
             "lgpd": "Conformidade LGPD",
             "automatic_renewal": "Renovação Automática",
             "contains_addendum": "Contém Aditivo",

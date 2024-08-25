@@ -12,7 +12,8 @@ class ContractAdmin(admin.ModelAdmin):
         "amount",
         "start_date",
         "end_date",
-        "active",
+        "status",
+        "contract_type",
         "folder",
         "department",
         "created_at",
@@ -20,12 +21,13 @@ class ContractAdmin(admin.ModelAdmin):
     )
     search_fields = ("number", "subject", "description")
     list_filter = (
-        "active",
         "lgpd",
         "automatic_renewal",
         "contains_addendum",
         "folder",
         "department",
+        "status",
+        "contract_type",
         "created_at",
     )
     ordering = ("-created_at",)
@@ -48,6 +50,8 @@ class ContractAdmin(admin.ModelAdmin):
                     "parts",
                     "folder",
                     "department",
+                    "status",
+                    "contract_type",
                 )
             },
         ),

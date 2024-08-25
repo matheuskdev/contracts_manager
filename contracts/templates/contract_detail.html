@@ -61,8 +61,8 @@ CManager - Detalhes do Contrato
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <div class="row mb-6">
+                <div class="col-md-6">
                     <label class="form-label"><strong>Renovação Automática:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -70,23 +70,32 @@ CManager - Detalhes do Contrato
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label"><strong>Status:</strong></label>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                    <p class="{% if object.active %}text-success{% else %}text-warning{% endif %}">
-                        {% if object.active %}Ativo{% else %}Inativo{% endif %}
-                    </p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label"><strong>LGPD:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
                     <p>{% if object.lgpd %}Contém cláusula LGPD{% else %}Não contém cláusula LGPD{% endif %}</p>
                 </li>
             </ul>
+                </div>
+            </div>
+
+            <div class="row mb-6">
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Status:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    {{ object.get_status_display  }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Tipo de Contrato:</strong></label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                    {{ object.get_contract_type_display }}
+                        </li>
+                    </ul>
                 </div>
             </div>
 

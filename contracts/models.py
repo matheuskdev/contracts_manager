@@ -19,6 +19,21 @@ class Contract(
     Model representing a Contract
     """
 
+    CONTRACT_STATUS_CHOICES = [
+        ('draft', 'Rascunho'),
+        ('approved', 'Aprovado'),
+        ('completed', 'Finalizado'),
+        ('canceled', 'Cancelado'),
+        ('renewed', 'Renovado'),
+    ]
+
+    CONTRACT_TYPE_CHOICES = [
+        ('service', 'Prestação de Serviços'),
+        ('sales', 'Venda'),
+        ('rental', 'Locação'),
+        ('partnership', 'Parceria'),
+    ]
+
     pdf = models.FileField(
         upload_to="contracts_pdfs",
         validators=[FileExtensionValidator(["pdf", "DOCX", "DOC"])],
@@ -34,14 +49,30 @@ class Contract(
     subject = models.CharField(
         unique=True, max_length=100, help_text="Assunto ou objeto principal do contrato."
     )
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Anotações gerais sobre o contrato."
+    )
     start_date = models.DateField(help_text="Data de início do contrato.")
     end_date = models.DateField(
         blank=True,
         null=True,
         help_text="Data de término do contrato. Se não definido, o contrato será renovado automaticamente.",
     )
-    active = models.BooleanField(
+    """     active = models.BooleanField(
         default=True, help_text="Indica se o contrato está ativo."
+    ) """
+    status = models.CharField(
+        max_length=20,
+        choices=CONTRACT_STATUS_CHOICES,
+        default='draft',
+        help_text="Status atual do contrato."
+    )
+    contract_type = models.CharField(
+        max_length=20,
+        choices=CONTRACT_TYPE_CHOICES,
+        help_text="Tipo de contrato."
     )
     lgpd = models.BooleanField(
         default=True,

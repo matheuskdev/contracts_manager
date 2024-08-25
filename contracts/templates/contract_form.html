@@ -72,24 +72,34 @@ CManager - Contratos
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-6">
+                    <div class="col-md-2">
+                    </div>
                     <div class="col-md-4">
                         <div class="form-check">
                             {{ form.automatic_renewal }}
                             <label class="form-check-label"><strong>Renovação Automática</strong></label>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            {{ form.active }}
-                            <label class="form-check-label"><strong>Status Ativo</strong></label>
-                        </div>
-                    </div>
+                    
                     <div class="col-md-4">
                         <div class="form-check">
                             {{ form.lgpd }}
                             <label class="form-check-label"><strong>LGPD</strong></label>
                         </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row mb-6">
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Status:</strong></label>
+                        {{ form.status }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Tipo de Contrato:</strong></label>
+                        {{ form.contract_type }}
                     </div>
                 </div>
 
