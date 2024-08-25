@@ -1,3 +1,4 @@
+import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -7,7 +8,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-
+logger = logging.getLogger(__name__)
 from . import manager
 
 
@@ -95,16 +96,23 @@ class DepartmentListFilterMixin:
 
         if user.departments.filter(name="Administração").exists():
             return queryset
+        if hasattr(self.model, 'department'):
+            return queryset.filter(
+                Q(owner=user) | 
+                Q(owner__departments__in=user.departments.all()) | 
+                Q(department__in=user.departments.all())
+            ).distinct()
 
         return queryset.filter(
-            Q(department__in=user.departments.all()) | Q(owner=user)
+            Q(owner=user) | 
+            Q(owner__departments__in=user.departments.all()) 
         ).distinct()
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
             messages.error(
                 self.request,
-                "Você não tem permissão para acessar a página anterior.",
+                "Você não tem permissão para acessar a página anterior. Faça seu login!",
             )
             return redirect(reverse_lazy("home"))
         else:
@@ -126,11 +134,14 @@ class DepartmentPermissionMixin:
             messages.error(request, "Perfil do usuário não encontrado.")
             return HttpResponseRedirect(reverse("home"))
 
-        if not (
-            request.user == obj.owner
-            or "Administração" in user_profile.departments.values_list("name", flat=True)
-        ):
-            messages.error(request, "Você não tem permissão para acessar este recurso.")
+        is_owner = request.user == obj.owner
+        is_department_admin =  "Administração" in user_profile.departments.values_list("name", flat=True)
+        is_in_department = hasattr(self.model, 'department') and \
+                        obj.department in request.user.departments.values_list("name", flat=True)
+        is_exact_department = request.user.departments.values_list in obj.owner.departments.values_list("name", flat=True)
+
+        if not ( is_owner or is_department_admin or is_in_department or is_exact_department):
+            messages.error(request, "Você não tem nível de permissão para acessar este recurso.")
             return HttpResponseRedirect(reverse("home"))
 
         return super().dispatch(request, *args, **kwargs)
