@@ -12,13 +12,17 @@ from utils import mixins
 
 
 class BaseContractExpiredView(
-    mixins.DepartmentListFilterMixin, LoginRequiredMixin, TemplateView
+    mixins.DepartmentListFilterMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    TemplateView
 ):
     template_name = ""
     data_filter = None
+    permission_required = "expirations.view_expiration"
 
     def get_queryset(self):
-        return Contract.objects.filter(self.data_filter, active=True, is_deleted=False)
+        return Contract.objects.filter(self.data_filter, is_deleted=False, status__in=['approved', 'renewed'])
 
     def get(self, request, *args, **kwargs):
         contracts = self.get_queryset()
@@ -52,5 +56,6 @@ class ContractsDueIn30Days(BaseContractExpiredView):
     template_name = "contracts_due_in_30_days.html"
 
 
-class Expired(LoginRequiredMixin, TemplateView):
+class Expired(BaseContractExpiredView):
+    permission_required = "expirations.view_expiration"
     template_name = "expired.html"

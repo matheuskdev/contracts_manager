@@ -56,12 +56,16 @@
             </a>
           </li>
           {% endif %}
+
+          {% if perms.expirations.view_expiration %}
           <li>
             <a href="{% url 'expirations:expired_contracts' %}" id="expirations-link" class="nav-link px-15 align-middle" >
               <i class="bi bi-exclamation-octagon fs-4"></i>
               <span class="ms-1">Vencimentos</span>
             </a>
           </li>
+          {% endif %}
+
           {% if user.is_staff %}
           <li>
             <a href="{% url 'admin:index' %}" class="nav-link px-15 align-middle">
