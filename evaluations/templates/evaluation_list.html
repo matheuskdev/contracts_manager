@@ -48,8 +48,9 @@ CManager - Avaliação
         <td>{{ evaluation.comments }}</td>
         <td>
           <a href="{% url 'contracts:contract_detail' evaluation.contract.id %}" class="text-primary fw-semibold">
-           {{ evaluation.contract }}</td>
+           {{ evaluation.contract }}
           </a>
+        </td>
         <td>
           <a href="{% url 'evaluations:evaluation_detail' evaluation.id %}" class="btn btn-info btn-sm">
             <i class="bi bi-eye"></i>

@@ -96,6 +96,7 @@ class DepartmentListFilterMixin:
 
         if user.departments.filter(name="Administração").exists():
             return queryset
+
         if hasattr(self.model, 'department'):
             return queryset.filter(
                 Q(owner=user) | 
@@ -137,10 +138,10 @@ class DepartmentPermissionMixin:
         is_owner = request.user == obj.owner
         is_department_admin =  "Administração" in user_profile.departments.values_list("name", flat=True)
         is_in_department = hasattr(self.model, 'department') and \
-                        obj.department in request.user.departments.values_list("name", flat=True)
-        is_exact_department = request.user.departments.values_list in obj.owner.departments.values_list("name", flat=True)
+                        str(obj.department) in request.user.departments.values_list("name", flat=True)
+        is_department_in_owner_dep = request.user.departments.values_list in obj.owner.departments.values_list("name", flat=True)
 
-        if not ( is_owner or is_department_admin or is_in_department or is_exact_department):
+        if not ( is_owner or is_department_admin or is_in_department or is_department_in_owner_dep):
             messages.error(request, "Você não tem nível de permissão para acessar este recurso.")
             return HttpResponseRedirect(reverse("home"))
 

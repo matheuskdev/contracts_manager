@@ -25,6 +25,8 @@ class ContractModelTest(SetUpInitial):
             department=self.department,
             folder=self.folder,
             owner=self.user,
+            contract_type="service",
+            status="draft"
         )
 
     def test_create_contract(self):
@@ -32,7 +34,6 @@ class ContractModelTest(SetUpInitial):
         self.assertEqual(
             str(self.contract), f"{self.department} - {self.contract.subject}"
         )
-        self.assertTrue(self.contract.active)
         self.assertTrue(self.contract.lgpd)
         self.assertFalse(self.contract.contains_addendum)
         self.assertEqual(self.contract.slug, "contrato-de-servico")

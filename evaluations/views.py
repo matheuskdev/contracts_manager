@@ -21,7 +21,7 @@ class EvaluationListView(
     template_name = "evaluation_list.html"
     context_object_name = "evaluations"
     paginate_by = 10
-    permission_required = "evaluations.view_folder"
+    permission_required = "evaluations.view_evaluation"
 
     def get_queryset(self):
         queryset = super().get_queryset()

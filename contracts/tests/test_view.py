@@ -39,6 +39,8 @@ class ContractViewTest(ContractModelTest):
             "department": self.department.id,
             "folder": self.folder.id,
             "owner": self.user.id,
+            "contract_type": "service",
+            "status": "draft"
         }
         form = ContractForm(data=data, files={"pdf": pdf_mock})
         self.assertTrue(form.is_valid(), msg=f"Form errors: {form.errors}")
