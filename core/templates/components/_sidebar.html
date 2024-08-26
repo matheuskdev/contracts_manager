@@ -39,7 +39,7 @@
             </a>
           </li>
           {% endif %}
-          {% if perms.evaluation.view_evaluation %}
+          {% if perms.evaluations.view_evaluation %}
           <li>
             <a href="{% url 'evaluations:evaluation_list' %}" id="evaluations-link" class="nav-link px-15 align-middle">
               <i class="bi bi-chat fs-4"></i>

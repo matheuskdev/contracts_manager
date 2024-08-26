@@ -16,12 +16,14 @@ class ContractAdmin(admin.ModelAdmin):
         "contract_type",
         "folder",
         "department",
+        "owner",
         "created_at",
         "updated_at",
     )
     search_fields = ("number", "subject", "description")
     list_filter = (
         "lgpd",
+        "owner",
         "automatic_renewal",
         "contains_addendum",
         "folder",
@@ -43,8 +45,8 @@ class ContractAdmin(admin.ModelAdmin):
             "Detalhes do Contrato",
             {
                 "fields": (
-                    "active",
                     "lgpd",
+                    "owner",
                     "automatic_renewal",
                     "contains_addendum",
                     "parts",
