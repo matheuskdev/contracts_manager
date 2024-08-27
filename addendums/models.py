@@ -1,7 +1,7 @@
 from django.db import models
 
 from contracts.models import Contract
-from utils import mixins  # Assumindo que você tem um modelo de contrato
+from utils import mixins
 
 
 class Addendum(

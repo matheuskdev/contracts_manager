@@ -2,11 +2,10 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 logger = logging.getLogger(__name__)
 from . import manager

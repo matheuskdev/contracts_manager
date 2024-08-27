@@ -3,7 +3,7 @@ from django.db import models
 from contracts.models import Contract
 from utils import mixins
 
-# Melhoria nas escolhas
+
 RATING_CHOICES = [
     (1, "Péssimo"),
     (2, "Ruim"),
