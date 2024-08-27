@@ -22,6 +22,9 @@ Contracts Manager é uma aplicação Django para gerenciamento de Contratos.
 3. Execute as migrações do banco de dados:
 
    ```bash
+   python manage.py makemigrations
+   ```
+   ```bash
    python manage.py migrate
    ```
 
@@ -30,6 +33,10 @@ Contracts Manager é uma aplicação Django para gerenciamento de Contratos.
    ```bash
    python manage.py createsuperuser
    ```
+   ou utilize o arquivo de criação create_superuser.py
+   ```bash
+   python create_superuser.py
+   ```
 
 5. Crie os departamentos iniciais e associe com o usuário principal:
 
@@ -37,7 +44,13 @@ Contracts Manager é uma aplicação Django para gerenciamento de Contratos.
    python manage.py populate
    ```
 
-6. Inicie o servidor de desenvolvimento:
+6. Realize os testes para verificar o correto funcionamento do sistema:
+
+   ```bash
+   python manage.py test
+   ```
+
+7. Inicie o servidor de desenvolvimento:
 
    ```bash
    python manage.py runserver
@@ -49,6 +62,7 @@ A aplicação estará disponível em http://127.0.0.1:8000/.
 
 - Acesse o painel de administração em http://127.0.0.1:8000/admin/ para gerenciar usuários, contratos e outras configurações.
 
+- Os departamentos fazem parte da regra de negócio principal então seu gerenciamento só é possóvel através do painel de administração.
 
 ## Contribuindo
 
