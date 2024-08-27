@@ -33,9 +33,12 @@ jobs:
         echo "EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }}" >> .env
         echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
         echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .env
-    - name: Run Tests
+    - name: Run Migrations and Create Superuser
       run: |
         python manage.py makemigrations
         python manage.py migrate
+        python create_superuser.py
         python manage.py populate
+    - name: Run Tests
+      run: |
         python manage.py test
