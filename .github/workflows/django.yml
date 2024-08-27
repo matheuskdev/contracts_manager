@@ -28,7 +28,13 @@ jobs:
     - name: Create .env file
       run: |
         echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+        echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> .env
+        echo "EMAIL_PORT=${{ secrets.EMAIL_PORT }}" >> .env
+        echo "EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }}" >> .env
+        echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
+        echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .env
     - name: Run Tests
       run: |
+        python manage.py migrate
         python manage.py populate
         python manage.py test
