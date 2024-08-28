@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
 
 {% block title %}
-CManager - Aditivos
+CManager - Detalhes do Aditivo
 {% endblock %}
 
 {% block content %}
   <div class="container mt-4">
-    <div class="row mb-2">
-      <div class="col-md-6">
-        <h3 class="display-4">Detalhes da Aditivo</h3>
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h3 class="display-6">Detalhes do Aditivo</h3>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4 text-md-end">
         {% include '_actions_addendum.html' %}
-     </div>
-  </div>
-
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">{{ object.title }}</h3>
-        <p class="card-text">{{ object.description }}</p>
-        <p class="card-text">{{ object.contract }}</p>
-        <p class="card-text">{{ object.effective_date }}</p>
       </div>
     </div>
 
-    <a href="{% url 'addendums:addendum_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Aditivos</a>
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">{{ object.title }}</h4>
+      </div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">Descrição:</dt>
+          <dd class="col-sm-9">{{ object.description }}</dd>
+
+          <dt class="col-sm-3">Contrato:</dt>
+          <dd class="col-sm-9">{{ object.contract }}</dd>
+
+          <dt class="col-sm-3">Data de Vigência:</dt>
+          <dd class="col-sm-9">{{ object.effective_date }}</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <a href="{% url 'addendums:addendum_list' %}" class="btn btn-secondary">Voltar para a Lista de Aditivos</a>
+    </div>
   </div>
 {% endblock %}
