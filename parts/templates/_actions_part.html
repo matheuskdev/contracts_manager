@@ -1,0 +1,16 @@
+<h5 class="display-4"  <div class="d-flex gap-2 justify-content-center">
+    
+    {% if perms.parts.change_part %}
+    <a href="{% url 'parts:part_update' part.id %}" class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="tooltip">
+      <i class="bi bi-pencil"></i> Editar
+    </a>
+    {% endif %}
+
+    {% if perms.parts.delete_part %}
+    <a href="{% url 'parts:part_delete' part.id %}" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="tooltip">
+      <i class="bi bi-trash"></i> Excluir
+    </a>
+    {% endif %}
+   
+  </div>
+</h5>

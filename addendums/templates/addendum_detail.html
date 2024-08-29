@@ -17,6 +17,7 @@ CManager - Detalhes do Aditivo
 
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
+          <img src="{{evaluation.owner.profile_picture.url}}" alt="Foto de {{ object.owner.username }}" class="rounded-circle me-3" style="width: 50px; height: 50px;">
         <h4 class="mb-0">{{ object.title }}</h4>
       </div>
       <div class="card-body">
@@ -29,12 +30,22 @@ CManager - Detalhes do Aditivo
 
           <dt class="col-sm-3">Data de Vigência:</dt>
           <dd class="col-sm-9">{{ object.effective_date }}</dd>
+
+          <dt class="col-sm-3">Criado em:</dt>
+          <dd class="col-sm-9">{{ object.created_at }}</dd>
+
+          <dt class="col-sm-3">Criado por:</dt>
+          <dd class="col-sm-9">{{ object.owner.email }}</dd>
         </dl>
       </div>
     </div>
 
     <div class="mt-4">
-      <a href="{% url 'addendums:addendum_list' %}" class="btn btn-secondary">Voltar para a Lista de Aditivos</a>
+    
+      <a href="{% url 'addendums:addendum_list' %}" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Voltar para a Lista de Aditivos
+      </a>
     </div>
   </div>
 {% endblock %}

@@ -45,7 +45,11 @@ CManager - Avaliação
           </a>
         </td>
         <td>{{ evaluation.rating }}</td>
-        <td>{{ evaluation.comments }}</td>
+        <td  style="
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 50ch;">{{ evaluation.comments }}</td>
         <td>
           <a href="{% url 'contracts:contract_detail' evaluation.contract.id %}" class="text-primary fw-semibold">
            {{ evaluation.contract }}

@@ -18,21 +18,37 @@ CManager - Detalhes da Avaliação
     <div class="comment-section">
       <div class="comment-box p-3 mb-3 bg-light rounded shadow-sm">
         <div class="d-flex align-items-center mb-2">
-          <img src="#" alt="Avatar" class="rounded-circle" width="50" height="50">
+          <img src="{{ evaluation.owner.profile_picture.url }}" alt="Avatar" class="rounded-circle" width="50" height="50">
           <div class="ms-3">
             <span class="h5 mb-0">{{ object.owner }}</span>
-            <p class="mb-0 text-muted">{{ object.created_at|date:"d M Y H:i" }}</p>
+            <p class="mb-0 text-muted">{{ object.created_at|date:"d M Y H:i" }}
+            </p>
           </div>
+          
         </div>
+        <p class="text-muted mb-0">
+        Nota: <b>{{ evaluation.rating }}</b>                                     
+            {% for i in "12345" %}
+              {% if i <= evaluation.rating|stringformat:"d" %}
+                <i class="bi bi-star-fill"></i>  <!-- Estrela cheia -->
+              {% else %}
+                <i class="bi bi-star"></i>  <!-- Estrela vazia -->
+              {% endif %}
+            {% endfor %}
+          </p>
         <hr>
         <div class="d-flex justify-content-between">
-          <span class="h6 text-primary">Avaliação: {{ object.rating }} estrelas</span>
+          <span class="h6 text-primary"> {{ object.comments }} estrelas</span>
         </div>
         <p class="mt-2">{{ object.comment }}</p>
-        <small class="text-muted">Última atualização: {{ object.updated_at|date:"d M Y H:i" }}</small>
+        <small class="text-muted">Última atualização:
+ {{ object.updated_at|date:"d M Y H:i" }}</small>
       </div>
 
-      <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary">Voltar para a Lista de Avaliações</a>
+      <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Voltar para a Lista de Avaliações</a>
     </div>
   </div>
 {% endblock %}
+

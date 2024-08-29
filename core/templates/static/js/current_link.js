@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     menuLinks.forEach(function(link) {
       if (link.getAttribute("href") === currentPath) {
         link.classList.add("active");
+        link.classList.add("mr-15");
       }
     });
   });
