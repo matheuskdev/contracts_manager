@@ -106,8 +106,8 @@ class Contract(
 
     class Meta:
         ordering = ["subject"]
-        verbose_name = "Contract"
-        verbose_name_plural = "Contracts"
+        verbose_name = "Contrato"
+        verbose_name_plural = "Contratos"
         indexes = [
             models.Index(fields=["subject"]),
         ]

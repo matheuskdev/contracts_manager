@@ -18,8 +18,8 @@ class Folder(
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Folder"
-        verbose_name_plural = "Folders"
+        verbose_name = "Pasta"
+        verbose_name_plural = "Pastas"
         indexes = [
             models.Index(fields=["name"]),
         ]
