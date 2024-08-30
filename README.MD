@@ -75,3 +75,7 @@ Para contribuir com o projeto, siga os passos abaixo:
 4. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`).
 5. Envie o branch para o repositório remoto (`git push origin feature/nome-da-feature`).
 6. Abra um Pull Request.
+
+---
+
+Obrigado por contribuir para o ContractsManager!

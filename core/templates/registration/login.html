@@ -26,6 +26,14 @@
               <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
             </div>
           </form>
+
+        <p class="text-center py-10">
+        <a href="{% url 'password_reset' %}" class="link-secondary text-decoration-none" 
+            <p class="mt-3 text-muted">Esqueceu sua senha ?</p>
+        </a>
+        </p>
+
+          
           {% if form.errors %}
             <div class="alert alert-danger mt-4">
               <ul class="mb-0">
