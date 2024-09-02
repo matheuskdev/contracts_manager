@@ -1,18 +1,20 @@
 <header class="navbar navbar-expand-md navbar-light bg-light shadow-sm" id="header">
   <nav class="container-xxl flex-wrap flex-md-nowrap" aria-label="Main navigation">
-    <a class="navbar-brand p-0 me-2" href="/" aria-label="Página Inicial - Contracts Manager">
-      <span class="h4 mb-0 d-inline-block align-middle" style="font-weight: bold; color: #343a40;">Contracts Manager</span>
+    <a class="navbar-brand p-0 me-2 d-flex align-items-center" href="/" aria-label="Página Inicial - Contracts Manager">
+      <span class="h4 mb-0" style="font-weight: bold; color: #343a40;">Contracts Manager</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler d-block d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
     </button>
-    <div class="collapse navbar-collapse" id="bdNavbar">
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
       {% if user.is_authenticated %}
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
           <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-label="Logout">
-            Logout
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="ms-1">Logout</span>
           </a>
         </li>
       </ul>

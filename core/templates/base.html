@@ -1,78 +1,64 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="ligth">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gentelella Alela!{% endblock %}</title>
 
-  <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="{% static 'vendors/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{% static 'vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{% static 'css/custom.min.css' %}" rel="stylesheet">
+  </head>
+  <body class="nav-md footer_fixed">
+    <div class="container body">
+      <div class="main_container d-flex flex-column">
 
-  <!-- Bootstrap CSS -->
- <script src="
-  https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta1/dist/js/adminlte.min.js
-  "></script>
-  <link href="
-  https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta1/dist/css/adminlte.min.css
-  " rel="stylesheet">
+        <!-- Sidebar -->
+        <div class="row flex-nowrap">
+          <div class="col-auto">
+            {% include 'components/_sidebar.html' %}
+          </div>
 
- 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+          <!-- Main content -->
+          <div class="col">
+            <!-- Top Navigation -->
+            {% include 'components/_header.html' %}
 
-  <!-- Custom JavaScript -->
-  <script src="{% static 'js/mk_romeve_alert.js' %}"></script>
-  <script src="{% static 'js/current_link.js' %}"></script>
-  
-<style>
-  .nav-link.active {
-  background-color: #007bff; /* Cor de fundo para o item ativo */
-  color: #ee1212; /* Cor do texto para o item ativo */
-}
-</style>
-  {% block extra_js %}
-  {% endblock %}
-</head>
+            <!-- Page Content -->
+            <div class="right_col" role="main">
+              {% block content %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"></div>
-  <!-- Header -->
-  {% include 'components/_header.html' %}
-
-  <!-- Main Container -->
-  <div class="container-fluid">
-    {% if user.is_authenticated %}
-      <!-- Sidebar -->
-      {% include 'components/_sidebar.html' %}
-    {% endif %}
-    <div class="col py-3">
-      <div class="container mt-4">
-        <main>
-
-          <!-- Django Messages -->
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle fs-4"></i> Atenção!</strong> {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endfor %}
-          {% endif %}
-
-          <!-- Main Content Block -->
-          {% block content %}
-          {% endblock %}
-        </main>
+        <!-- Footer -->
+        {% include 'components/_footer.html' %}
+        
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  {% include 'components/_footer.html' %}
-
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</div>
-</body>
-
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="{% static 'vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'js/custom.min.js' %}"></script>
+  </body>
 </html>
