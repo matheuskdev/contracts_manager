@@ -1,35 +1,35 @@
 {% extends 'base.html' %}
+{% load static%}
+{% block title %} CManager - Detalhes do Contrato {% endblock %}
 
-{% block title %}
-CManager - Detalhes do Contrato
-{% endblock %}
+{% block extra_css %} {% endblock %}
 
 {% block content %}
-
 <div class="container mt-4">
     <div class="row mb-2">
-        <div class="col-md-6"><h3 class="display-4">Detalhes do Contrato</h3></div>
         <div class="col-md-6">
-       {% include '_actions_contract.html' %}
-       </div>
+            <h3 class="display-4">Detalhes do Contrato</h3>
+        </div>
+        <div class="col-md-6 text-end">
+            {% include '_actions_contract.html' %}
+        </div>
     </div>
-        
-    </div>
+
     <div class="card shadow-lg">
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-6">
                     {% if object.pdf %}
-                        <div class="mb-4">
-                            <label class="form-label"><strong>Arquivo PDF Atual:</strong></label>
-                            <li class="list-group-item">
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal">
-                                    <i class="bi bi-file-earmark-pdf"></i>
-                                    Visualizar Documento
-                                </button>
-                            </li>
-                            {% include 'modals/_pdf_modal.html' %}
-                        </div>
+                    <div class="mb-4">
+                        <label class="form-label"><strong>Arquivo PDF Atual:</strong></label>
+                        <li class="list-group-item sm">
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#pdfModal">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                Visualizar Documento
+                            </button>
+                        </li>
+                        {% include 'modals/_pdf_modal.html' %}
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -39,7 +39,7 @@ CManager - Detalhes do Contrato
                     <label class="form-label"><strong>Objeto:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                        <p>{{ object.subject }}</p>
+                            <p>{{ object.subject }}</p>
                         </li>
                     </ul>
                 </div>
@@ -47,7 +47,7 @@ CManager - Detalhes do Contrato
                     <label class="form-label"><strong>Valor:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                        <p>{{ object.amount }}</p>
+                            <p>{{ object.amount }}</p>
                         </li>
                     </ul>
                 </div>
@@ -55,18 +55,18 @@ CManager - Detalhes do Contrato
                     <label class="form-label"><strong>Número do Contrato:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{{ object.number }}</p>
+                            <p>{{ object.number }}</p>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="form-label"><strong>Renovação Automática:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{% if object.automatic_renewal %}Sim{% else %}Não{% endif %}</p>
+                            <p>{% if object.automatic_renewal %}Sim{% else %}Não{% endif %}</p>
                         </li>
                     </ul>
                 </div>
@@ -74,47 +74,43 @@ CManager - Detalhes do Contrato
                     <label class="form-label"><strong>LGPD:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{% if object.lgpd %}Contém cláusula LGPD{% else %}Não contém cláusula LGPD{% endif %}</p>
-                </li>
-            </ul>
+                            <p>{% if object.lgpd %}Contém cláusula LGPD{% else %}Não contém cláusula LGPD{% endif %}</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="form-label"><strong>Status:</strong></label>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                    {{ object.get_status_display  }}
-                        </li>
+                        <li class="list-group-item">{{ object.get_status_display }}</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label"><strong>Tipo de Contrato:</strong></label>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                    {{ object.get_contract_type_display }}
-                        </li>
+                        <li class="list-group-item">{{ object.get_contract_type_display }}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="form-label"><strong>Pasta:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{{ object.folder }}</p>
-                </li>
-            </ul>
+                            <p>{{ object.folder }}</p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label"><strong>Setor:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{{ object.department }}</p>
-                </li>
-            </ul>
+                            <p>{{ object.department }}</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -123,17 +119,17 @@ CManager - Detalhes do Contrato
                     <label class="form-label"><strong>Data Inicial:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{{ object.start_date }}</p>
-                </li>
-            </ul>
+                            <p>{{ object.start_date }}</p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label"><strong>Data Término:</strong></label>
                     <ul class="list-group">
                         <li class="list-group-item">
-                    <p>{{ object.end_date }}</p>
-                </li>
-            </ul>
+                            <p>{{ object.end_date }}</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -141,26 +137,23 @@ CManager - Detalhes do Contrato
                 <label class="form-label"><strong>Descrição:</strong></label>
                 <ul class="list-group">
                     <li class="list-group-item">
-                <p>{{ object.description }}</p>
-            </li>
-        </ul>
+                        <p>{{ object.description }}</p>
+                    </li>
+                </ul>
             </div>
 
             <div class="mb-4">
                 <label class="form-label"><strong>Partes:</strong></label>
                 <ul class="list-group">
                     {% for part in object.parts.all %}
-                        <li class="list-group-item">
-                            {{ part.name }}
-                        </li>
+                    <li class="list-group-item">{{ part.name }}</li>
                     {% empty %}
-                        <li class="list-group-item">
-                            Nenhuma parte associada a este contrato.
-                        </li>
+                    <li class="list-group-item">
+                        Nenhuma parte associada a este contrato.
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
-            
 
             {% if object.owner %}
             <div class="mt-4">
@@ -175,38 +168,44 @@ CManager - Detalhes do Contrato
             {% if addendums.exists %}
             <ul class="list-group">
                 {% for addendum in addendums %}
-                    <li class="list-group-item">
-                        <a href="{% url 'addendums:addendum_detail' addendum.id %}">
-                            Aditivo #{{ addendum.id }} - {{ addendum.subject }}
-                        </a>
-                    </li>
+                <li class="list-group-item">
+                    <a href="{% url 'addendums:addendum_detail' addendum.id %}">
+                        Aditivo #{{ addendum.id }} - {{ addendum.subject }}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
             {% else %}
-                <p>Este contrato não possui aditivos.</p>
+            <p>Este contrato não possui aditivos.</p>
             {% endif %}
 
-            <h3 class="mt-4">Avaliações</h3>
-            {% if evaluations.exists %}
-                <div class="list-group">
-                    {% for evaluation in evaluations %}
-                        <div class="list-group-item">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Avaliação #{{ evaluation.id }} </h5>
-                                    <p class="card-text"> Nota: {{ evaluation.rating }}</p>
-                                    <p class="card-text">{{ evaluation.comments }}</p>
-                                    <footer class="blockquote-footer">
-                                        Avaliação criada por <cite>{{ evaluation.owner }}</cite> em {{ evaluation.created_at }}
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>Este contrato não possui avaliações.</p>
-            {% endif %}
+<h4>Avaliações Recentes</h4>
+
+<ul class="messages">
+  {% for evaluation in evaluations %}
+  <li>
+    <img src="{% static 'images/img.jpg' %}" class="avatar" alt="Avatar">
+    <div class="message_date">
+      <h3 class="date text-info">{{ evaluation.created_at|date:"d" }}</h3>
+      <p class="month">{{ evaluation.created_at|date:"M" }}</p>
+    </div>
+    <div class="message_wrapper">
+      <h4 class="heading">{{ evaluation.owner }}</h4>
+      <blockquote class="message">{{ evaluation.comments }}</blockquote>
+      <br />
+      <p class="url">
+        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+        <i class="fa fa-star"></i> Nota: {{ evaluation.rating }}
+      </p>
+    </div>
+  </li>
+  {% empty %}
+  <li>
+    <p>Este contrato não possui avaliações.</p>
+  </li>
+  {% endfor %}
+</ul>
+
         </div>
     </div>
 

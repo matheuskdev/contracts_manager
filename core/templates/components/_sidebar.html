@@ -1,35 +1,40 @@
+{% load static %}
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <!-- Logo e Título -->
     <div class="navbar nav_title" style="border: 0;">
-      <a href="{% url 'home' %}" class="site_title">
-        <i class="fa fa-paw"></i> 
-        <span>Gentelella Alela!</span>
-      </a>
+      <a href="index.html" class="site_title"><i class="fa fa-folder"></i> <span>Contracts Manager!</span></a>
     </div>
 
     <div class="clearfix"></div>
 
     <!-- Informações do Usuário -->
     <div class="profile clearfix">
+    {% if request.user.is_authenticated %}
       <div class="profile_pic">
-        <img src="#" alt="Profile Picture" class="img-circle profile_img">
+      {% if user.profile_picture %}
+        <img src="{{user.profile_picture.url}}" alt="Profile Picture" class="img-circle profile_img">
+      {% else %}
+       <img src="{% static 'images/img.png' %}" alt="Profile Picture" class="img-circle profile_img">
+      {% endif %}
       </div>
       <div class="profile_info">
         <span>Bem-vindo(a),</span>
-        <h2>{{ user.get_full_name }}</h2>
+        <h2>{{ user.username }}</h2>
       </div>
+    {% endif %}
     </div>
 
     <br />
-
+      {% if request.user.is_authenticated %}
+       
     <!-- Menu Lateral -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <h3>Geral</h3>
         <ul class="nav side-menu">
           <!-- Dashboard -->
-          <li class="nav-item">
+          <li>
             <a href="#">
               <i class="fa fa-tachometer"></i> 
               Dashboard
@@ -37,7 +42,7 @@
           </li>
           <!-- Contratos -->
           {% if perms.contracts.view_contract %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'contracts:contract_list' %}">
               <i class="fa fa-file-text"></i>
               Contratos
@@ -46,7 +51,7 @@
           {% endif %}
           <!-- Partes -->
           {% if perms.parts.view_part %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'parts:part_list' %}">
               <i class="fa fa-users"></i>
               Partes
@@ -55,16 +60,16 @@
           {% endif %}
           <!-- Aditivos -->
           {% if perms.addendum.view_addendum %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'addendums:addendum_list' %}">
-              <i class="fa fa-folder-plus"></i>
+              <i class="fa fa-folder"></i>
               Aditivos
             </a>
           </li>
           {% endif %}
           <!-- Avaliações -->
           {% if perms.evaluations.view_evaluation %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'evaluations:evaluation_list' %}">
               <i class="fa fa-comments"></i>
               Avaliações
@@ -73,7 +78,7 @@
           {% endif %}
           <!-- Pastas -->
           {% if perms.folders.view_folder %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'folders:folder_list' %}">
               <i class="fa fa-archive"></i>
               Pastas
@@ -82,7 +87,7 @@
           {% endif %}
           <!-- Vencimentos -->
           {% if perms.expirations.view_expiration %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'expirations:expired_contracts' %}">
               <i class="fa fa-exclamation-circle"></i>
               Vencimentos
@@ -91,7 +96,7 @@
           {% endif %}
           <!-- Administração -->
           {% if user.is_staff %}
-          <li class="nav-item">
+          <li>
             <a href="{% url 'admin:index' %}">
               <i class="fa fa-cogs"></i>
               Administração
@@ -119,5 +124,6 @@
       </a>
     </div>
     <!-- /Rodapé do Sidebar -->
+       {% endif %}
   </div>
 </div>
