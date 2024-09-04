@@ -12,7 +12,7 @@ CManager - Avaliação
       <div class="input-group">
         <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
         <button type="submit" class="btn btn-primary">
-          <i class="bi bi-search"></i>
+          <i class="fa fa-search"></i>
         </button>
       </div>
     </form>
@@ -20,7 +20,7 @@ CManager - Avaliação
 {% comment %}   {% if perms.evaluations.add_evaluation %}
   <div class="col-md-6">
     <a href="{% url 'evaluations:evaluation_create' contract_id=contract.id %}" class="btn btn-success float-end">
-      <i class="bi bi-plus"></i> Nova Avaliação
+      <i class="fa fa-plus"></i> Nova Avaliação
     </a>
   </div>
   {% endif %} {% endcomment %}
@@ -45,26 +45,47 @@ CManager - Avaliação
           </a>
         </td>
         <td>{{ evaluation.rating }}</td>
-        <td>{{ evaluation.comments }}</td>
+        <td style="  
+          max-width: 69ch;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;">
+          {{ evaluation.comments }}
+        </td>
         <td>
-          <a href="{% url 'contracts:contract_detail' evaluation.contract.id %}" class="text-primary fw-semibold">
+          <a href="{% url 'contracts:contract_detail' evaluation.contract.id %}" 
+          title="Vizualizar Contrato"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="text-primary fw-semibold">
            {{ evaluation.contract }}
           </a>
         </td>
         <td>
-          <a href="{% url 'evaluations:evaluation_detail' evaluation.id %}" class="btn btn-info btn-sm">
-            <i class="bi bi-eye"></i>
+          <a href="{% url 'evaluations:evaluation_detail' evaluation.id %}" 
+            title="Detalhes"
+            data-toggle="tooltip" data-placement="top"
+            data-bs-toggle="tooltip"
+          class="btn btn-info btn-sm">
+            <i class="fa fa-eye"></i>
           </a>
 
           {% if perms.evaluations.change_evaluation %}
-          <a href="{% url 'evaluations:evaluation_update' evaluation.id %}" class="btn btn-warning btn-sm">
-            <i class="bi bi-pencil"></i>
+          <a href="{% url 'evaluations:evaluation_update' evaluation.id %}"
+          title="Editar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip" class="btn btn-warning btn-sm">
+            <i class="fa fa-pencil"></i>
           </a>
           {% endif %}
 
           {% if perms.evaluations.delete_evaluation %}
-          <a href="{% url 'evaluations:evaluation_delete' evaluation.id %}" class="btn btn-danger btn-sm btn-delete">
-            <i class="bi bi-trash"></i>
+          <a href="{% url 'evaluations:evaluation_delete' evaluation.id %}"
+          title="Excluir"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+           class="btn btn-danger btn-sm btn-delete">
+            <i class="fa fa-trash"></i>
           </a>
           {% endif %}
         </td>

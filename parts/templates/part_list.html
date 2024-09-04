@@ -12,7 +12,7 @@ CManager - Partes
       <div class="input-group">
         <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
         <button type="submit" class="btn btn-primary">
-          <i class="bi bi-search"></i>
+          <i class="fa fa-search"></i>
         </button>
       </div>
     </form>
@@ -20,7 +20,7 @@ CManager - Partes
   {% if perms.parts.add_part %}
   <div class="col-md-6">
     <a href="{% url 'parts:part_create' %}" class="btn btn-success float-end">
-      <i class="bi bi-plus"></i> Nova Parte
+      <i class="fa fa-plus"></i> Nova Parte
     </a>
   </div>
   {% endif %}
@@ -50,19 +50,31 @@ CManager - Partes
         <td>{{ part.phone }}</td>
         <td>{{ part.email }}</td>
         <td>
-          <a href="{% url 'parts:part_detail' part.id %}" class="btn btn-info btn-sm">
-            <i class="bi bi-eye"></i>
+          <a href="{% url 'parts:part_detail' part.id %}" 
+          title="Detalhes"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="btn btn-info btn-sm">
+            <i class="fa fa-eye"></i>
           </a>
 
           {% if perms.parts.change_part %}
-          <a href="{% url 'parts:part_update' part.id %}" class="btn btn-warning btn-sm">
-            <i class="bi bi-pencil"></i>
+          <a href="{% url 'parts:part_update' part.id %}" 
+          title="Editar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip" 
+          class="btn btn-warning btn-sm">
+            <i class="fa fa-pencil"></i>
           </a>
           {% endif %}
 
           {% if perms.parts.delete_part %}
-          <a href="{% url 'parts:part_delete' part.id %}" class="btn btn-danger btn-sm btn-delete">
-            <i class="bi bi-trash"></i>
+          <a href="{% url 'parts:part_delete' part.id %}" 
+          title="Excluir"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="btn btn-danger btn-sm btn-delete">
+            <i class="fa fa-trash"></i>
           </a>
           {% endif %}
         </td>
