@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
+from folders.models import Folder
+from parts.models import Part
 from utils import mixins
 
 from . import forms, models
@@ -23,11 +25,27 @@ class ContractListView(
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        name = self.request.GET.get("subject")
+        subject = self.request.GET.get("subject")
+        folder = self.request.GET.get("folder")
+        part = self.request.GET.get("part")
 
-        if name:
-            queryset = queryset.filter(subject__icontains=name)
+        if subject:
+            queryset = queryset.filter(subject__icontains=subject)
+
+        if folder:
+            queryset = queryset.filter(folder_id=folder)  # Corrigido para usar folder_id
+
+        if part:
+            queryset = queryset.filter(parts__in=[part])  # Corrigido para usar part_id
+
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['folders'] = Folder.objects.all()
+        context['parts'] = Part.objects.all()
+        return context
+
 
 
 class ContractCreateView(

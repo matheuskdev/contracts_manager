@@ -14,6 +14,10 @@ class HistoryConfig(AppConfig):
             "contracts.Contract",
             "folders.Folder",
             "parts.Part",
+            "accounts.User",
+            "addendums.Addendum",
+            "departments.Department",
+            "evaluations.Evaluation",
         ]
 
         for model_name in models_to_track:

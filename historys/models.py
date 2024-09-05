@@ -10,5 +10,13 @@ class HistoricalRecord(HistoricalRecordModelMixin):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
 
+    class Meta:
+            ordering = ["content_type"]
+            verbose_name = "Histórico"
+            verbose_name_plural = "Históricos"
+            indexes = [
+                models.Index(fields=["content_type"]),
+            ]
+    
     def __str__(self):
         return f"{self.content_object} foi {self.change_type} em {self.change_date}, por: {self.owner}"

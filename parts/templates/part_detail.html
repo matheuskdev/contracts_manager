@@ -6,17 +6,42 @@ CManager - Partes
 
 {% block content %}
   <div class="container mt-4">
-    <h3 class="display-4">Detalhes da Parte</h3>
-
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">{{ object.name }}</h3>
-        <p class="card-text">{{ object.address }}</p>
-        <p class="card-text">{{ object.email }}</p>
-        <p class="card-text">{{ object.phone }}</p>
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h3 class="display-6">Detalhes da Parte</h3>
+      </div>
+      <div class="col-md-4 text-md-end">
+        {% include '_actions_part.html' %}
       </div>
     </div>
 
-    <a href="{% url 'parts:part_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Partes</a>
-  </div>
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0"><h3 class="card-title mb-3">{{ object.name }}</h3></h4>
+      </div>
+      <div class="card-body">
+            
+            
+            <div class="mb-2">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="fw-bold">Endereço:</span> {{ object.address }}
+            </div>
+            <div class="mb-2">
+                <i class="bi bi-envelope-fill"></i>
+                <span class="fw-bold">E-mail:</span> {{ object.email }}
+            </div>
+            <div class="mb-2">
+                <i class="bi bi-telephone-fill"></i>
+                <span class="fw-bold">Telefone:</span> {{ object.phone }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mt-4">
+        <a href="{% url 'parts:part_list' %}" class="btn btn-secondary">
+           <i class="bi bi-arrow-left"></i> Voltar para a Lista de Partes
+        </a>
+    </div>
+</div>
 {% endblock %}

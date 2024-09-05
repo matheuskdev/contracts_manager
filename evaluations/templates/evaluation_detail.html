@@ -1,29 +1,54 @@
 {% extends 'base.html' %}
 
 {% block title %}
-CManager - Avaliação
+CManager - Detalhes da Avaliação
 {% endblock %}
 
 {% block content %}
   <div class="container mt-4">
-    <div class="row mb-2">
-      <div class="col-md-6">
-        <h3 class="display-4">Detalhes da Avaliação</h3>
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h3 class="display-6">Detalhes da Avaliação</h3>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4 text-md-end">
         {% include '_actions_evaluation.html' %}
-     </div>
-  </div>
-
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">{{ object.rating }}</h3>
-        <p class="card-text">{{ object.comment }}</p>
-        <p class="card-text">{{ object.created_at }}</p>
-        <p class="card-text">{{ object.updated_at }}</p>
       </div>
     </div>
 
-    <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary mt-3">Voltar para a Lista de Avaliação</a>
+    <div class="comment-section">
+      <div class="comment-box p-3 mb-3 bg-light rounded shadow-sm">
+        <div class="d-flex align-items-center mb-2">
+          <img src="{{ evaluation.owner.profile_picture.url }}" alt="Avatar" class="rounded-circle" width="50" height="50">
+          <div class="ms-3">
+            <span class="h5 mb-0">{{ object.owner }}</span>
+            <p class="mb-0 text-muted">{{ object.created_at|date:"d M Y H:i" }}
+            </p>
+          </div>
+          
+        </div>
+        <p class="text-muted mb-0">
+        Nota: <b>{{ evaluation.rating }}</b>                                     
+            {% for i in "12345" %}
+              {% if i <= evaluation.rating|stringformat:"d" %}
+                <i class="bi bi-star-fill"></i>  <!-- Estrela cheia -->
+              {% else %}
+                <i class="bi bi-star"></i>  <!-- Estrela vazia -->
+              {% endif %}
+            {% endfor %}
+          </p>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <span class="h6 text-primary"> {{ object.comments }} estrelas</span>
+        </div>
+        <p class="mt-2">{{ object.comment }}</p>
+        <small class="text-muted">Última atualização:
+ {{ object.updated_at|date:"d M Y H:i" }}</small>
+      </div>
+
+      <a href="{% url 'evaluations:evaluation_list' %}" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Voltar para a Lista de Avaliações</a>
+    </div>
   </div>
 {% endblock %}
+

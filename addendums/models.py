@@ -21,8 +21,8 @@ class Addendum(
 
     class Meta:
         ordering = ["title"]
-        verbose_name = "Addendum"
-        verbose_name_plural = "Addendums"
+        verbose_name = "Aditivo"
+        verbose_name_plural = "Aditivos"
         indexes = [
             models.Index(fields=["title"]),
         ]

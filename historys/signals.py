@@ -16,13 +16,13 @@ class HistoricalRecordSignal(ABC):
     @staticmethod
     def _handle_save(sender, instance, created, **kwargs):
         """Handles save (create or update) events."""
-        change_type = "Creation" if created else "Update"
+        change_type =  "Deletion" if instance.is_deleted else ("Creation" if created else "Update")
         HistoricalRecordSignal._create_historical_record(instance, change_type)
 
     @staticmethod
     def _handle_delete(sender, instance, **kwargs):
         """Handles delete events."""
-        HistoricalRecordSignal._create_historical_record(instance, "Deletion")
+        HistoricalRecordSignal._create_historical_record(instance, "Deletion Total")
 
     @staticmethod
     def _create_historical_record(instance, change_type):
