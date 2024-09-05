@@ -1,124 +1,88 @@
-{% extends 'base.html' %}
+{% extends 'components/_tables.html' %}
 
-{% block title %}
-Contract Manager - Contrato
-{% endblock %}
+{% block subtitle %} Lista de Contratos {% endblock subtitle %}
 
-{% block content %}
+{% block columns %}
+  <th scope="col">ID</th>
+  <th scope="col">Objeto</th>
+  <th scope="col">Setor</th>
+  <th scope="col">Data Inicial</th>
+  <th scope="col">Data Final</th>
+  <th scope="col">Ações</th>
+{% endblock columns %} 
+{% block lines %} 
+{% for contract in contracts %}
+  <tr>
+    <td>
+      <a
+        href="{% url 'contracts:contract_detail' contract.id %}"
+        class="text-primary fw-bold"
+      >
+        {{ contract.id }}
+      </a>
+    </td>
+    <td>{{ contract.subject }}</td>
+    <td>{{ contract.department }}</td>
+    <td>{{ contract.start_date|date:"d/m/Y" }}</td>
+    <td>{{ contract.end_date|date:"d/m/Y" }}</td>
+    <td>
+      <div class="d-flex gap-2 justify-content-center">
+        <a
+          href="{% url 'contracts:contract_detail' contract.id %}"
+          class="btn btn-info btn-sm"
+          title="Visualizar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-eye"></i>
+        </a>
 
-<div class="row mb-3 align-items-center">
-  <div class="col-md-6">
-    <form method="get" action="{% url 'contracts:contract_list' %}">
-      <div class="input-group">
-        <input type="text" class="form-control" name="subject" placeholder="Buscar por Objeto" value="{{ request.GET.subject }}">
-        <button type="submit" class="btn btn-primary">
-          <i class="bi bi-search"></i>
-        </button>
+        {% if perms.contracts.change_contract %}
+        <a
+          href="{% url 'contracts:contract_update' contract.id %}"
+          class="btn btn-warning btn-sm"
+          title="Editar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-pencil"></i>
+        </a>
+        {% endif %} 
+        {% if perms.contracts.delete_contract %}
+        <a
+          href="{% url 'contracts:contract_delete' contract.id %}"
+          class="btn btn-danger btn-sm"
+          title="Excluir"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-trash"></i>
+        </a>
+        {% endif %} 
+        {% if perms.addendums.add_addendum %}
+        <a
+          href="{% url 'addendums:addendum_create' contract.id %}"
+          class="btn btn-success btn-sm"
+          title="Adicionar Aditivo"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-folder"></i>
+        </a>
+        {% endif %} 
+        {% if perms.evaluations.add_evaluation %}
+        <a
+          href="{% url 'evaluations:evaluation_create' contract.id %}"
+          class="btn btn-success btn-sm"
+          title="Adicionar Avaliação"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-comment"></i>
+        </a>
+        {% endif %}
       </div>
-    </form>
-  </div>
-  {% if perms.contracts.add_contract %}
-  <div class="col-md-6 text-end">
-    <a href="{% url 'contracts:contract_create' %}" class="btn btn-success">
-      <i class="bi bi-plus-lg"></i> <span class="ms-1">Novo Contrato</span>
-    </a>
-  </div>
-  {% endif %}
-
-</div>
-  <div class="row mb-3">
-    <div class="col-md-6">
-
-      <form action="{% url 'contracts:contract_list' %}" method="get">
-        <div class="input-group">
-          
-          <select name="folder" id="folder" class="form-select">
-            <option value="" {% if not request.GET.folders %} selected {% endif %}>Todas as Pastas</option>
-            
-            {% for folder in folders %}
-            <option value="{{ folder.id }}" {% if request.GET.folders == folder.id|stringformat:'s'  %} selected {% endif %}>{{ folder.name }}</option>
-            {% endfor %}
-
-          </select>
-
-          <select name="part" id="part" class="form-select">
-            <option value="" {% if not request.GET.parts %} selected {% endif %}>Todas as Partes</option>
-
-            {% for part in parts %}
-            <option value="{{ part.id }}" {% if request.GET.parts == part.id|stringformat:'s'  %} selected {% endif %}>{{ part.name }}</option>
-            {% endfor %}
-
-          </select>
-
-          <button type="submit" class="btn btn-primary"> <i class="bi bi-filter"></i></button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-
-
-<div class="table-responsive">
-  <table class="table table-striped table-hover table-bordered align-middle">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Objeto</th>
-        <th scope="col">Setor</th>
-        <th scope="col">Data Inicial</th>
-        <th scope="col">Data Final</th>
-        <th scope="col">Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for contract in contracts %}
-      <tr>
-        <td>
-          <a href="{% url 'contracts:contract_detail' contract.id %}" class="text-primary fw-bold">
-            {{ contract.id }}
-          </a>
-        </td>
-        <td>{{ contract.subject }}</td>
-        <td>{{ contract.department }}</td>
-        <td>{{ contract.start_date|date:"d/m/Y" }}</td>
-        <td>{{ contract.end_date|date:"d/m/Y" }}</td>
-        <td>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="{% url 'contracts:contract_detail' contract.id %}" class="btn btn-info btn-sm" title="Visualizar" data-bs-toggle="tooltip">
-              <i class="bi bi-eye"></i>
-            </a>
-
-            {% if perms.contracts.change_contract %}
-            <a href="{% url 'contracts:contract_update' contract.id %}" class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="tooltip">
-              <i class="bi bi-pencil"></i>
-            </a>
-            {% endif %}
-
-            {% if perms.contracts.delete_contract %}
-            <a href="{% url 'contracts:contract_delete' contract.id %}" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="tooltip">
-              <i class="bi bi-trash"></i>
-            </a>
-            {% endif %}
-
-            {% if perms.addendums.add_addendum %}
-            <a href="{% url 'addendums:addendum_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
-              <i class="bi bi-folder-plus"></i>
-            </a>
-            {% endif %}
-
-            {% if perms.evaluations.add_evaluation %}
-            <a href="{% url 'evaluations:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Avaliação" data-bs-toggle="tooltip">
-              <i class="bi bi-chat"></i>
-            </a>
-            {% endif %}
-          </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-{% include 'components/_pagination.html' %}
-
-{% endblock %}
+    </td>
+  </tr>
+{% endfor %} 
+{% endblock lines %}

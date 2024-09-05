@@ -12,7 +12,7 @@ CManager - Aditivos
       <div class="input-group">
         <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
         <button type="submit" class="btn btn-primary">
-          <i class="bi bi-search"></i>
+          <i class="fa fa-search"></i>
         </button>
       </div>
     </form>
@@ -20,7 +20,7 @@ CManager - Aditivos
 {% comment %}   {% if perms.addendums.add_addendum %}
   <div class="col-md-6">
     <a href="{% url 'addendums:addendum_create' contract_id=contract.id %}" class="btn btn-success float-end">
-      <i class="bi bi-plus"></i> Novo Aditivo
+      <i class="fa fa-plus"></i> Novo Aditivo
     </a>
   </div>
   {% endif %} {% endcomment %}
@@ -49,23 +49,39 @@ CManager - Aditivos
         <td>{{ addendum.description }}</td>
         <td>{{ addendum.effective_date }}</td>
         <td>
-          <a href="{% url 'contracts:contract_detail' addendum.contract.id %}" class="text-primary fw-semibold">
+          <a href="{% url 'contracts:contract_detail' addendum.contract.id %}"
+          title="Vizualizar Contrato"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="text-primary fw-semibold">
            {{ addendum.contract }}</td>
           </a>
         <td>
-          <a href="{% url 'addendums:addendum_detail' addendum.id %}" class="btn btn-info btn-sm">
-            <i class="bi bi-eye"></i>
+          <a href="{% url 'addendums:addendum_detail' addendum.id %}" 
+          title="Detalhes"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="btn btn-info btn-sm">
+            <i class="fa fa-eye"></i>
           </a>
 
           {% if perms.addendums.change_addendum %}
-          <a href="{% url 'addendums:addendum_update' addendum.id %}" class="btn btn-warning btn-sm">
-            <i class="bi bi-pencil"></i>
+          <a href="{% url 'addendums:addendum_update' addendum.id %}" 
+          title="Editar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="btn btn-warning btn-sm">
+            <i class="fa fa-pencil"></i>
           </a>
           {% endif %}
 
           {% if perms.addendums.delete_addendum %}
-          <a href="{% url 'addendums:addendum_delete' addendum.id %}" class="btn btn-danger btn-sm btn-delete">
-            <i class="bi bi-trash"></i>
+          <a href="{% url 'addendums:addendum_delete' addendum.id %}" 
+          title="Excluir"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+          class="btn btn-danger btn-sm btn-delete">
+            <i class="fa fa-trash"></i>
           </a>
           {% endif %}
         </td>

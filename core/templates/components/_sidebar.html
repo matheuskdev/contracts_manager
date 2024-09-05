@@ -1,81 +1,129 @@
-<div class="row flex-nowrap" id="sidebar">
-  <div class="col-auto col-md-0 col-xl-0 px-0 bg-light" role="navigation">
-    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
-      <button class="btn btn-dark d-block d-sm-none mb-3" type="button" data-bs-toggle="collapse"
-        data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse"
-        aria-label="Toggle navigation menu">
-        <i class="bi bi-list fs-4"></i>
-      </button>
-      <div class="collapse d-sm-block" id="menuCollapse">
+{% load static %}
+<div class="col-md-3 left_col">
+  <div class="left_col scroll-view">
+    <!-- Logo e Título -->
+    <div class="navbar nav_title" style="border: 0;">
+      <a href="{% url 'home' %}" class="site_title" style="line-height: 20px !important;"><i class="fa fa-folder"></i> <span>Contracts Manager!</span></a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!-- Informações do Usuário -->
+    <div class="profile clearfix">
+    {% if request.user.is_authenticated %}
+      <div class="profile_pic">
+      {% if user.profile_picture %}
+        <img src="{{user.profile_picture.url}}" alt="Profile Picture" class="img-circle profile_img">
+      {% else %}
+       <img src="{% static 'images/img.png' %}" alt="Profile Picture" class="img-circle profile_img">
+      {% endif %}
+      </div>
+      <div class="profile_info">
+        <span>Bem-vindo(a),</span>
+        <h2>{{ user.username }}</h2>
+      </div>
+    {% endif %}
+    </div>
+
+    <br />
+      {% if request.user.is_authenticated %}
        
-        <ul class="nav flex-column align-items-start nav-pills"  id="menu">
+    <!-- Menu Lateral -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+      <div class="menu_section">
+        <h3>Geral</h3>
+        <ul class="nav side-menu">
+          <!-- Dashboard -->
           <li>
-            <a href="#" id="dashboard-link" class="nav-link px-15 align-middle" aria-label="Dashboard">
-              <i class="bi bi-speedometer2 fs-4"></i>
-              <span class="ms-1">Dashboard</span>
+            <a href="#">
+              <i class="fa fa-tachometer"></i> 
+              Dashboard
             </a>
           </li>
+          <!-- Contratos -->
           {% if perms.contracts.view_contract %}
           <li>
-            <a href="{% url 'contracts:contract_list' %}" id="contracts-link" class="nav-link px-15 align-middle">
-              <i class="bi bi-file-earmark-text fs-4"></i>
-              <span class="ms-1">Contratos</span>
+            <a href="{% url 'contracts:contract_list' %}">
+              <i class="fa fa-file-text"></i>
+              Contratos
             </a>
           </li>
           {% endif %}
+          <!-- Partes -->
           {% if perms.parts.view_part %}
           <li>
-            <a href="{% url 'parts:part_list' %}" id="parts-link" class="nav-link px-15 align-middle">
-              <i class="bi bi-people fs-4"></i>
-              <span class="ms-1">Partes</span>
+            <a href="{% url 'parts:part_list' %}">
+              <i class="fa fa-users"></i>
+              Partes
             </a>
           </li>
           {% endif %}
+          <!-- Aditivos -->
           {% if perms.addendum.view_addendum %}
           <li>
-            <a href="{% url 'addendums:addendum_list' %}" id="addendums-link" class="nav-link px-15 align-middle">
-              <i class="bi bi-folder-plus fs-4"></i>
-              <span class="ms-1">Aditivos</span>
+            <a href="{% url 'addendums:addendum_list' %}">
+              <i class="fa fa-folder"></i>
+              Aditivos
             </a>
           </li>
           {% endif %}
+          <!-- Avaliações -->
           {% if perms.evaluations.view_evaluation %}
           <li>
-            <a href="{% url 'evaluations:evaluation_list' %}" id="evaluations-link" class="nav-link px-15 align-middle">
-              <i class="bi bi-chat fs-4"></i>
-              <span class="ms-1">Avaliações</span>
+            <a href="{% url 'evaluations:evaluation_list' %}">
+              <i class="fa fa-comments"></i>
+              Avaliações
             </a>
           </li>
           {% endif %}
-
+          <!-- Pastas -->
           {% if perms.folders.view_folder %}
           <li>
-            <a href="{% url 'folders:folder_list' %}" id="folders-link" class="nav-link px-15 align-middle">
-              <i class="bi bi-archive fs-4"></i>
-              <span class="ms-1">Pastas</span>
+            <a href="{% url 'folders:folder_list' %}">
+              <i class="fa fa-archive"></i>
+              Pastas
             </a>
           </li>
           {% endif %}
-
+          <!-- Vencimentos -->
           {% if perms.expirations.view_expiration %}
           <li>
-            <a href="{% url 'expirations:expired_contracts' %}" id="expirations-link" class="nav-link px-15 align-middle" >
-              <i class="bi bi-exclamation-octagon fs-4"></i>
-              <span class="ms-1">Vencimentos</span>
+            <a href="{% url 'expirations:expired_contracts' %}">
+              <i class="fa fa-exclamation-circle"></i>
+              Vencimentos
             </a>
           </li>
           {% endif %}
-
+          <!-- Administração -->
           {% if user.is_staff %}
           <li>
-            <a href="{% url 'admin:index' %}" class="nav-link px-15 align-middle">
-              <i class="bi bi-arrow-up-right-square fs-4"></i>
-              <span class="ms-1">Administração</span>
+            <a href="{% url 'admin:index' %}">
+              <i class="fa fa-cogs"></i>
+              Administração
             </a>
           </li>
           {% endif %}
         </ul>
       </div>
-      <hr>
     </div>
+    <!-- /Menu Lateral -->
+
+    <!-- Rodapé do Sidebar -->
+    <div class="sidebar-footer hidden-small">
+      <a href="#" data-toggle="tooltip" data-placement="top" title="Configurações">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      </a>
+      <a href="#" data-toggle="tooltip" data-placement="top" title="Tela Cheia">
+        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+      </a>
+      <a href="#" data-toggle="tooltip" data-placement="top" title="Bloquear">
+        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+      </a>
+      <a href="{% url 'logout' %}" data-toggle="tooltip" data-placement="top" title="Logout">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+      </a>
+    </div>
+    <!-- /Rodapé do Sidebar -->
+       {% endif %}
   </div>
+</div>

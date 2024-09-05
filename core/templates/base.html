@@ -1,78 +1,115 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="ligth">
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contracts Manager</title>
 
-  <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+   
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   
+    <!-- NProgress -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
- <script src="
-  https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta1/dist/js/adminlte.min.js
-  "></script>
-  <link href="
-  https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta1/dist/css/adminlte.min.css
-  " rel="stylesheet">
+    <!-- iCheck -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/flat/green.css" rel="stylesheet">
 
- 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- bootstrap-progressbar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    
+    <!-- JQVMap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jqvmap.min.css" rel="stylesheet"/>
 
-  <!-- Custom JavaScript -->
-  <script src="{% static 'js/mk_romeve_alert.js' %}"></script>
-  <script src="{% static 'js/current_link.js' %}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static 'css/custom.min.css' %}" rel="stylesheet">
+    
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/mk_romeve_alert.js' %}"></script>
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+  </head>
+
+  <body class="nav-sm">
+    <div class="container body">
+      <div class="main_container">
+
+        {% include 'components/_sidebar.html' %}
+        
+        {% include 'components/_header.html' %}
   
-<style>
-  .nav-link.active {
-  background-color: #007bff; /* Cor de fundo para o item ativo */
-  color: #ee1212; /* Cor do texto para o item ativo */
-}
-</style>
-  {% block extra_js %}
-  {% endblock %}
-</head>
-
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"></div>
-  <!-- Header -->
-  {% include 'components/_header.html' %}
-
-  <!-- Main Container -->
-  <div class="container-fluid">
-    {% if user.is_authenticated %}
-      <!-- Sidebar -->
-      {% include 'components/_sidebar.html' %}
-    {% endif %}
-    <div class="col py-3">
-      <div class="container mt-4">
-        <main>
-
-          <!-- Django Messages -->
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle fs-4"></i> Atenção!</strong> {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endfor %}
-          {% endif %}
-
-          <!-- Main Content Block -->
+        <!-- page content -->
+        <div class="right_col" role="main">
           {% block content %}
           {% endblock %}
-        </main>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        {% include 'components/_footer.html' %}
+        <!-- /footer content -->
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  {% include 'components/_footer.html' %}
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
 
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</div>
-</body>
+    <!-- NProgress -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
+    <!-- gauge.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gauge.js/1.3.7/gauge.min.js"></script>
+
+    <!-- bootstrap-progressbar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+
+    <!-- Flot -->
+    <script src="{% static 'vendors/Flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.time.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.stack.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.resize.js' %}"></script>
+
+    <!-- Flot plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flot.orderbars/0.2/jquery.flot.orderBars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flot-spline/0.8.2/jquery.flot.spline.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flot.curvedlines/1.1.1/curvedLines.min.js"></script>
+
+    <!-- DateJS -->
+    <script src="{% static 'vendors/DateJS/build/date.js' %}"></script>
+
+    <!-- JQVMap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/maps/jquery.vmap.world.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.sampledata.min.js"></script>
+
+    <!-- bootstrap-daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'js/custom.min.js' %}"></script>
+	
+    {% block extra_script %}
+    {% endblock extra_script %}
+  </body>
 </html>
