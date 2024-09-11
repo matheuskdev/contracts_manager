@@ -1,7 +1,7 @@
 {% extends 'components/_tables.html' %}
 
 {% block subtitle %} Lista de Contratos {% endblock subtitle %}
-
+{% block link %} {% url 'contracts:contract_create' %} {% endblock link %}
 {% block columns %}
   <th scope="col">ID</th>
   <th scope="col">Objeto</th>
