@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "addendums",
     "evaluations",
     "expirations",
+    "dashboards",
 ]
 
 LOGIN_URL = "login"
