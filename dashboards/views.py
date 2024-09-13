@@ -57,3 +57,23 @@ class Dashboard(LoginRequiredMixin, View):
         }
 
         return render(request, self.template_name, context=context)
+
+
+class Draft(LoginRequiredMixin, View):
+    """ View for the draft Modal"""
+
+    template_name = "modals/_modal_draft.html"
+
+    def get(self, request):
+        """ Get and process data for the draft contracts """
+        contract = Contract.objects
+        contract_data = {
+            'total_contract_draft': contract.filter(status='draft').count(),
+            'contract': contract.filter(status='draft')
+        }
+
+        context = {
+            **contract_data,
+        }
+
+        return render(request, self.template_name, context=context)
