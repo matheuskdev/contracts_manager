@@ -3,47 +3,126 @@
 {% block content %}
 
 <!-- FIRST LINE -->
+<!-- FIRST LINE -->
 <div class="row">
+  <!-- Rascunho -->
   <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
-    <div class="tile-stats">
-      <div class="icon"><i class="fa fa-pencil"></i></div>
-      <div class="count">{{total_contract_draft}}</div>
-
-      <h3>Rascunho</h3>
-      <p>Contratos em rascunho.</p>
-    </div>
+    <a href="#" data-toggle="modal" data-target="#draftModal">
+        <div class="tile-stats">
+        <div class="icon"><i class="fa fa-pencil"></i></div>
+        <div class="count">{{total_contract_draft}}</div>
+        <h3>Rascunho</h3>
+        <p>Contratos em rascunho.</p>
+        {% include 'modals/_modal_draft.html'%}
+        </div>
+    </a>  
   </div>
 
+  <!-- Aprovados -->
   <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
-    <div class="tile-stats">
-      <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
-      <div class="count">{{total_contract_approved}}</div>
-
-      <h3>Aprovados</h3>
-      <p>Contratos aprovados.</p>
-    </div>
+    <a href="#" data-toggle="modal" data-target="#approvedModal">
+        <div class="tile-stats">
+        <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
+        <div class="count">{{total_contract_approved}}</div>
+        <h3>Aprovados</h3>
+        <p>Contratos aprovados.</p>
+        </div>
+    </a>
   </div>
 
+  <!-- Finalizado -->
   <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
-    <div class="tile-stats">
-      <div class="icon"><i class="fa fa-file-o"></i></div>
-      <div class="count">{{total_contract_completed}}</div>
-
-      <h3>Finalizado</h3>
-      <p>Contratos finalizados.</p>
-    </div>
+    <a href="#" data-toggle="modal" data-target="#completedModal">
+        <div class="tile-stats">
+        <div class="icon"><i class="fa fa-file-o"></i></div>
+        <div class="count">{{total_contract_completed}}</div>
+        <h3>Finalizado</h3>
+        <p>Contratos finalizados.</p>
+        </div>
+    </a>
   </div>
 
-  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
-    <div class="tile-stats">
-      <div class="icon"><i class="fa fa-times-circle-o"></i></div>
-      <div class="count">{{total_contract_canceled}}</div>
+  <!-- Cancelado -->
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+        <a href="#" data-toggle="modal" data-target="#canceledModal">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-times-circle-o"></i></div>
+                <div class="count">{{total_contract_canceled}}</div>
+                <h3>Cancelado</h3>
+                <p>Contratos cancelados.</p>
+                </div>
+        </a>
+    </div>
 
-      <h3>Cancelado</h3>
-      <p>Contratos cancelados.</p>
+</div>
+<!-- END FIRST LINE -->
+
+<!-- Modals -->
+
+
+<!-- Modal para Aprovados -->
+<div class="modal fade" id="approvedModal" tabindex="-1" role="dialog" aria-labelledby="approvedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="approvedModalLabel">Contratos Aprovados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Conteúdo do modal para aprovados -->
+        <p>Detalhes dos contratos aprovados vão aqui.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- Modal para Finalizado -->
+<div class="modal fade" id="completedModal" tabindex="-1" role="dialog" aria-labelledby="completedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="completedModalLabel">Contratos Finalizados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Conteúdo do modal para finalizados -->
+        <p>Detalhes dos contratos finalizados vão aqui.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Cancelado -->
+<div class="modal fade" id="canceledModal" tabindex="-1" role="dialog" aria-labelledby="canceledModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="canceledModalLabel">Contratos Cancelados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Conteúdo do modal para cancelados -->
+        <p>Detalhes dos contratos cancelados vão aqui.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- END FIRST LINE -->
 
 
@@ -217,7 +296,7 @@
         <!-- Prepare a DOM with a defined width and height for ECharts -->
         <div id="main" style="width: 400px;height:265px;"></div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
         var chartDom = document.getElementById('main');
         var myChart = echarts.init(chartDom);
@@ -252,7 +331,7 @@
 
         myChart.setOption(option);
     });
-    </script>
+ </script>
             <div class="clearfix"></div>
         </div>
         </div>
