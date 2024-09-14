@@ -10,8 +10,14 @@
       </div>
       <div class="modal-body">
         <!-- Conteúdo do modal para rascunho -->
-        {{contract.subject}}
-        <p>Detalhes dos contratos em rascunho vão aqui.</p>
+        <ul>
+          {% for contract in contract_draft %}
+            <a href="{% url 'contracts:contract_detail' contract.id %}"><li>{{ contract.subject }} - {{ contract.amount }} - {{ contract.owner }}</li></a>
+          {% empty %}
+            <li>p>Detalhes dos contratos em rascunho.</p></li>
+          {% endfor %}
+        </ul>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

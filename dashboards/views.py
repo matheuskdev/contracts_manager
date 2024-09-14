@@ -29,8 +29,9 @@ class Dashboard(LoginRequiredMixin, View):
             'total_contract_renewed': contract.filter(status='renewed').count(),
             'total_contract_expired': contract.filter(end_date__lt=today).count(),
             'total_contract_not_expired': contract.filter(end_date__gte=today).count(),
+            'contract_draft': contract.filter(status='draft')
         }
-
+        print(contract.filter(status='draft'))
         total_addendums = sum(contract.addendums.count() for contract in Contract.objects.all())
         total_evaluations = sum(contract.evaluations.count() for contract in Contract.objects.all())
 
