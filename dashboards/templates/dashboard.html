@@ -26,6 +26,7 @@
         <div class="count">{{total_contract_approved}}</div>
         <h3>Aprovados</h3>
         <p>Contratos aprovados.</p>
+        {% include 'modals/_modal_approved.html'%}
         </div>
     </a>
   </div>
@@ -38,6 +39,7 @@
         <div class="count">{{total_contract_completed}}</div>
         <h3>Finalizado</h3>
         <p>Contratos finalizados.</p>
+        {% include 'modals/_modal_completed.html'%}
         </div>
     </a>
   </div>
@@ -50,6 +52,7 @@
                 <div class="count">{{total_contract_canceled}}</div>
                 <h3>Cancelado</h3>
                 <p>Contratos cancelados.</p>
+                {% include 'modals/_modal_canceled.html'%}
                 </div>
         </a>
     </div>
@@ -57,289 +60,217 @@
 </div>
 <!-- END FIRST LINE -->
 
-<!-- Modals -->
 
 
-<!-- Modal para Aprovados -->
-<div class="modal fade" id="approvedModal" tabindex="-1" role="dialog" aria-labelledby="approvedModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="approvedModalLabel">Contratos Aprovados</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Conteúdo do modal para aprovados -->
-        <p>Detalhes dos contratos aprovados vão aqui.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para Finalizado -->
-<div class="modal fade" id="completedModal" tabindex="-1" role="dialog" aria-labelledby="completedModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="completedModalLabel">Contratos Finalizados</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Conteúdo do modal para finalizados -->
-        <p>Detalhes dos contratos finalizados vão aqui.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para Cancelado -->
-<div class="modal fade" id="canceledModal" tabindex="-1" role="dialog" aria-labelledby="canceledModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="canceledModalLabel">Contratos Cancelados</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Conteúdo do modal para cancelados -->
-        <p>Detalhes dos contratos cancelados vão aqui.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- END FIRST LINE -->
-
-
-
-
-<!-- GRÁFICO DE BARRAS DEITADIN -->
+<!-- GRÁFICO 1 -->
 <div class="row">
 
     <div class="col-md-6 col-sm-6">
-    <div class="x_panel tile fixed_height_320">
-        <div class="x_title">
-        <h2>Outras informações</h2>
-        <ul class="nav navbar-right panel_toolbox">
-            <li>
-            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li class="dropdown">
-            <a
-                href="#"
-                class="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button"
-                aria-expanded="false"
-            >
-                <i class="fa fa-wrench"></i>
-            </a>
-            </li>
-            <li>
-            <a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-        </ul>
-        <div class="clearfix"></div>
-        </div>
+      <div class="x_panel tile fixed_height_320">
+          <div class="x_title">
+          <h2>Outras informações</h2>
+          <ul class="nav navbar-right panel_toolbox">
+              <li>
+              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+              <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-expanded="false"
+              >
+                  <i class="fa fa-wrench"></i>
+              </a>
+              </li>
+              <li>
+              <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+          </ul>
+          <div class="clearfix"></div>
+          </div>
 
-        <div class="x_content">
-        <h4>Contagem Adicional</h4>
+          <div class="x_content">
+          <h4>Contagem Adicional</h4>
 
-        <!-- Total de Contratos -->
-        <div class="widget_summary">
-            <div class="w_left w_25">
-            <span>Total de Contratos</span>
-            </div>
-            <div class="w_center w_55">
-            <div class="progress">
-                <div
-                class="progress-bar bg-green"
-                role="progressbar"
-                aria-valuenow="{{ total_contract }}"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style="width: {{ total_contract }}%"
-                >
-                <span class="sr-only">100% Complete</span>
-                </div>
-            </div>
-            </div>
-            <div class="w_right w_20">
-            <span>{{ total_contract }}</span>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+          <!-- Total de Contratos -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Contratos</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_contract }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_contract }}%"
+                  >
+                  <span class="sr-only">100% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_contract }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
 
-        <!-- Total de Aditivos -->
-        <div class="widget_summary">
-            <div class="w_left w_25">
-            <span>Total de Aditivos</span>
-            </div>
-            <div class="w_center w_55">
-            <div class="progress">
-                <div
-                class="progress-bar bg-green"
-                role="progressbar"
-                aria-valuenow="{{ total_addendums }}"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style="width: {{ total_addendums }}%"
-                >
-                <span class="sr-only">60% Complete</span>
-                </div>
-            </div>
-            </div>
-            <div class="w_right w_20">
-            <span>{{ total_addendums }}</span>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+          <!-- Total de Aditivos -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Aditivos</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_addendums }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_addendums }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_addendums }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
 
-        <!-- Total de Avaliações -->
-        <div class="widget_summary">
-            <div class="w_left w_25">
-            <span>Total de Avaliações</span>
-            </div>
-            <div class="w_center w_55">
-            <div class="progress">
-                <div
-                class="progress-bar bg-green"
-                role="progressbar"
-                aria-valuenow="{{ total_evaluations }}"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style="width: {{ total_evaluations }}%"
-                >
-                <span class="sr-only">60% Complete</span>
-                </div>
-            </div>
-            </div>
-            <div class="w_right w_20">
-            <span>{{ total_evaluations }}</span>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+          <!-- Total de Avaliações -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Avaliações</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_evaluations }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_evaluations }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_evaluations }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
 
-        <!-- Total de Partes (Parts) -->
-        <div class="widget_summary">
-            <div class="w_left w_25">
-            <span>Total de Partes</span>
-            </div>
-            <div class="w_center w_55">
-            <div class="progress">
-                <div
-                class="progress-bar bg-green"
-                role="progressbar"
-                aria-valuenow="{{ total_parts }}"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style="width: {{ total_parts }}%"
-                >
-                <span class="sr-only">60% Complete</span>
-                </div>
-            </div>
-            </div>
-            <div class="w_right w_20">
-            <span>{{ total_parts }}</span>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        </div>
+          <!-- Total de Partes (Parts) -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Partes</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_parts }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_parts }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_parts }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          </div>
+      </div>
     </div>
-    </div>
 
 
-
+<!-- G´RAFICO 2-->
 
     <div class="col-md-6 col-sm-6">
-    <div class="x_panel tile fixed_height_320">
-        <div class="x_title">
-        <h2>Contratos Vencidos vs Não Vencidos</h2>
-        <ul class="nav navbar-right panel_toolbox">
-            <li>
-            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li class="dropdown">
-            <a
-                href="#"
-                class="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button"
-                aria-expanded="false"
-            >
-                <i class="fa fa-wrench"></i>
-            </a>
-            </li>
-            <li>
-            <a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-        </ul>
-        <div class="clearfix"></div>
-        </div>
+      <div class="x_panel tile fixed_height_320">
+          <div class="x_title">
+          <h2>Contratos Vencidos vs Não Vencidos</h2>
+          <ul class="nav navbar-right panel_toolbox">
+              <li>
+              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+              <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-expanded="false"
+              >
+                  <i class="fa fa-wrench"></i>
+              </a>
+              </li>
+              <li>
+              <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+          </ul>
+          <div class="clearfix"></div>
+          </div>
 
-        <div class="x_content">
-        <!-- Prepare a DOM with a defined width and height for ECharts -->
-        <div id="main" style="width: 400px;height:265px;"></div>
+          <div class="x_content">
+          <!-- Prepare a DOM with a defined width and height for ECharts -->
+          <div id="main" style="width: 400px;height:265px;"></div>
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        var chartDom = document.getElementById('main');
-        var myChart = echarts.init(chartDom);
+  <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+          var chartDom = document.getElementById('main');
+          var myChart = echarts.init(chartDom);
 
-        var option = {
-        tooltip: {
-            trigger: 'item'
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left'
-        },
-        series: [
-            {
-            name: 'Contratos',
-            type: 'pie',
-            radius: '50%',
-            data: [
-                { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Vencidos: {{ total_contract_expired|default:"0"|safe }}' },
-                { value: {{ total_contract_not_expired|default:"0"|safe }}, name: 'Não Vencidos: {{ total_contract_not_expired|default:"0"|safe }}' }
-            ],
-            emphasis: {
-                itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-            }
-        ]
-        };
+          var option = {
+          tooltip: {
+              trigger: 'item'
+          },
+          legend: {
+              orient: 'vertical',
+              left: 'left'
+          },
+          series: [
+              {
+              name: 'Contratos',
+              type: 'pie',
+              radius: '50%',
+              data: [
+                  { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Vencidos: {{ total_contract_expired|default:"0"|safe }}' },
+                  { value: {{ total_contract_not_expired|default:"0"|safe }}, name: 'Não Vencidos: {{ total_contract_not_expired|default:"0"|safe }}' }
+              ],
+              emphasis: {
+                  itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+              }
+              }
+          ]
+          };
 
-        myChart.setOption(option);
-    });
- </script>
-            <div class="clearfix"></div>
-        </div>
-        </div>
+          myChart.setOption(option);
+      });
+  </script>
+              <div class="clearfix"></div>
+          </div>
+      </div>
     </div>
-    </div>
-
 </div>
-
 
 
 {% endblock %}
