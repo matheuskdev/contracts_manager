@@ -164,48 +164,9 @@
             </div>
             {% endif %}
 
-            <h3 class="mt-4">Aditivos</h3>
-            {% if addendums.exists %}
-            <ul class="list-group">
-                {% for addendum in addendums %}
-                <li class="list-group-item">
-                    <a href="{% url 'addendums:addendum_detail' addendum.id %}">
-                        Aditivo #{{ addendum.id }} - {{ addendum.subject }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>Este contrato não possui aditivos.</p>
-            {% endif %}
+        {% include "_addendums_contract.html" %}
 
-
-<h4>Avaliações Recentes</h4>
-
-<ul class="messages">
-  {% for evaluation in evaluations %}
-  <li>
-    <img src="{% static 'images/img.jpg' %}" class="avatar" alt="Avatar">
-    <div class="message_date">
-      <h3 class="date text-info">{{ evaluation.created_at|date:"d" }}</h3>
-      <p class="month">{{ evaluation.created_at|date:"M" }}</p>
-    </div>
-    <div class="message_wrapper">
-      <h4 class="heading">{{ evaluation.owner }}</h4>
-      <blockquote class="message">{{ evaluation.comments }}</blockquote>
-      <br />
-      <p class="url">
-        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-        <i class="fa fa-star"></i> Nota: {{ evaluation.rating }}
-      </p>
-    </div>
-  </li>
-  {% empty %}
-  <li>
-    <p>Este contrato não possui avaliações.</p>
-  </li>
-  {% endfor %}
-</ul>
+        {% include "_evaluations_contract.html" %}
 
         </div>
     </div>

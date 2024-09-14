@@ -1,0 +1,16 @@
+{% load static %}
+<h3 class="mt-4">Aditivos</h3>
+
+{% if addendums.exists %}
+<ul class="list-group">
+  {% for addendum in addendums %}
+  <li class="list-group-item">
+    <a href="{% url 'addendums:addendum_detail' addendum.id %}">
+      Aditivo #{{ addendum.id }} - {{ addendum.subject }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Este contrato não possui aditivos.</p>
+{% endif %}
