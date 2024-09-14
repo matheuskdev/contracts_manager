@@ -2,7 +2,7 @@
 
 ContractsManager é uma aplicação Django para gerenciamento eficiente de contratos.
 
-![alt text](cm.png)
+![img](cm.png)
 
 
 ## Instalação
