@@ -14,7 +14,6 @@ class HistoryConfig(AppConfig):
             "contracts.Contract",
             "folders.Folder",
             "parts.Part",
-            "accounts.User",
             "addendums.Addendum",
             "departments.Department",
             "evaluations.Evaluation",
