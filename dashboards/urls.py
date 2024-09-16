@@ -5,4 +5,5 @@ app_name ='dashboards'
 
 urlpatterns = [
     path('dashboard/', views.Dashboard.as_view(), name='dashboard'),
+    path('dashboard/data/', views.DashboardFilteredData.as_view(), name='filtered_contract_data'),
 ]

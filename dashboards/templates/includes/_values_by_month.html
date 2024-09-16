@@ -1,0 +1,149 @@
+<!-- Gráfico de Valores dos Contratos por Mês -->
+<div class="col-md-12 col-sm-12">
+<!-- Filtro de Datas -->
+<form id="date-filter-form" class="form-inline mb-3">
+  <div class="row">
+    <!-- Campo de Data Inicial -->
+    <div class="col-md-4 col-sm-12 mb-2">
+      <div class="form-group">
+        <label for="start_date" class="form-label">Data Inicial:</label>
+        <input
+          type="date"
+          id="start_date"
+          name="start_date"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Campo de Data Final -->
+    <div class="col-md-4 col-sm-12 mb-2">
+      <div class="form-group">
+        <label for="end_date" class="form-label">Data Final:</label>
+        <input
+          type="date"
+          id="end_date"
+          name="end_date"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Botão de Aplicar Filtro -->
+    <div class="col-md-4 col-sm-12  mb-2 d-flex align-items-end">
+      <button
+        type="button"
+        id="apply-filter"
+        class="btn btn-primary btn-block"
+      >
+        Aplicar Filtro
+      </button>
+    </div>
+  </div>
+</form>
+
+  <div class="x_panel tile fixed_height_320">
+    <div class="x_title">
+      <h2>Valores dos Contratos por Mês</h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li>
+          <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li>
+          <a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="x_content">
+      <!-- Div para o gráfico de barras -->
+      <div id="contract_amounts_chart" style="height: 300px"></div>
+      <br />
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Script para ECharts -->
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    var contractChartDom = document.getElementById('contract_amounts_chart');
+    var contractChart = echarts.init(contractChartDom);
+
+    function updateChart(labels, data) {
+      var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: {
+          type: 'category',
+          axisLabel: {
+              formatter: '{value}'
+          },
+          data: labels  // Meses
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: 'R$ {value}'
+          }
+        },
+        series: [
+          {
+            name: 'Valor Total',
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+              formatter: function(mk) {
+                  return 'R$ ' + mk.data;
+              }
+            },
+            data: data  // Valores dos contratos
+          }
+        ]
+      };
+
+      contractChart.setOption(option);
+    }
+
+    // Função para buscar os dados filtrados via AJAX
+    function fetchFilteredData(start_date, end_date) {
+      const url = "{% url 'dashboards:dashboard' %}";  // Adicionar o endpoint correto
+      $.ajax({
+        url: url,
+        data: {
+          'start_date': start_date,
+          'end_date': end_date,
+        },
+        dataType: 'json',
+        success: function(response) {
+          updateChart(response.labels, response.data);
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
+    }
+
+    // Evento de clique no botão de aplicar filtro
+    document.getElementById('apply-filter').addEventListener('click', function () {
+      var startDate = document.getElementById('start_date').value;
+      var endDate = document.getElementById('end_date').value;
+      fetchFilteredData(startDate, endDate);
+    });
+
+    // Carregar o gráfico inicialmente com dados padrão
+    updateChart({{ labels|safe }}, {{ data|safe }});
+  });
+</script>
