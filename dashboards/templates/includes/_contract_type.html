@@ -1,0 +1,61 @@
+    <div class="col-md-6 col-sm-6">
+      <div class="shadow-sm x_panel tile fixed_height_320">
+          <div class="x_title">
+          <h2>Tipos de Contratos</h2>
+          <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li>
+                <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+          </ul>
+             <div class="clearfix"></div>
+          </div>
+
+          <div class="x_content">
+            <!-- Prepare a DOM with a defined width and height for ECharts -->
+            <div id="contractType" style="width: 550px;height:265px;"></div>
+
+            <script type="text/javascript">
+                document.addEventListener("DOMContentLoaded", function () {
+                    var chartDom = document.getElementById('contractType');
+                    var myChart = echarts.init(chartDom);
+
+                    var option = {
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left'
+                    },
+                    series: [
+                        {
+                        name: 'Contratos',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Serviços: {{ total_contract_type_service|default:"0"|safe }}' },
+                            { value: {{ total_contract_not_expired|default:"0"|safe }}, name: 'Vendas: {{ total_contract_type_sales|default:"0"|safe }}' },
+                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Locações: {{ total_contract_type_rental|default:"0"|safe }}' },
+                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Parcerias: {{ total_contract_type_partnership|default:"0"|safe }}' }
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                        }
+                    ]
+                    };
+
+                    myChart.setOption(option);
+                });
+            </script>
+            <div class="clearfix"></div>
+          </div>
+      </div>
+    </div>

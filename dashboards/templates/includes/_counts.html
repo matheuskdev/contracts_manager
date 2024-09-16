@@ -1,0 +1,144 @@
+    <div class="col-md-12 col-sm-12">
+      <div class="x_panel tile fixed_height_520">
+          <div class="x_title">
+          <h2>Contagem Adicional</h2>
+          <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li>
+                <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+          </ul>
+          <div class="clearfix"></div>
+          </div>
+
+          <div class="x_content">
+
+          <!-- Total de Contratos -->
+          <div class="widget_summary" >
+              <div class="w_left w_25">
+              <span>Total de Contratos</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_contract }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_contract }}%"
+                  >
+                  <span class="sr-only">100% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_contract }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+
+          <!-- Total de Aditivos -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Aditivos</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_addendums }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_addendums }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_addendums }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+
+          <!-- Total de Avaliações -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Avaliações</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_evaluations }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_evaluations }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_evaluations }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+
+          <!-- Total de Pastas -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Pastas</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_folders }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_folders }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_folders }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+
+          <!-- Total de Partes (Parts) -->
+          <div class="widget_summary">
+              <div class="w_left w_25">
+              <span>Total de Partes</span>
+              </div>
+              <div class="w_center w_55">
+              <div class="progress">
+                  <div
+                  class="progress-bar bg-green"
+                  role="progressbar"
+                  aria-valuenow="{{ total_parts }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: {{ total_parts }}%"
+                  >
+                  <span class="sr-only">60% Complete</span>
+                  </div>
+              </div>
+              </div>
+              <div class="w_right w_20">
+              <span>{{ total_parts }}</span>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          </div>
+      </div>
+    </div>

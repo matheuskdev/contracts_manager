@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
 
-<!-- FIRST LINE -->
+
 <!-- FIRST LINE -->
 <div class="row">
-  <!-- Rascunho -->
-  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+
+    <!-- Rascunho -->
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#draftModal">
         <div class="tile-stats">
         <div class="icon"><i class="fa fa-pencil"></i></div>
@@ -16,10 +17,10 @@
         {% include 'modals/_modal_draft.html'%}
         </div>
     </a>  
-  </div>
+    </div>
 
-  <!-- Aprovados -->
-  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+    <!-- Aprovados -->
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#approvedModal">
         <div class="tile-stats">
         <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
@@ -29,22 +30,22 @@
         {% include 'modals/_modal_approved.html'%}
         </div>
     </a>
-  </div>
+    </div>
 
-  <!-- Finalizado -->
-  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+    <!-- Finalizado -->
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#completedModal">
-        <div class="tile-stats">
-        <div class="icon"><i class="fa fa-file-o"></i></div>
-        <div class="count">{{total_contract_completed}}</div>
-        <h3>Finalizado</h3>
-        <p>Contratos finalizados.</p>
-        {% include 'modals/_modal_completed.html'%}
-        </div>
+    <div class="tile-stats">
+    <div class="icon"><i class="fa fa-file-o"></i></div>
+    <div class="count">{{total_contract_completed}}</div>
+    <h3>Finalizado</h3>
+    <p>Contratos finalizados.</p>
+    {% include 'modals/_modal_completed.html'%}
+    </div>
     </a>
-  </div>
+    </div>
 
-  <!-- Cancelado -->
+    <!-- Cancelado -->
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
         <a href="#" data-toggle="modal" data-target="#canceledModal">
             <div class="tile-stats">
@@ -56,7 +57,6 @@
                 </div>
         </a>
     </div>
-
 </div>
 <!-- END FIRST LINE -->
 
@@ -64,212 +64,18 @@
 
 <!-- GRÁFICO 1 -->
 <div class="row">
+    {% include 'includes/_contract_type.html'%}
 
-    <div class="col-md-6 col-sm-6">
-      <div class="x_panel tile fixed_height_320">
-          <div class="x_title">
-          <h2>Outras informações</h2>
-          <ul class="nav navbar-right panel_toolbox">
-              <li>
-              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-              <a
-                  href="#"
-                  class="dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-expanded="false"
-              >
-                  <i class="fa fa-wrench"></i>
-              </a>
-              </li>
-              <li>
-              <a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-          </ul>
-          <div class="clearfix"></div>
-          </div>
+<!-- GRÁFICO 2-->
 
-          <div class="x_content">
-          <h4>Contagem Adicional</h4>
-
-          <!-- Total de Contratos -->
-          <div class="widget_summary">
-              <div class="w_left w_25">
-              <span>Total de Contratos</span>
-              </div>
-              <div class="w_center w_55">
-              <div class="progress">
-                  <div
-                  class="progress-bar bg-green"
-                  role="progressbar"
-                  aria-valuenow="{{ total_contract }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style="width: {{ total_contract }}%"
-                  >
-                  <span class="sr-only">100% Complete</span>
-                  </div>
-              </div>
-              </div>
-              <div class="w_right w_20">
-              <span>{{ total_contract }}</span>
-              </div>
-              <div class="clearfix"></div>
-          </div>
-
-          <!-- Total de Aditivos -->
-          <div class="widget_summary">
-              <div class="w_left w_25">
-              <span>Total de Aditivos</span>
-              </div>
-              <div class="w_center w_55">
-              <div class="progress">
-                  <div
-                  class="progress-bar bg-green"
-                  role="progressbar"
-                  aria-valuenow="{{ total_addendums }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style="width: {{ total_addendums }}%"
-                  >
-                  <span class="sr-only">60% Complete</span>
-                  </div>
-              </div>
-              </div>
-              <div class="w_right w_20">
-              <span>{{ total_addendums }}</span>
-              </div>
-              <div class="clearfix"></div>
-          </div>
-
-          <!-- Total de Avaliações -->
-          <div class="widget_summary">
-              <div class="w_left w_25">
-              <span>Total de Avaliações</span>
-              </div>
-              <div class="w_center w_55">
-              <div class="progress">
-                  <div
-                  class="progress-bar bg-green"
-                  role="progressbar"
-                  aria-valuenow="{{ total_evaluations }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style="width: {{ total_evaluations }}%"
-                  >
-                  <span class="sr-only">60% Complete</span>
-                  </div>
-              </div>
-              </div>
-              <div class="w_right w_20">
-              <span>{{ total_evaluations }}</span>
-              </div>
-              <div class="clearfix"></div>
-          </div>
-
-          <!-- Total de Partes (Parts) -->
-          <div class="widget_summary">
-              <div class="w_left w_25">
-              <span>Total de Partes</span>
-              </div>
-              <div class="w_center w_55">
-              <div class="progress">
-                  <div
-                  class="progress-bar bg-green"
-                  role="progressbar"
-                  aria-valuenow="{{ total_parts }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style="width: {{ total_parts }}%"
-                  >
-                  <span class="sr-only">60% Complete</span>
-                  </div>
-              </div>
-              </div>
-              <div class="w_right w_20">
-              <span>{{ total_parts }}</span>
-              </div>
-              <div class="clearfix"></div>
-          </div>
-          </div>
-      </div>
-    </div>
+    {% include 'includes/_expired.html'%}
+</div>
 
 
-<!-- G´RAFICO 2-->
+<div class="row">
+    {% include 'includes/_counts.html'%}
 
-    <div class="col-md-6 col-sm-6">
-      <div class="x_panel tile fixed_height_320">
-          <div class="x_title">
-          <h2>Contratos Vencidos vs Não Vencidos</h2>
-          <ul class="nav navbar-right panel_toolbox">
-              <li>
-              <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-              <a
-                  href="#"
-                  class="dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-expanded="false"
-              >
-                  <i class="fa fa-wrench"></i>
-              </a>
-              </li>
-              <li>
-              <a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-          </ul>
-          <div class="clearfix"></div>
-          </div>
-
-          <div class="x_content">
-          <!-- Prepare a DOM with a defined width and height for ECharts -->
-          <div id="main" style="width: 400px;height:265px;"></div>
-
-  <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function () {
-          var chartDom = document.getElementById('main');
-          var myChart = echarts.init(chartDom);
-
-          var option = {
-          tooltip: {
-              trigger: 'item'
-          },
-          legend: {
-              orient: 'vertical',
-              left: 'left'
-          },
-          series: [
-              {
-              name: 'Contratos',
-              type: 'pie',
-              radius: '50%',
-              data: [
-                  { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Vencidos: {{ total_contract_expired|default:"0"|safe }}' },
-                  { value: {{ total_contract_not_expired|default:"0"|safe }}, name: 'Não Vencidos: {{ total_contract_not_expired|default:"0"|safe }}' }
-              ],
-              emphasis: {
-                  itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-              }
-              }
-          ]
-          };
-
-          myChart.setOption(option);
-      });
-  </script>
-              <div class="clearfix"></div>
-          </div>
-      </div>
-    </div>
+    {% include "includes/_values_by_month.html" %}
 </div>
 
 
