@@ -119,7 +119,7 @@
 
     // Função para buscar os dados filtrados via AJAX
     function fetchFilteredData(start_date, end_date) {
-      const url = "{% url 'dashboards:dashboard' %}";  // Adicionar o endpoint correto
+      const url = "{% url 'dashboards:filtered_contract_data' %}";  // Adicionar o endpoint correto
       $.ajax({
         url: url,
         data: {

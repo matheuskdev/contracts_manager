@@ -57,26 +57,6 @@ class Dashboard(LoginRequiredMixin, View):
         }
         return contract_data
 
-    def get_contracts_by_month(self, start_date=None, end_date=None):
-        """Get contract values aggregated by month with optional date filters"""
-        contract_qs = Contract.objects.all()
-        contract_qs = self.apply_date_filter(contract_qs, start_date, end_date)
-
-        contracts_by_month = (
-            contract_qs.annotate(month=TruncMonth('start_date'))
-            .values('month')
-            .annotate(total_amount=Sum('amount'))
-            .order_by('month')
-        )
-
-        labels = [contract['month'].strftime('%b-%Y') for contract in contracts_by_month if contract['month']]
-        data = [float(contract['total_amount']) for contract in contracts_by_month]
-
-        return {
-            "labels": labels,
-            "data": data,
-        }
-
     def get_total_contract_type(self, start_date=None, end_date=None):
         """Retrieve contracts type with optional date filters"""
         contract_qs = Contract.objects.all()
@@ -112,12 +92,30 @@ class Dashboard(LoginRequiredMixin, View):
         """Retrieve total folders count"""
         return Folder.objects.count()
 
+    def get_contracts_by_month(self, start_date=None, end_date=None):
+        """Get contract values aggregated by month with optional date filters"""
+        contract_qs = Contract.objects.all()
+        contract_qs = self.apply_date_filter(contract_qs, start_date, end_date)
+
+        contracts_by_month = (
+            contract_qs.annotate(month=TruncMonth('start_date'))
+            .values('month')
+            .annotate(total_amount=Sum('amount'))
+            .order_by('month')
+        )
+
+        labels = [contract['month'].strftime('%b-%Y') for contract in contracts_by_month if contract['month']]
+        data = [float(contract['total_amount']) for contract in contracts_by_month]
+
+        return {
+            "labels": labels,
+            "data": data,
+        }
+
 
 class DashboardFilteredData(Dashboard):
-    """Rretrieve filtered contract data for visualizations."""
-
     def get(self, request):
-        """ Handles GET requests to retrieve filtered contract data."""
+        """Retrieve filtered data for chart"""
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
 
@@ -127,4 +125,3 @@ class DashboardFilteredData(Dashboard):
             "labels": contract_data["labels"],
             "data": contract_data["data"]
         })
-
