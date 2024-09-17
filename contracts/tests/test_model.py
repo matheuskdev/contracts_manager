@@ -26,7 +26,7 @@ class ContractModelTest(SetUpInitial):
             folder=self.folder,
             owner=self.user,
             contract_type="service",
-            status="draft"
+            status="draft",
         )
 
     def test_create_contract(self):
