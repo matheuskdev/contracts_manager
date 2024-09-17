@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="mb-4 text-center">Consulta de Contratos</h1>
+            <form id="query-form" method="post" action="{% url 'dashboards:contract_query' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="question" class="form-label">O que deseja saber sobre os contratos?</label>
+                    <input type="text" id="question" name="question" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </form>
+            <div id="response-container" class="mt-4">
+                <h2 class="mb-3">Resposta:</h2>
+                <p id="response" class="border p-3 rounded"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#query-form').on('submit', function(e) {
+            e.preventDefault(); // Impede o comportamento padrão do formulário
+
+            const $response = $('#response');
+            $response.text('Carregando...').removeClass('text-danger').addClass('text-info');
+
+            $.ajax({
+                url: $(this).attr('action'), // URL do formulário
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.response) {
+                        $response.text(data.response).removeClass('text-danger').addClass('text-success');
+                    } else {
+                        $response.text('Nenhuma resposta disponível.').removeClass('text-success').addClass('text-danger');
+                    }
+                },
+                error: function() {
+                    $response.text('Ocorreu um erro. Por favor, tente novamente.').removeClass('text-success').addClass('text-danger');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
