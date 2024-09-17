@@ -42,10 +42,9 @@ class ContractListView(
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['folders'] = Folder.objects.all()
-        context['parts'] = Part.objects.all()
+        context["folders"] = Folder.objects.all()
+        context["parts"] = Part.objects.all()
         return context
-
 
 
 class ContractCreateView(
