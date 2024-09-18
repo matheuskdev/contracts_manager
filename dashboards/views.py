@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.views.generic import View
 
+from .ai import agent_executor, prompt_template
 from contracts.models import Contract
 from folders.models import Folder
 from parts.models import Part
@@ -151,69 +152,22 @@ class DashboardFilteredData(Dashboard):
         )
 
 
-
-# views.py
-from django.views import View
-from django.shortcuts import render
-from django.http import JsonResponse
-from langchain import hub
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain.prompts import PromptTemplate
-from langchain_community.utilities.sql_database import SQLDatabase
-from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
-from langchain_google_genai import ChatGoogleGenerativeAI
-from decouple import config
-import os
-
-# Configure environment variable
-os.environ['GOOGLE_API_KEY'] = config('GOOGLE_API_KEY')
-
-# Initialize Langchain components
-model = ChatGoogleGenerativeAI(
-    model='gemini-1.5-flash',
-    temperature=0,
-    max_tokens=3000
-)
-
-db = SQLDatabase.from_uri('sqlite:///db.sqlite3')
-toolkit = SQLDatabaseToolkit(
-    db=db,
-    llm=model,
-)
-
-system_message = hub.pull('hwchase17/react')
-
-agent = create_react_agent(
-    llm=model,
-    tools=toolkit.get_tools(),
-    prompt=system_message,
-)
-
-agent_executor = AgentExecutor(
-    agent=agent,
-    tools=toolkit.get_tools(),
-    verbose=True,
-)
-
-prompt = '''
-Use as ferramentas necessárias para responder perguntas relacionadas aos contratos.
-Você fornecerá insights sobre tipos, vencimentos, avaliações, totais de contratos e relatórios conforme solicitado pelo usuário.
-A resposta final deve ter uma formatação amigável de visualização para o usuário.
-Pergunta: {q}
-'''
-
-prompt_template = PromptTemplate.from_template(prompt)
-
 class ContractQueryView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'contract_query.html')
 
     def post(self, request, *args, **kwargs):
         question = request.POST.get('question')
-        if question:
-            output = agent_executor.invoke({
-                'input': prompt_template.format(q=question),
-            })
-            response = output.get('output')
-            return JsonResponse({'response': response})
-        return JsonResponse({'error': 'No question provided'}, status=400)
+
+        # Verifica se a requisição é AJAX
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            if question:
+                # Gera a resposta da IA
+                output = agent_executor.invoke({
+                    'input': prompt_template.format(q=question),
+                })
+                response = output.get('output')
+                return JsonResponse({'response': response})
+            return JsonResponse({'error': 'Nenhuma pergunta fornecida.'}, status=400)
+        else:
+            return render(request, 'contract_query.html')
