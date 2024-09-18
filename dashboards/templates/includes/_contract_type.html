@@ -36,10 +36,10 @@
                         type: 'pie',
                         radius: '50%',
                         data: [
-                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Serviços: {{ total_contract_type_service|default:"0"|safe }}' },
-                            { value: {{ total_contract_not_expired|default:"0"|safe }}, name: 'Vendas: {{ total_contract_type_sales|default:"0"|safe }}' },
-                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Locações: {{ total_contract_type_rental|default:"0"|safe }}' },
-                            { value: {{ total_contract_expired|default:"0"|safe }}, name: 'Parcerias: {{ total_contract_type_partnership|default:"0"|safe }}' }
+                            { value: {{ total_contract_type_service|default:"0"|safe }}, name: 'Serviços: {{ total_contract_type_service|default:"0"|safe }}' },
+                            { value: {{ total_contract_type_sales|default:"0"|safe }}, name: 'Vendas: {{ total_contract_type_sales|default:"0"|safe }}' },
+                            { value: {{ total_contract_type_rental|default:"0"|safe }}, name: 'Locações: {{ total_contract_type_rental|default:"0"|safe }}' },
+                            { value: {{ total_contract_type_partnership|default:"0"|safe }}, name: 'Parcerias: {{ total_contract_type_partnership|default:"0"|safe }}' }
                         ],
                         emphasis: {
                             itemStyle: {

@@ -18,7 +18,7 @@ class PartListView(
     model = models.Part
     template_name = "part_list.html"
     context_object_name = "parts"
-    paginate_by = 10
+    paginate_by = 100
     permission_required = "parts.view_part"
 
     def get_queryset(self):

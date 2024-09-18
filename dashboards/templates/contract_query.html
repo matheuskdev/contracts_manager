@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="mb-4 text-center">Consulta de Contratos</h1>
+
+            <!-- Histórico de Pesquisa -->
+            <div id="history-container" class="mb-4">
+                <h4>Histórico</h4>
+                <div id="history">
+                    <!-- O histórico será inserido aqui dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div id="chat-container" class="border rounded p-3">
+                <div id="chat-box" style="max-height: 300px; overflow-y: auto;">
+                    <!-- Mensagens de conversa serão inseridas aqui -->
+                </div>
+            </div>
+
+            <!-- Formulário para enviar perguntas -->
+            <form id="query-form" method="post" class="mt-4">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="question" name="question" class="form-control" placeholder="Faça uma pergunta..." required>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let history = [];
+
+        // Função para atualizar o histórico na interface
+        function updateHistory() {
+            const $historyContainer = $('#history');
+            $historyContainer.empty();
+            history.forEach(function(item, index) {
+                $historyContainer.append(`<p><strong>Pergunta ${index + 1}:</strong> ${item.question} <br> <strong>Resposta:</strong> ${item.response}</p>`);
+            });
+        }
+
+        // Função para adicionar mensagens ao chat
+        function appendMessage(text, isUser = true) {
+            const messageClass = isUser ? 'text-end bg-light' : 'text-start bg-primary text-white';
+            $('#chat-box').append(`<div class="p-2 my-2 rounded ${messageClass}">${text}</div>`);
+            $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);  // Scroll automático para a última mensagem
+        }
+
+        $('#query-form').on('submit', function(e) {
+            e.preventDefault();
+            const question = $('#question').val();
+            appendMessage(question, true);  // Mostra a pergunta do usuário no chat
+
+            $.ajax({
+                url: '',  // URL da própria página
+                type: 'POST',
+                data: $(this).serialize(),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'  // Define o cabeçalho AJAX
+                },
+                success: function(data) {
+                    const response = data.response || 'Nenhuma resposta disponível.';
+                    appendMessage(response, false);  // Mostra a resposta da IA no chat
+                    
+                    // Adiciona ao histórico
+                    history.push({ question, response });
+                    updateHistory();  // Atualiza a interface do histórico
+                },
+                error: function() {
+                    appendMessage('Erro ao processar sua solicitação. Tente novamente.', false);
+                }
+            });
+
+            $('#question').val('');  // Limpa o campo de pergunta
+        });
+    });
+</script>
+{% endblock %}

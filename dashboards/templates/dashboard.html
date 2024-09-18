@@ -1,82 +1,167 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
+ {% load static %} 
+ {% block content %}
+ {% block extra_css %}
+ <style>
+ #chat-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
 
+#chat-box .text-end {
+    text-align: right;
+}
+
+#chat-box .text-start {
+    text-align: left;
+}
+
+#history-container {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#history-container p {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+}
+</style>
+ {% endblock %}
 
 <!-- FIRST LINE -->
 <div class="row">
-
-    <!-- Rascunho -->
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+  <!-- Rascunho -->
+  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#draftModal">
-        <div class="tile-stats">
+      <div class="tile-stats">
         <div class="icon"><i class="fa fa-pencil"></i></div>
         <div class="count">{{total_contract_draft}}</div>
         <h3>Rascunho</h3>
         <p>Contratos em rascunho.</p>
         {% include 'modals/_modal_draft.html'%}
-        </div>
-    </a>  
-    </div>
+      </div>
+    </a>
+  </div>
 
-    <!-- Aprovados -->
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+  <!-- Aprovados -->
+  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#approvedModal">
-        <div class="tile-stats">
+      <div class="tile-stats">
         <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
         <div class="count">{{total_contract_approved}}</div>
         <h3>Aprovados</h3>
         <p>Contratos aprovados.</p>
         {% include 'modals/_modal_approved.html'%}
-        </div>
+      </div>
     </a>
-    </div>
+  </div>
 
-    <!-- Finalizado -->
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+  <!-- Finalizado -->
+  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
     <a href="#" data-toggle="modal" data-target="#completedModal">
-    <div class="tile-stats">
-    <div class="icon"><i class="fa fa-file-o"></i></div>
-    <div class="count">{{total_contract_completed}}</div>
-    <h3>Finalizado</h3>
-    <p>Contratos finalizados.</p>
-    {% include 'modals/_modal_completed.html'%}
-    </div>
+      <div class="tile-stats">
+        <div class="icon"><i class="fa fa-file-o"></i></div>
+        <div class="count">{{total_contract_completed}}</div>
+        <h3>Finalizado</h3>
+        <p>Contratos finalizados.</p>
+        {% include 'modals/_modal_completed.html'%}
+      </div>
     </a>
-    </div>
+  </div>
 
-    <!-- Cancelado -->
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
-        <a href="#" data-toggle="modal" data-target="#canceledModal">
-            <div class="tile-stats">
-                <div class="icon"><i class="fa fa-times-circle-o"></i></div>
-                <div class="count">{{total_contract_canceled}}</div>
-                <h3>Cancelado</h3>
-                <p>Contratos cancelados.</p>
-                {% include 'modals/_modal_canceled.html'%}
-                </div>
-        </a>
-    </div>
+  <!-- Cancelado -->
+  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+    <a href="#" data-toggle="modal" data-target="#canceledModal">
+      <div class="tile-stats">
+        <div class="icon"><i class="fa fa-times-circle-o"></i></div>
+        <div class="count">{{total_contract_canceled}}</div>
+        <h3>Cancelado</h3>
+        <p>Contratos cancelados.</p>
+        {% include 'modals/_modal_canceled.html'%}
+      </div>
+    </a>
+  </div>
 </div>
 <!-- END FIRST LINE -->
-
-
-
-<!-- GRÁFICO 1 -->
-<div class="row">
-    {% include 'includes/_contract_type.html'%}
-
-<!-- GRÁFICO 2-->
-
-    {% include 'includes/_expired.html'%}
+<div class="alert alert-warning alert-dismissible " role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+  </button>
+  <a href="{% url 'dashboards:contract_query'%}">Experimente a <strong>MK I.A!</strong> </a>A nova ferramente de Inteligência Artifical!
 </div>
+<div class="x_content">
+  <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="home-tab"
+        data-toggle="tab"
+        href="#home"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+        >Valores dos Contratos por Mês</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="profile-tab"
+        data-toggle="tab"
+        href="#profile"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        >Contagem Adicional
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="contact-tab"
+        data-toggle="tab"
+        href="#contact"
+        role="tab"
+        aria-controls="contact"
+        aria-selected="false"
+        >Tipos e Vencimentos
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      <div class="row">{% include "includes/_values_by_month.html" %}</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <div class="row">{% include 'includes/_counts.html'%}</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="contact"
+      role="tabpanel"
+      aria-labelledby="contact-tab"
+    >
+      <!-- GRÁFICO 1 -->
+      <div class="row">
+        {% include 'includes/_contract_type.html'%}
 
+        <!-- GRÁFICO 2-->
 
-<div class="row">
-    {% include 'includes/_counts.html'%}
-
-    {% include "includes/_values_by_month.html" %}
+        {% include 'includes/_expired.html'%}
+      </div>
+    </div>
+  </div>
 </div>
-
-
 {% endblock %}
