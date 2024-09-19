@@ -158,7 +158,7 @@ class ContractQueryView(View):
 
     def post(self, request, *args, **kwargs):
         question = request.POST.get('question')
-
+        time = timezone.now()
         # Verifica se a requisição é AJAX
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             if question:

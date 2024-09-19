@@ -1,22 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+<style>
+#chat-container {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+}
+
+#chat-box .bg-light {
+    background-color: #e9ecef !important;
+}
+
+img.rounded-circle {
+    border: 1px solid #adb5bd;
+}
+
+.input-group .form-control {
+    border-radius: 0;
+    border: 1px solid #adb5bd;
+}
+
+.input-group .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+</style>
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <h1 class="mb-4 text-center">Consulta de Contratos</h1>
-
-            <!-- Histórico de Pesquisa -->
-            <div id="history-container" class="mb-4">
-                <h4>Histórico</h4>
-                <div id="history">
-                    <!-- O histórico será inserido aqui dinamicamente -->
-                </div>
-            </div>
-
+            <h1 class="mb-1 text-center">M.K A.I</h1>
+                        <!-- Botão para limpar o histórico -->
+                
             <!-- Chat Container -->
-            <div id="chat-container" class="border rounded p-3">
-                <div id="chat-box" style="max-height: 300px; overflow-y: auto;">
+            <div id="chat-container" class="border rounded p-3 bg-light" style="height: 380px; overflow-y: auto;">
+                <div id="chat-box">
                     <!-- Mensagens de conversa serão inseridas aqui -->
                 </div>
             </div>
@@ -28,7 +47,11 @@
                     <input type="text" id="question" name="question" class="form-control" placeholder="Faça uma pergunta..." required>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
+                                     
+                    
             </form>
+            <button id="clear-history" class="btn btn-danger btn-block">Limpar histórico</button>
+
         </div>
     </div>
 </div>
@@ -37,28 +60,62 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        let history = [];
-
-        // Função para atualizar o histórico na interface
-        function updateHistory() {
-            const $historyContainer = $('#history');
-            $historyContainer.empty();
-            history.forEach(function(item, index) {
-                $historyContainer.append(`<p><strong>Pergunta ${index + 1}:</strong> ${item.question} <br> <strong>Resposta:</strong> ${item.response}</p>`);
-            });
+        // Função para salvar o histórico no localStorage
+        function saveHistory(message, isUser) {
+            let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            history.push({ message, isUser });
+            localStorage.setItem('chatHistory', JSON.stringify(history));
         }
 
-        // Função para adicionar mensagens ao chat
+        // Função para carregar o histórico do localStorage
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            history.forEach(entry => appendMessage(entry.message, entry.isUser));
+        }
+
+
+        // Função para adicionar mensagens ao chat com foto de perfil
         function appendMessage(text, isUser = true) {
-            const messageClass = isUser ? 'text-end bg-light' : 'text-start bg-primary text-white';
-            $('#chat-box').append(`<div class="p-2 my-2 rounded ${messageClass}">${text}</div>`);
+            const messageClass = isUser ? 'text-end' : 'text-start';
+             const messageClass2 = isUser ? 'text-end bg-light' : 'text-start bg-primary text-white';
+            const profileImage = isUser 
+                ? `{% if user.profile_picture %}{{ user.profile_picture.url }} {% else %} https://img.freepik.com/vetores-gratis/circulo-azul-com-usuario-branco_78370-4707.jpg {% endif %}` // Placeholder para usuário
+                : 'https://img.freepik.com/fotos-gratis/energia-nuclear-ia-inovacao-futura-de-tecnologia-disruptiva_53876-129784.jpg'; // Imagem fixa para a IA
+
+            const messageHTML = `
+                <div class="d-flex ${messageClass} my-2">
+                    ${!isUser ? `<img src="${profileImage}" class="rounded-circle me-2" width="40" height="40" alt="AI"> ` : ''}
+                    <div class="p-2 border rounded w-75 ${messageClass2}">
+                    ${isUser ? `<span class="badge">{{user.username}}: </span>` : '<span class="badge">MK I.A: </span>'}
+                        ${text}
+                        
+                    </div>
+                    ${isUser ? `<img src="${profileImage}" class="rounded-circle ms-2" width="40" height="40" alt="User">` : ''}
+                </div>
+            `;
+            $('#chat-box').append(messageHTML);
             $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);  // Scroll automático para a última mensagem
         }
+
+        // Função para limpar o histórico do localStorage
+        function clearHistory() {
+            localStorage.removeItem('chatHistory');
+            $('#chat-box').empty();  // Limpa as mensagens do chat
+        }
+
+        // Carrega o histórico do localStorage quando a página é carregada
+        loadHistory();
 
         $('#query-form').on('submit', function(e) {
             e.preventDefault();
             const question = $('#question').val();
             appendMessage(question, true);  // Mostra a pergunta do usuário no chat
+            saveHistory(question, true);  // Salva a pergunta no histórico
+
+            // Exibe mensagem de carregando
+            const loadingMessage = $(`<div class="text-center text-muted my-3" id="loading-message">Análisando as informações...</div>`);
+            $('#chat-box').append(loadingMessage);
+            $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
 
             $.ajax({
                 url: '',  // URL da própria página
@@ -69,18 +126,24 @@
                 },
                 success: function(data) {
                     const response = data.response || 'Nenhuma resposta disponível.';
+                    $('#loading-message').remove();  // Remove a mensagem de carregando
                     appendMessage(response, false);  // Mostra a resposta da IA no chat
-                    
-                    // Adiciona ao histórico
-                    history.push({ question, response });
-                    updateHistory();  // Atualiza a interface do histórico
+                    saveHistory(response, false);  // Salva a resposta no histórico
                 },
                 error: function() {
+                    $('#loading-message').remove();
                     appendMessage('Erro ao processar sua solicitação. Tente novamente.', false);
                 }
             });
 
             $('#question').val('');  // Limpa o campo de pergunta
+        });
+
+        // Evento para o botão de limpar histórico
+        $('#clear-history').on('click', function() {
+            if (confirm('Tem certeza de que deseja limpar o histórico de conversas?')) {
+                clearHistory();  // Limpa o localStorage e o chat
+            }
         });
     });
 </script>

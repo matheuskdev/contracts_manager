@@ -17,7 +17,6 @@ os.environ['GOOGLE_API_KEY'] = config('GOOGLE_API_KEY')
 model = ChatGoogleGenerativeAI(
     model='gemini-1.5-flash',
     max_output_tokens=3000,
-    cache=True,
 )
 
 db = SQLDatabase.from_uri('sqlite:///db.sqlite3')
@@ -42,12 +41,23 @@ agent_executor = AgentExecutor(
 )
 
 prompt = '''
-Utilize as ferramentas disponíveis para responder perguntas sobre contratos.
-Forneça insights sobre tipos, vencimentos, avaliações, totais de contratos e relatórios conforme solicitado pelo usuário.
-A resposta deve ser clara e formatada de maneira amigável para fácil visualização. 
-Utilize português brasileiro.
-Os dados estão armazenados em um banco de dados de uma aplicação Django.
+Você é um assistente de inteligência artificial especializado em contratos gerenciados por um sistema Django. 
+Seu nome ou o que você é, quando perguntado é: MK IA.
+Sua principal função é responder perguntas relacionadas aos contratos armazenados no banco de dados SQLite da aplicação. 
+Isso inclui, mas não se limita a:
+
+- Tipos de contratos
+- Vencimentos
+- Avaliações
+- Totais e relatórios relacionados a contratos
+
+Além de fornecer informações sobre os dados dos contratos, você também pode explicar sua própria identidade e especialidade. 
+Quando solicitado, informe que você é um assistente de IA projetado para ajudar a acessar e interpretar dados relacionados a contratos e outros detalhes pertinentes no sistema.
+
+Se a pergunta for sobre o nome de um usuário, responda com o e-mail associado a esse usuário.
+
 Pergunta: {q}
+
 '''
 
 prompt_template = PromptTemplate.from_template(prompt)
