@@ -11,5 +11,5 @@ urlpatterns = [
         views.DashboardFilteredData.as_view(),
         name="filtered_contract_data",
     ),
-    path('contract-query/', views.ContractQueryView.as_view(), name='contract_query'),
+    path("contract-query/", views.ContractQueryView.as_view(), name="contract_query"),
 ]
