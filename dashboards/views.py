@@ -7,10 +7,11 @@ from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.views.generic import View
 
-from .ai import agent_executor, prompt_template
 from contracts.models import Contract
 from folders.models import Folder
 from parts.models import Part
+
+from .ai import agent_executor, prompt_template
 
 
 class Dashboard(LoginRequiredMixin, View):
@@ -154,20 +155,21 @@ class DashboardFilteredData(Dashboard):
 
 class ContractQueryView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'contract_query.html')
+        return render(request, "contract_query.html")
 
     def post(self, request, *args, **kwargs):
-        question = request.POST.get('question')
-        time = timezone.now()
+        question = request.POST.get("question")
         # Verifica se a requisição é AJAX
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
             if question:
                 # Gera a resposta da IA
-                output = agent_executor.invoke({
-                    'input': prompt_template.format(q=question),
-                })
-                response = output.get('output')
-                return JsonResponse({'response': response})
-            return JsonResponse({'error': 'Nenhuma pergunta fornecida.'}, status=400)
+                output = agent_executor.invoke(
+                    {
+                        "input": prompt_template.format(q=question),
+                    }
+                )
+                response = output.get("output")
+                return JsonResponse({"response": response})
+            return JsonResponse({"error": "Nenhuma pergunta fornecida."}, status=400)
         else:
-            return render(request, 'contract_query.html')
+            return render(request, "contract_query.html")
