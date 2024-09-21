@@ -33,6 +33,7 @@ jobs:
         echo "EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }}" >> .env
         echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
         echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .env
+        echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env
     - name: Run Migrations and Create Superuser
       run: |
         python manage.py makemigrations
