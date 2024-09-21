@@ -1,25 +1,80 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}
 CManager - Home
 {% endblock %}
 
 {% block content %}
-<div class="help-block text-center">
-    <h3>OLÁ {{username|upper}} SEJA BEM-VINDO(A)</h3>
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h3 class="text-uppercase font-weight-bold">Olá {{username}} Seja Bem-vindo(a)</h3>
   </div>
-    <div class="help-block">
-      <p>Com o <a href="#"><b>Contracts</b>Manager</a>, você pode: </p>
-      <ul>
-          <li>Criar e gerenciar contratos com facilidade usando nossa interface intuitiva.</li>
-          <li>Automatizar notificações para nunca perder prazos importantes.</li>
-          <li>Armazenar documentos de forma segura e acessível.</li>
-          <li>Acompanhar o desempenho dos contratos com análises detalhadas.</li>
-      </ul>
-    </div>
-</div>
-{% include 'components/_pagination.html' %}
 
+  <div class="text-center mb-4">
+    <p class="lead">Com o <a href="#" class="font-weight-bold text-primary">Contracts Manager</a>, você tem:</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-file-contract fa-2x text-primary mb-3"></i>
+              <h5 class="card-title font-weight-bold">Gerenciamento de Contratos</h5>
+              <p class="card-text">Criação, edição, visualização e exclusão de contratos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-cloud-upload-alt fa-2x text-success mb-3"></i>
+              <h5 class="card-title font-weight-bold">Armazenamento de Documentos</h5>
+              <p class="card-text">Upload e download de PDFs relacionados aos contratos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-lock fa-2x text-danger mb-3"></i>
+              <h5 class="card-title font-weight-bold">Controle de Acessos</h5>
+              <p class="card-text">Definição de permissões para diferentes usuários.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-robot fa-2x text-info mb-3"></i>
+              <h5 class="card-title font-weight-bold">Integração com IA</h5>
+              <p class="card-text">Perguntas relacionadas aos contratos com respostas diretas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-chart-line fa-2x text-warning mb-3"></i>
+              <h5 class="card-title font-weight-bold">Relatórios</h5>
+              <p class="card-text">Geração de relatórios sobre contratos ativos, vencidos, e renovados.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <i class="fas fa-shield-alt fa-2x text-secondary mb-3"></i>
+              <h5 class="card-title font-weight-bold">LGPD</h5>
+              <p class="card-text">Marcação e acompanhamento do status de conformidade com a LGPD.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
