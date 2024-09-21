@@ -26,7 +26,8 @@ class Dashboard(LoginRequiredMixin, View):
 
         context = {
             "username": request.user.username,
-            **self.get_contract_data(start_date, end_date),
+            **self.get_total_contract_data(start_date, end_date),
+            **self.get_contract_data(),
             "total_addendums": self.get_total_addendums(start_date, end_date),
             "total_evaluations": self.get_total_evaluations(start_date, end_date),
             "total_parts": self.get_total_parts(),
@@ -44,7 +45,25 @@ class Dashboard(LoginRequiredMixin, View):
             queryset = queryset.filter(start_date__lte=parse_date(end_date))
         return queryset
 
-    def get_contract_data(self, start_date=None, end_date=None):
+    def get_contract_data(self):
+        """Retrieve contract-related data with optional date filters"""
+        today = timezone.now().date()
+        contract_qs = Contract.objects.all()
+        contract_qs = self.apply_date_filter(contract_qs)
+
+        contract_data = {
+            "contract": contract_qs,
+            "contract_approved": contract_qs.filter(status="approved"),
+            "contract_completed": contract_qs.filter(status="completed"),
+            "contract_draft": contract_qs.filter(status="draft"),
+            "contract_canceled": contract_qs.filter(status="canceled"),
+            "contract_renewed": contract_qs.filter(status="renewed"),
+            "contract_expired": contract_qs.filter(end_date__lt=today),
+            "contract_not_expired": contract_qs.filter(end_date__gte=today),
+        }
+        return contract_data
+
+    def get_total_contract_data(self, start_date=None, end_date=None):
         """Retrieve contract-related data with optional date filters"""
         today = timezone.now().date()
         contract_qs = Contract.objects.all()
