@@ -1,6 +1,19 @@
-# ContractsManager
+# ContractsManager - Sistema de Gerenciamento de Contratos
 
-ContractsManager é uma aplicação Django para gerenciamento eficiente de contratos.
+O **ContractsManager** é um sistema de gerenciamento de contratos desenvolvido com Django, criado para facilitar a administração de contratos, permitindo o cadastro, edição, visualização e exclusão de contratos, além de funcionalidades como geração de relatórios, armazenamento de documentos e inteligência artificial.
+
+## Funcionalidades
+
+- **Gerenciamento de Contratos**: Criação, edição, visualização e exclusão de contratos.
+- **Armazenamento de Documentos**: Upload e download de PDFs relacionados aos contratos.
+- **Controle de Acessos**: Definição de permissões para diferentes usuários.
+- **Integração com IA**: Utilizando a biblioteca **Langchain** e modelo baseado em **Google Generative AI**, que permitem ao usuário fazer perguntas relacionadas aos contratos e receber respostas diretas e contextualizadas.
+- **Relatórios**: Geração de relatórios sobre contratos ativos, vencidos, renovados, etc.
+- **LGPD**: Marcação e acompanhamento do status de conformidade com a LGPD.
+- **Dashboard**: Exibição de informações importantes como o número de contratos aprovados, aditivos, avaliações e outras informações agregadas.
+- **Filtros Avançados**: Filtragem de contratos por datas e status, com visualização em tempo real.
+- **Histórico de Ações**: Exibição de atividades recentes no estilo de “Recent Activity” com detalhes de autor e data.
+
 
 ![img](cm.png)
 
