@@ -1,11 +1,14 @@
 from django.urls import path
-
 from . import views
 
-app_name = "expirations"
+app_name: str = "expirations"
 
-urlpatterns = [
-    path("has/", views.ExpiredContracts.as_view(), name="has_expired_contracts"),
+urlpatterns: list = [
+    path(
+        "has/",
+        views.ExpiredContracts.as_view(),
+        name="has_expired_contracts",
+    ),
     path(
         "due-30-days/",
         views.ContractsDueIn30Days.as_view(),
@@ -16,5 +19,9 @@ urlpatterns = [
         views.ContractsDueIn45Days.as_view(),
         name="contracts_due_in_45_days",
     ),
-    path("expirations/", views.Expired.as_view(), name="expired_contracts"),
+    path(
+        "expirations/",
+        views.Expired.as_view(),
+        name="expired_contracts",
+    ),
 ]

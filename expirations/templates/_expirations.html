@@ -38,29 +38,29 @@ CManager - Vencimentos
             <!-- Buttons or icons -->
             
             <a href="{% url 'contracts:contract_detail' contract.id %}" class="btn btn-info btn-sm" title="Visualizar" data-bs-toggle="tooltip">
-              <i class="bi bi-eye"></i>
+              <i class="fa fa-eye"></i>
             </a>
             {% if perms.contracts.change_contract %}
             <a href="{% url 'contracts:contract_update' contract.id %}" class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="tooltip">
-              <i class="bi bi-pencil"></i>
+              <i class="fa fa-pencil"></i>
             </a>
             {% endif %}
 
             {% if perms.contracts.delete_contract %}
             <a href="{% url 'contracts:contract_delete' contract.id %}" class="btn btn-danger btn-sm" title="Excluir" data-bs-toggle="tooltip">
-              <i class="bi bi-trash"></i>
+              <i class="fa fa-trash"></i>
             </a>
             {% endif %}
 
             {% if perms.addendums.add_addendum %}
             <a href="{% url 'addendums:addendum_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-bs-toggle="tooltip">
-              <i class="bi bi-folder-plus"></i>
+              <i class="fa fa-folder-plus"></i>
             </a>
             {% endif %}
 
             {% if perms.evaluations.add_evaluation %}
             <a href="{% url 'evaluations:evaluation_create' contract.id %}" class="btn btn-success btn-sm" title="Adicionar Avaliação" data-bs-toggle="tooltip">
-              <i class="bi bi-chat"></i>
+              <i class="fa fa-comments"></i>
             </a>
             {% endif %}
           </div>
@@ -70,8 +70,8 @@ CManager - Vencimentos
         
             <p class="card-text">Vencimento em: {{ contract.end_date }}</p>
         </div>
-        <div class="card-footer text-muted">
-            {% if contract.active %}
+        <div class="card-footer text-white">
+            {% if contract.get_status_display == 'Aprovado' %}
             <h2 class="badge bg-success">Aprovado</h2>
             {% else %}
             <h2 class="badge bg-danger">Não Aprovado</h2>
