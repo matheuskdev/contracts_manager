@@ -20,7 +20,7 @@ class ContractListView(
     model = models.Contract
     template_name = "contract_list.html"
     context_object_name = "contracts"
-    paginate_by = 10
+    paginate_by = 5
     permission_required = "contracts.view_contract"
 
     def get_queryset(self):
