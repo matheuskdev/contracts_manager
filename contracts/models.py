@@ -1,3 +1,5 @@
+import os
+from datetime import datetime
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils import timezone
@@ -7,6 +9,12 @@ from departments.models import Department
 from folders.models import Folder
 from parts.models import Part
 from utils import mixins
+
+
+def get_upload_path(instance, filename):
+    folder_name = instance.folder.name
+    date = datetime.now().strftime("%Y/%m/%d")
+    return os.path.join('contracts/pdfs/', folder_name, date, filename)
 
 
 class Contract(
@@ -34,7 +42,7 @@ class Contract(
     ]
 
     pdf = models.FileField(
-        upload_to="contracts_pdfs",
+        upload_to=get_upload_path,
         validators=[FileExtensionValidator(["pdf", "DOCX", "DOC"])],
         help_text="Faça o upload do arquivo PDF do contrato.",
     )
