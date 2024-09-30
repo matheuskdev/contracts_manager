@@ -20,7 +20,7 @@ class AddendumListView(
     model = models.Addendum
     template_name = "addendum_list.html"
     context_object_name = "addendums"
-    paginate_by = 2
+    paginate_by = 5
     permission_required = "addendums.view_folder"
 
     def get_queryset(self):
@@ -82,6 +82,20 @@ class AddendumUpdateView(
     form_class = forms.AddendumForm
     success_url = reverse_lazy("addendums:addendum_list")
     permission_required = "addendum.change_addendum"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        addendum = self.get_object()
+
+        kwargs["initial"] = {
+            "effective_date": (
+                addendum.effective_date.strftime("%Y-%m-%d") if addendum.effective_date else ""
+            ),
+            "new_end_date": (
+                addendum.new_end_date.strftime("%Y-%m-%d") if addendum.new_end_date else ""
+            ),
+        }
+        return kwargs
 
 
 class AddendumDeleteView(

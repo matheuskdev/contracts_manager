@@ -12,6 +12,23 @@ Contract Manager - Contrato
   <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
 
+<style>
+.dt-buttons .btn {
+    padding: 5px 10px; /* Ajusta o padding dos botões */
+    font-size: 14px; /* Tamanho da fonte menor */
+    margin-right: 5px; /* Espaço entre os botões */
+}
+
+.dataTables_filter {
+    float: right; /* Alinha o campo de pesquisa à direita */
+}
+
+.dataTables_wrapper .col-md-1, 
+.dataTables_wrapper .col-md-6 {
+    display: flex;
+    align-items: center;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -72,15 +89,16 @@ Contract Manager - Contrato
 
 
   <script>
-    $("#mgbmtable").DataTable({
-        "dom": 'Bfrtip',
-    "responsive": true, 
-    "lengthChange": false, 
+$("#mgbmtable").DataTable({
+    "dom": 'Bfrtip',
+    "responsive": true,
+    "lengthChange": false,
     "autoWidth": false,
     "buttons": ["excel", "pdf", "print"],
     "language": {
         "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
     },
-    }).buttons().container().appendTo('#mgbmtable_wrapper .col-md-1:eq(0)');
+}).buttons().container().appendTo('#mgbmtable_wrapper .col-md-6:eq(0)'); // Mudar para col-md-6
+
 </script>
 {% endblock %}

@@ -1,7 +1,15 @@
+import os
+from datetime import datetime
 from django.db import models
-
+from django.core.validators import FileExtensionValidator
 from contracts.models import Contract
 from utils import mixins
+
+
+def get_upload_path(instance, filename):
+    folder_name = instance.contract.folders.name
+    date = datetime.now().strftime("%Y/%m/%d")
+    return os.path.join('addemdums/pdfs/', folder_name, date, filename)
 
 
 class Addendum(
@@ -18,6 +26,16 @@ class Addendum(
         null=True, blank=True, help_text="Descrição do Aditivo"
     )
     effective_date = models.DateField(help_text="Data Inicial do Aditivo")
+    new_end_date = models.DateField(
+        null=True, blank=True, help_text='Nova data final para o contrato'
+    )
+    document = models.FileField(
+        upload_to=get_upload_path,
+        validators=[FileExtensionValidator(["pdf", "DOCX", "DOC"])],
+        help_text="Faça o upload do arquivo PDF do Aditivo.",
+        default='addendums/default.pdf'
+    )
+
 
     class Meta:
         ordering = ["title"]
