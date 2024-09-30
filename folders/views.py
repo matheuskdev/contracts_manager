@@ -18,7 +18,7 @@ class FolderListView(
     model = models.Folder
     template_name = "folder_list.html"
     context_object_name = "folders"
-    paginate_by = 10
+    paginate_by = 5
     permission_required = "folders.view_folder"
 
     def get_queryset(self):

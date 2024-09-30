@@ -20,7 +20,7 @@ class EvaluationListView(
     model = models.Evaluation
     template_name = "evaluation_list.html"
     context_object_name = "evaluations"
-    paginate_by = 10
+    paginate_by = 5
     permission_required = "evaluations.view_evaluation"
 
     def get_queryset(self):
